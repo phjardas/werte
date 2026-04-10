@@ -203,6 +203,14 @@
         color: var(--text);
       }
 
+      .comparison-scenario {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        text-align: center;
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+
       .comparison-cards {
         display: flex;
         gap: 1.5rem;
@@ -227,7 +235,28 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 120px;
+        min-height: 160px;
+      }
+      .comparison-card > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+      }
+      .comparison-card strong {
+        font-size: 1.25rem;
+        color: var(--text);
+      }
+      .comparison-card-scenario {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+        line-height: 1.4;
+      }
+      .comparison-card-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 400;
       }
       .comparison-card:hover {
         border-color: var(--primary);
@@ -401,7 +430,7 @@
           justify-content: center;
         }
         .comparison-card {
-          min-height: 90px;
+          min-height: 120px;
         }
         .header h1 {
           font-size: 1.5rem;
@@ -453,6 +482,7 @@
         </div>
       </div>
       <div class="comparison-prompt">Welcher Wert ist dir wichtiger?</div>
+      <div id="scenario-text" class="comparison-scenario"></div>
       <div class="comparison-cards">
         <div id="card-a" class="comparison-card"></div>
         <div class="vs">VS</div>
@@ -635,6 +665,165 @@
         "Zuverlässigkeit",
         "Zuversicht",
       ];
+
+      // Szenarien für jeden Wert
+      const SCENARIOS = {
+        "Abenteuer": "dich auf unbekannte Wege zu begeben",
+        "Achtsamkeit": "den gegenwärtigen Moment bewusst zu erleben",
+        "Agilität": "schnell auf Veränderungen zu reagieren",
+        "Aktivität": "immer in Bewegung und tätig zu sein",
+        "Aktualität": "immer über die neuesten Entwicklungen informiert zu sein",
+        "Akzeptanz": "Dinge anzunehmen, wie sie sind",
+        "Altruismus": "anderen uneigennützig zu helfen",
+        "Andersartigkeit": "deine Einzigartigkeit auszuleben",
+        "Anerkennung": "für deine Leistungen wertgeschätzt zu werden",
+        "Anmut": "mit Eleganz und Grazie durchs Leben zu gehen",
+        "Ansehen": "Respekt und Anerkennung in deinem Umfeld zu genießen",
+        "Anstand": "nach klaren moralischen Prinzipien zu handeln",
+        "Ästhetik": "dich von schönem Design und Harmonie umgeben zu lassen",
+        "Aufgeschlossenheit": "offen für Neues und andere Perspektiven zu sein",
+        "Aufmerksamkeit": "den Menschen in deinem Leben volle Aufmerksamkeit zu schenken",
+        "Ausdauer": "auch bei schwierigen Herausforderungen nicht aufzugeben",
+        "Ausgeglichenheit": "innere Ruhe und Balance zu bewahren",
+        "Ausgewogenheit": "Struktur und Flexibilität in Einklang zu bringen",
+        "Authentizität": "dich selbst treu zu bleiben",
+        "Begeisterung": "voller Leidenschaft in das zu investieren, was dich begeistert",
+        "Beharrlichkeit": "beständig an deinen Zielen festzuhalten",
+        "Benehmen": "sich rücksichtsvoll und respektvoll zu verhalten",
+        "Bescheidenheit": "deine Erfolge ohne Arroganz zu genießen",
+        "Besonnenheit": "bedacht und überlegt zu handeln",
+        "Dankbarkeit": "wertschätzen, was du hast",
+        "Demokratie": "nach fairen Abstimmungsprozessen zu entscheiden",
+        "Demut": "deine Grenzen anzuerkennen",
+        "Disziplin": "dich selbst zu organisieren und konsequent zu reagieren",
+        "Effektivität": "das Richtige zu tun und Ziele zu erreichen",
+        "Effizienz": "deine Ressourcen optimal zu nutzen",
+        "Ehrlichkeit": "immer die Wahrheit zu sagen",
+        "Empathie": "dich in andere Menschen einfühlen zu können",
+        "Engagement": "dich voll und ganz für etwas einzusetzen",
+        "Entscheidungsfreude": "schnell und sicher Entscheidungen zu treffen",
+        "Erfolg": "deine Ziele zu erreichen und zu wachsen",
+        "Fairness": "jeden gleich und gerecht zu behandeln",
+        "Familie": "enge Beziehungen zu deinen Lieben zu pflegen",
+        "Fleiß": "hart zu arbeiten und nicht faul zu sein",
+        "Flexibilität": "dich an neue Situationen anzupassen",
+        "Freiheit": "frei über dein eigenes Leben zu entscheiden",
+        "Freude": "Glück und Vergnügen im Leben zu erleben",
+        "Freundlichkeit": "anderen mit Wärme und Wohlwollen zu begegnen",
+        "Freundschaft": "tiefe, zu verlässliche Bindungen zu haben",
+        "Frieden": "Ruhe und Konfliktfreiheit in deinem Leben",
+        "Fröhlichkeit": "positiv und lebensjahbejahend zu sein",
+        "Fürsorglichkeit": "dich um das Wohlbefinden anderer zu kümmern",
+        "Geduld": "warten zu können, ohne ungeduldig zu werden",
+        "Gelassenheit": "Herausforderungen mit innerer Ruhe zu meistern",
+        "Gemütlichkeit": "es dir schön und komfortable zu machen",
+        "Gerechtigkeit": "faire Ergebnisse für alle zu schaffen",
+        "Gesundheit": "körperliche und geistige Fitness zu wahren",
+        "Glaube": "an etwas Größeres als dich selbst zu vertrauen",
+        "Glaubwürdigkeit": "als zuverlässig und vertrauenswürdig wahrgenommen zu werden",
+        "Glück": "erfüllt und zufrieden zu sein",
+        "Großzügigkeit": "großherzig und freigebig zu geben",
+        "Güte": "mit Sanftheit und Mitgefühl zu handeln",
+        "Harmonie": "in Balance und Einklang mit allen zu leben",
+        "Heimat": "einen Ort zu haben, wo du dich zugehörig fühlst",
+        "Herzlichkeit": "warmherzige Verbindungen zu pflegen",
+        "Hilfsbereitschaft": "immer bereit zu sein, anderen zu unterstützen",
+        "Hingabe": "dich ganz etwas Wichtigem widmen",
+        "Hoffnung": "an eine bessere Zukunft zu glauben",
+        "Höflichkeit": "respektvoll und gewinnend mit anderen umzugehen",
+        "Humor": "gemeinsam zu lachen und das Leben leicht zu nehmen",
+        "Idealismus": "für deine hohen Ideale einzustehen",
+        "Individualität": "deine Unabhängigkeit und Einzigartigkeit zu bewahren",
+        "Innovation": "ständig Neues zu schaffen und zu verbessern",
+        "inspirierend": "andere durch dein Vorbild zu inspirieren",
+        "Integrität": "deinen Prinzipien treu zu bleiben",
+        "intelligent": "deine Gedanken zu nutzen und Lösungen zu finden",
+        "Interesse": "neugierig auf die Welt und andere Menschen zu sein",
+        "Intuition": "auf dein inneres Gespür zu vertrauen",
+        "Klarheit": "Transparenz und klare Kommunikation",
+        "Klugheit": "weise Entscheidungen zu treffen",
+        "Kommunikation": "offen und effektiv mit anderen zu sprechen",
+        "Kompetenz": "deine Fähigkeiten zu entwickeln und zu meistern",
+        "konsequent": "konsistent zu deinen Prinzipien zu handeln",
+        "konservativ": "Bewährtes zu schützen und vorsichtig zu sein",
+        "Kontrolle": "die Dinge im Griff zu haben",
+        "Kreativität": "neue Ideen zu erschaffen",
+        "Leichtigkeit": "die Dinge nicht zu schwer zu nehmen",
+        "Leidenschaft": "mit ganzem Herzen bei dem zu sein, was du liebst",
+        "Lernbereitschaft": "ständig dazulernen und dich weiterzuentwickeln",
+        "Liebe": "tiefe emotionale Verbindung zu empfinden",
+        "Liebenswürdigkeit": "charmant und attraktiv für andere zu sein",
+        "Loyalität": "deinen Lieben treu zu bleiben",
+        "Menschlichkeit": "mitfühlend und verständnisvoll zu sein",
+        "Mitgefühl": "die Gefühle anderer zu verstehen",
+        "motivierend": "andere zu inspirieren und anzutreiben",
+        "Mut": "trotz Angst zu handeln",
+        "Nachhaltigkeit": "auf die Zukunft und Umwelt bedacht zu leben",
+        "Nächstenliebe": "deine Mitmenschen zu lieben wie dich selbst",
+        "Neugier": "die Welt erkunden und verstehen zu wollen",
+        "Neutralität": "objektiv und unbefangen zu bleiben",
+        "Offenheit": "offen für neue Perspektiven und Erfahrungen zu sein",
+        "Optimismus": "das Beste zu erwarten",
+        "Ordnungssinn": "alles organisiert und strukturiert zu haben",
+        "Pflichtgefühl": "deine Verpflichtungen ernst zu nehmen",
+        "Phantasie": "deiner Vorstellungskraft freien Lauf zu lassen",
+        "pragmatisch": "praktisch und lösungsorientiert zu denken",
+        "Präsenz": "vollständig im Moment präsent zu sein",
+        "Präzision": "sorgfältig und genau zu arbeiten",
+        "Professionalität": "kompetent und zuverlässig zu wirken",
+        "Pünktlichkeit": "zeitlich zuverlässig zu sein",
+        "Realismus": "die Dinge so zu sehen wie sie sind",
+        "Redlichkeit": "ehrenhaft und integer zu handeln",
+        "Resilienz": "nach Rückschlägen wieder aufzustehen",
+        "Respekt": "andere und ihre Grenzen zu achten",
+        "Rücksichtnahme": "die Gefühle und Bedürfnisse anderer zu berücksichtigen",
+        "Ruhe": "innere und äußere Gelassenheit zu bewahren",
+        "Sanftmut": "mit Sanftheit und Milde zu handeln",
+        "Sauberkeit": "Hygiene und Ordnung wichtig zu nehmen",
+        "Selbstbewusstsein": "mit Selbstsicherheit aufzutreten",
+        "Selbstdisziplin": "dich selbst zu kontrollieren und zu leiten",
+        "Selbstvertrauen": "an deine Fähigkeiten zu glauben",
+        "sensibel": "feinfühlig und empfindlich zu sein",
+        "Seriosität": "ernst und zuverlässig zu wirken",
+        "Sicherheit": "sich geborgen und geschützt zu fühlen",
+        "Solidarität": "aus Verbundenheit zu handeln",
+        "Sorgfalt": "mit Bedachtsamkeit vorzugehen",
+        "Sparsamkeit": "haushälterisch mit Ressourcen umzugehen",
+        "Spaß": "Vergnügen und Leichtigkeit zu erleben",
+        "Spiritualität": "eine Verbindung zu etwas Transzendenten zu fühlen",
+        "Standfestigkeit": "deiner inneren Überzeugung zu vertrauen",
+        "Sympathie": "Verständnis und Anteilnahme zu zeigen",
+        "Tatkraft": "zielstrebig und kraftvoll zu handeln",
+        "Tapferkeit": "mutig vor Gefahren zu bestehen",
+        "Teamgeist": "gemeinsam an einem Ziel zu arbeiten",
+        "teilen": "deine Ressourcen und dein Wissen zu teilen",
+        "Toleranz": "unterschiedliche Meinungen zu akzeptieren",
+        "traditionell": "bewährte Wege zu schätzen und zu bewahren",
+        "Transparenz": "offen und ehrlich zu sein",
+        "Treue": "deinen Überzeugungen und Lieben treu zu bleiben",
+        "Tüchtigkeit": "tatkräftig und fähig zu sein",
+        "Unabhängigkeit": "frei und selbstständig zu sein",
+        "Unbestechlichkeit": "nicht korrupt oder käuflich zu sein",
+        "Verantwortung": "Verantwortung für dein Handeln zu übernehmen",
+        "Verbundenheit": "tiefe Beziehungen zu anderen zu haben",
+        "Verlässlichkeit": "vertrauenswürdig und zuverlässig zu sein",
+        "Vertrauen": "dich auf andere zu verlassen",
+        "Vertrauenswürdigkeit": "das Vertrauen anderer zu verdienen",
+        "verzeihen": "anderen ihre Fehler zu vergeben",
+        "Wachsamkeit": "aufmerksam und geweckt zu sein",
+        "Weisheit": "tiefes Verständnis und Einsicht zu haben",
+        "Weitsicht": "langfristig und vorausschauend zu denken",
+        "Wertschätzung": "den Wert von Dingen und Menschen zu erkennen",
+        "Willenskraft": "mit Entschlossenheit deine Ziele zu verfolgen",
+        "Wohlstand": "materielle Sicherheit und Überfluss zu genießen",
+        "Work-Life-Balance": "Beruf und Privatlebenausgewogen zu halten",
+        "Würde": "deinen eigenen Wert zu bewahren und nicht unter Wert zu verkaufen",
+        "Zielstrebigkeit": "fokussiert auf deine Ziele hinzuarbeiten",
+        "Zufriedenheit": "mit dem was du hast erfüllt zu sein",
+        "Zuneigung": "warme gefühlsmäßige Verbindung zu spüren",
+        "Zuverlässigkeit": "verlässlich und verbindlich zu sein",
+        "Zuversicht": "hoffnungsvoll in die Zukunft zu blicken",
+      };
 
       // ── State ──
       let selected = new Set();
@@ -850,8 +1039,26 @@
         const [a, b] = currentPairings[currentPairIndex];
         matchCount++;
 
-        document.getElementById("card-a").textContent = a.name;
-        document.getElementById("card-b").textContent = b.name;
+        const scenarioA = SCENARIOS[a.name] || a.name;
+        const scenarioB = SCENARIOS[b.name] || b.name;
+
+        document.getElementById("card-a").innerHTML = `
+          <div>
+            <span class="comparison-card-label">Option 1</span>
+            <strong>${a.name}</strong>
+            <span class="comparison-card-scenario">${scenarioA}</span>
+          </div>`;
+
+        document.getElementById("card-b").innerHTML = `
+          <div>
+            <span class="comparison-card-label">Option 2</span>
+            <strong>${b.name}</strong>
+            <span class="comparison-card-scenario">${scenarioB}</span>
+          </div>`;
+
+        document.getElementById("scenario-text").textContent =
+          `Welche Lebensweise spricht dich mehr an?`;
+
         document.getElementById("progress-label").textContent =
           `Vergleich ${matchCount} von ${totalMatches}`;
         document.getElementById("round-label").textContent =

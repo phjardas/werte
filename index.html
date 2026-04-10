@@ -151,7 +151,18 @@
         background: #eef2ff;
       }
 
-      /* ── Step 2: Comparison ── */
+      /* ── Step 2: Top 10 Filter ── */
+      #step-filter .values-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 1rem 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* ── Step 3: Comparison ── */
       #step-comparison {
         justify-content: center;
         align-items: center;
@@ -403,18 +414,34 @@
     <div id="step-selection" class="screen active">
       <div class="header">
         <h1>Entdecke deine Werte</h1>
-        <p>Wähle bis zu 10 Werte aus, die dich am meisten ansprechen.</p>
+        <p>Wähle die Werte aus, die dich ansprechen. Es gibt keine Obergrenze.</p>
       </div>
       <div id="values-grid" class="values-grid"></div>
       <div class="bottom-bar">
         <span class="counter"
-          ><span id="count">0</span> von 10 ausgewählt (min. 5)</span
+          ><span id="count">0</span> ausgewählt (min. 5)</span
         >
         <button id="btn-next" class="btn btn-primary" disabled>Weiter</button>
       </div>
     </div>
 
-    <!-- Step 2: Pairwise Comparison -->
+    <!-- Step 2: Top 10 Filter -->
+    <div id="step-filter" class="screen">
+      <div class="header">
+        <h1>Top 10 auswählen</h1>
+        <p>Wähle maximal 10 Werte aus deinen Favoriten für den Vergleich.</p>
+      </div>
+      <div id="filter-grid" class="values-grid"></div>
+      <div class="bottom-bar">
+        <button id="btn-back" class="btn btn-secondary">Zurück</button>
+        <span class="counter"
+          ><span id="filter-count">0</span> von 10 ausgewählt (min. 5)</span
+        >
+        <button id="btn-filter-next" class="btn btn-primary" disabled>Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Pairwise Comparison -->
     <div id="step-comparison" class="screen">
       <div class="progress-bar-container">
         <div class="progress-info">
@@ -611,6 +638,7 @@
 
       // ── State ──
       let selected = new Set();
+      let finalSelected = new Set();
       let contestants = [];
       let playedMatches = new Set();
       let currentRound = 0;
@@ -651,30 +679,66 @@
           const chip = document.createElement("button");
           chip.className = "value-chip";
           chip.textContent = value;
-          chip.addEventListener("click", () => toggleValue(value, chip));
+          chip.addEventListener("click", () => toggleSelection(value, chip));
           grid.appendChild(chip);
         });
 
-        updateCounter();
+        updateSelectionCounter();
       }
 
-      function toggleValue(value, chip) {
+      function toggleSelection(value, chip) {
         if (selected.has(value)) {
           selected.delete(value);
           chip.classList.remove("selected");
-        } else if (selected.size < 10) {
+        } else {
           selected.add(value);
           chip.classList.add("selected");
         }
-        updateCounter();
+        updateSelectionCounter();
       }
 
-      function updateCounter() {
+      function updateSelectionCounter() {
         document.getElementById("count").textContent = selected.size;
         document.getElementById("btn-next").disabled = selected.size < 5;
+      }
 
-        document.querySelectorAll(".value-chip").forEach((chip) => {
-          if (selected.size >= 10 && !chip.classList.contains("selected")) {
+      // ── Step 2: Filter ──
+      function initFilter() {
+        const grid = document.getElementById("filter-grid");
+        grid.innerHTML = "";
+        const shuffled = shuffle([...selected]);
+
+        shuffled.forEach((value) => {
+          const chip = document.createElement("button");
+          chip.className = "value-chip";
+          chip.textContent = value;
+          if (finalSelected.has(value)) {
+            chip.classList.add("selected");
+          }
+          chip.addEventListener("click", () => toggleFilter(value, chip));
+          grid.appendChild(chip);
+        });
+
+        updateFilterCounter();
+      }
+
+      function toggleFilter(value, chip) {
+        if (finalSelected.has(value)) {
+          finalSelected.delete(value);
+          chip.classList.remove("selected");
+        } else if (finalSelected.size < 10) {
+          finalSelected.add(value);
+          chip.classList.add("selected");
+        }
+        updateFilterCounter();
+      }
+
+      function updateFilterCounter() {
+        document.getElementById("filter-count").textContent = finalSelected.size;
+        document.getElementById("btn-filter-next").disabled = finalSelected.size < 5;
+
+        document.querySelectorAll("#filter-grid .value-chip").forEach((chip) => {
+          if (finalSelected.size >= 10 && !chip.classList.contains("selected")) {
             chip.classList.add("disabled");
           } else {
             chip.classList.remove("disabled");
@@ -682,9 +746,9 @@
         });
       }
 
-      // ── Step 2: Swiss System Comparison ──
+      // ── Step 3: Swiss System Comparison ──
       function startComparison() {
-        contestants = [...selected].map((name) => ({
+        contestants = [...finalSelected].map((name) => ({
           name,
           score: 0,
           hadBye: false,
@@ -809,7 +873,7 @@
         showMatch();
       }
 
-      // ── Step 3: Results ──
+      // ── Step 4: Results ──
       function showResults() {
         // Compute Buchholz tiebreaker (sum of opponents' scores)
         contestants.forEach((c) => {
@@ -844,6 +908,7 @@
 
       function restart() {
         selected = new Set();
+        finalSelected = new Set();
         showScreen("step-selection");
         initSelection();
       }
@@ -851,7 +916,22 @@
       // ── Event Listeners ──
       document
         .getElementById("btn-next")
+        .addEventListener("click", () => {
+          showScreen("step-filter");
+          initFilter();
+        });
+
+      document
+        .getElementById("btn-back")
+        .addEventListener("click", () => {
+          finalSelected = new Set();
+          showScreen("step-selection");
+        });
+
+      document
+        .getElementById("btn-filter-next")
         .addEventListener("click", startComparison);
+
       document
         .getElementById("card-a")
         .addEventListener("click", () => choose(0));

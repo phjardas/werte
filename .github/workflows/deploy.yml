@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./public
 
       - name: Deploy to GitHub Pages
         id: deployment

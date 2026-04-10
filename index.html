@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meine Werte</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --primary-hue: 90;
+        --primary: oklch(51% 0.23015 var(--primary-hue));
+        --primary-light: oklch(68% 0.1584 var(--primary-hue));
+        --gold: oklch(77% 0.1646 70.075);
+        --silver: oklch(71% 0.0352 256.828);
+        --bronze: oklch(66% 0.15738 58.309);
+        --bg: oklch(98% 0.00352 var(--primary-hue));
+        --card: oklch(100% 0 271.152);
+        --text: oklch(20% 0 var(--primary-hue));
+        --text-muted: oklch(40% 0 var(--primary-hue));
+        --radius: 12px;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+        --shadow-lg:
+          0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100dvh;
+        line-height: 1.5;
+      }
+
+      .screen {
+        display: none;
+        min-height: 100dvh;
+      }
+      .screen.active {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Header ── */
+      .header {
+        text-align: center;
+        padding: 2rem 1.5rem 1rem;
+      }
+      .header h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.25rem;
+      }
+      .header p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      /* ── Step 1: Selection ── */
+      #step-selection .values-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 1rem 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .value-chip {
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        border: 2px solid #e2e8f0;
+        background: var(--card);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        user-select: none;
+        -webkit-user-select: none;
+        color: var(--text);
+      }
+      .value-chip:hover {
+        border-color: var(--primary-light);
+      }
+      .value-chip.selected {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+      }
+      .value-chip.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .value-chip.disabled:hover {
+        border-color: #e2e8f0;
+      }
+
+      .bottom-bar {
+        position: sticky;
+        bottom: 0;
+        background: var(--card);
+        border-top: 1px solid #e2e8f0;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+      .counter {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 999px;
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #4338ca;
+      }
+      .btn-primary:disabled {
+        background: #cbd5e1;
+        cursor: not-allowed;
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+      .btn-secondary:hover {
+        background: #eef2ff;
+      }
+
+      /* ── Step 2: Comparison ── */
+      #step-comparison {
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 1.5rem;
+      }
+
+      .progress-bar-container {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 2rem;
+      }
+      .progress-info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+      }
+      .progress-track {
+        width: 100%;
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--primary);
+        border-radius: 999px;
+        transition: width 0.3s ease;
+      }
+
+      .comparison-prompt {
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--text);
+      }
+
+      .comparison-cards {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: stretch;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .comparison-card {
+        flex: 1;
+        background: var(--card);
+        border: 3px solid #e2e8f0;
+        border-radius: var(--radius);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 120px;
+      }
+      .comparison-card:hover {
+        border-color: var(--primary);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+      }
+      .comparison-card:active {
+        transform: translateY(0);
+      }
+
+      .vs {
+        display: flex;
+        align-items: center;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* ── Step 3: Results ── */
+      #step-results {
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(
+          135deg,
+          #1e1b4b 0%,
+          #312e81 30%,
+          #4338ca 70%,
+          #6366f1 100%
+        );
+        padding: 2rem 1.5rem;
+      }
+
+      .results-container {
+        width: 100%;
+        max-width: 440px;
+      }
+
+      .results-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+      .results-header h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 0.25rem;
+      }
+      .results-header p {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+
+      .result-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        margin-bottom: 0.75rem;
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .result-rank {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+      .rank-1 .result-rank {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        color: #78350f;
+      }
+      .rank-2 .result-rank {
+        background: linear-gradient(135deg, #94a3b8, #cbd5e1);
+        color: #334155;
+      }
+      .rank-3 .result-rank {
+        background: linear-gradient(135deg, #d97706, #f59e0b);
+        color: #78350f;
+      }
+      .rank-4 .result-rank,
+      .rank-5 .result-rank {
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .result-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: white;
+      }
+      .rank-1 .result-value {
+        font-size: 1.4rem;
+      }
+
+      .rank-1 {
+        background: rgba(245, 158, 11, 0.15);
+        border-color: rgba(245, 158, 11, 0.3);
+        padding: 1.25rem 1.25rem;
+      }
+
+      .results-footer {
+        text-align: center;
+        margin-top: 2.5rem;
+      }
+      .results-footer .btn-secondary {
+        color: rgba(255, 255, 255, 0.8);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .results-footer .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .results-watermark {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ── Animations ── */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.3s ease forwards;
+      }
+      .result-item {
+        opacity: 0;
+        animation: fadeIn 0.4s ease forwards;
+      }
+      .result-item:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .result-item:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .result-item:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .result-item:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .result-item:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 480px) {
+        .comparison-cards {
+          flex-direction: column;
+          max-width: 280px;
+        }
+        .vs {
+          justify-content: center;
+        }
+        .comparison-card {
+          min-height: 90px;
+        }
+        .header h1 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Step 1: Value Selection -->
+    <div id="step-selection" class="screen active">
+      <div class="header">
+        <h1>Entdecke deine Werte</h1>
+        <p>Wähle bis zu 10 Werte aus, die dich am meisten ansprechen.</p>
+      </div>
+      <div id="values-grid" class="values-grid"></div>
+      <div class="bottom-bar">
+        <span class="counter"
+          ><span id="count">0</span> von 10 ausgewählt (min. 5)</span
+        >
+        <button id="btn-next" class="btn btn-primary" disabled>Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Pairwise Comparison -->
+    <div id="step-comparison" class="screen">
+      <div class="progress-bar-container">
+        <div class="progress-info">
+          <span id="progress-label">Vergleich 1 von 20</span>
+          <span id="round-label">Runde 1</span>
+        </div>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="comparison-prompt">Welcher Wert ist dir wichtiger?</div>
+      <div class="comparison-cards">
+        <div id="card-a" class="comparison-card"></div>
+        <div class="vs">VS</div>
+        <div id="card-b" class="comparison-card"></div>
+      </div>
+    </div>
+
+    <!-- Step 3: Results -->
+    <div id="step-results" class="screen">
+      <div class="results-container">
+        <div class="results-header">
+          <h1>Deine Top 5 Werte</h1>
+          <p>Das sind die Werte, die dir am wichtigsten sind.</p>
+        </div>
+        <div id="results-list"></div>
+        <div class="results-watermark">werte.jardas.de</div>
+        <div class="results-footer">
+          <button id="btn-restart" class="btn btn-secondary">
+            Nochmal starten
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const ALL_VALUES = [
+        "Abenteuer",
+        "Achtsamkeit",
+        "Agilität",
+        "Aktivität",
+        "Aktualität",
+        "Akzeptanz",
+        "Altruismus",
+        "Andersartigkeit",
+        "Anerkennung",
+        "Anmut",
+        "Ansehen",
+        "Anstand",
+        "Ästhetik",
+        "Aufgeschlossenheit",
+        "Aufmerksamkeit",
+        "Ausdauer",
+        "Ausgeglichenheit",
+        "Ausgewogenheit",
+        "Authentizität",
+        "Begeisterung",
+        "Beharrlichkeit",
+        "Benehmen",
+        "Bescheidenheit",
+        "Besonnenheit",
+        "Dankbarkeit",
+        "Demokratie",
+        "Demut",
+        "Disziplin",
+        "Effektivität",
+        "Effizienz",
+        "Ehrlichkeit",
+        "Empathie",
+        "Engagement",
+        "Entscheidungsfreude",
+        "Erfolg",
+        "Fairness",
+        "Familie",
+        "Fleiß",
+        "Flexibilität",
+        "Freiheit",
+        "Freude",
+        "Freundlichkeit",
+        "Freundschaft",
+        "Frieden",
+        "Fröhlichkeit",
+        "Fürsorglichkeit",
+        "Geduld",
+        "Gelassenheit",
+        "Gemütlichkeit",
+        "Gerechtigkeit",
+        "Gesundheit",
+        "Glaube",
+        "Glaubwürdigkeit",
+        "Glück",
+        "Großzügigkeit",
+        "Güte",
+        "Harmonie",
+        "Heimat",
+        "Herzlichkeit",
+        "Hilfsbereitschaft",
+        "Hingabe",
+        "Hoffnung",
+        "Höflichkeit",
+        "Humor",
+        "Idealismus",
+        "Individualität",
+        "Innovation",
+        "inspirierend",
+        "Integrität",
+        "intelligent",
+        "Interesse",
+        "Intuition",
+        "Klarheit",
+        "Klugheit",
+        "Kommunikation",
+        "Kompetenz",
+        "konsequent",
+        "konservativ",
+        "Kontrolle",
+        "Kreativität",
+        "Leichtigkeit",
+        "Leidenschaft",
+        "Lernbereitschaft",
+        "Liebe",
+        "Liebenswürdigkeit",
+        "Loyalität",
+        "Menschlichkeit",
+        "Mitgefühl",
+        "motivierend",
+        "Mut",
+        "Nachhaltigkeit",
+        "Nächstenliebe",
+        "Neugier",
+        "Neutralität",
+        "Offenheit",
+        "Optimismus",
+        "Ordnungssinn",
+        "Pflichtgefühl",
+        "Phantasie",
+        "pragmatisch",
+        "Präsenz",
+        "Präzision",
+        "Professionalität",
+        "Pünktlichkeit",
+        "Realismus",
+        "Redlichkeit",
+        "Resilienz",
+        "Respekt",
+        "Rücksichtnahme",
+        "Ruhe",
+        "Sanftmut",
+        "Sauberkeit",
+        "Selbstbewusstsein",
+        "Selbstdisziplin",
+        "Selbstvertrauen",
+        "sensibel",
+        "Seriosität",
+        "Sicherheit",
+        "Solidarität",
+        "Sorgfalt",
+        "Sparsamkeit",
+        "Spaß",
+        "Spiritualität",
+        "Standfestigkeit",
+        "Sympathie",
+        "Tatkraft",
+        "Tapferkeit",
+        "Teamgeist",
+        "teilen",
+        "Toleranz",
+        "traditionell",
+        "Transparenz",
+        "Treue",
+        "Tüchtigkeit",
+        "Unabhängigkeit",
+        "Unbestechlichkeit",
+        "Verantwortung",
+        "Verbundenheit",
+        "Verlässlichkeit",
+        "Vertrauen",
+        "Vertrauenswürdigkeit",
+        "verzeihen",
+        "Wachsamkeit",
+        "Weisheit",
+        "Weitsicht",
+        "Wertschätzung",
+        "Willenskraft",
+        "Wohlstand",
+        "Work-Life-Balance",
+        "Würde",
+        "Zielstrebigkeit",
+        "Zufriedenheit",
+        "Zuneigung",
+        "Zuverlässigkeit",
+        "Zuversicht",
+      ];
+
+      // ── State ──
+      let selected = new Set();
+      let contestants = [];
+      let playedMatches = new Set();
+      let currentRound = 0;
+      let totalRounds = 0;
+      let currentPairings = [];
+      let currentPairIndex = 0;
+      let matchCount = 0;
+      let totalMatches = 0;
+
+      // ── Utility ──
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      function matchKey(a, b) {
+        return a < b ? `${a}|${b}` : `${b}|${a}`;
+      }
+
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+
+      // ── Step 1: Selection ──
+      function initSelection() {
+        const grid = document.getElementById("values-grid");
+        grid.innerHTML = "";
+        const shuffled = shuffle(ALL_VALUES);
+
+        shuffled.forEach((value) => {
+          const chip = document.createElement("button");
+          chip.className = "value-chip";
+          chip.textContent = value;
+          chip.addEventListener("click", () => toggleValue(value, chip));
+          grid.appendChild(chip);
+        });
+
+        updateCounter();
+      }
+
+      function toggleValue(value, chip) {
+        if (selected.has(value)) {
+          selected.delete(value);
+          chip.classList.remove("selected");
+        } else if (selected.size < 10) {
+          selected.add(value);
+          chip.classList.add("selected");
+        }
+        updateCounter();
+      }
+
+      function updateCounter() {
+        document.getElementById("count").textContent = selected.size;
+        document.getElementById("btn-next").disabled = selected.size < 5;
+
+        document.querySelectorAll(".value-chip").forEach((chip) => {
+          if (selected.size >= 10 && !chip.classList.contains("selected")) {
+            chip.classList.add("disabled");
+          } else {
+            chip.classList.remove("disabled");
+          }
+        });
+      }
+
+      // ── Step 2: Swiss System Comparison ──
+      function startComparison() {
+        contestants = [...selected].map((name) => ({
+          name,
+          score: 0,
+          hadBye: false,
+          buchholz: 0,
+          opponents: [],
+        }));
+
+        playedMatches = new Set();
+        currentRound = 0;
+        totalRounds = Math.ceil(Math.log2(contestants.length));
+        matchCount = 0;
+        totalMatches = totalRounds * Math.floor(contestants.length / 2);
+
+        showScreen("step-comparison");
+        nextRound();
+      }
+
+      function generatePairings() {
+        // Sort by score descending; randomize ties
+        const sorted = [...contestants].sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return Math.random() - 0.5;
+        });
+
+        let remaining = [...sorted];
+        let byePlayer = null;
+
+        // Handle odd number: bye goes to lowest-scored without previous bye
+        if (remaining.length % 2 === 1) {
+          for (let i = remaining.length - 1; i >= 0; i--) {
+            if (!remaining[i].hadBye) {
+              byePlayer = remaining.splice(i, 1)[0];
+              byePlayer.score++;
+              byePlayer.hadBye = true;
+              break;
+            }
+          }
+          // If everyone had a bye, give it to the last one
+          if (!byePlayer) {
+            byePlayer = remaining.pop();
+            byePlayer.score++;
+          }
+        }
+
+        const pairings = [];
+        const used = new Set();
+
+        // Greedy pairing: adjacent by score, avoid replays
+        for (let i = 0; i < remaining.length; i++) {
+          if (used.has(i)) continue;
+          for (let j = i + 1; j < remaining.length; j++) {
+            if (used.has(j)) continue;
+            const key = matchKey(remaining[i].name, remaining[j].name);
+            if (!playedMatches.has(key)) {
+              pairings.push([remaining[i], remaining[j]]);
+              used.add(i);
+              used.add(j);
+              break;
+            }
+          }
+        }
+
+        // Fallback: pair any remaining unpaired
+        const unpaired = [];
+        for (let i = 0; i < remaining.length; i++) {
+          if (!used.has(i)) unpaired.push(remaining[i]);
+        }
+        for (let i = 0; i < unpaired.length - 1; i += 2) {
+          pairings.push([unpaired[i], unpaired[i + 1]]);
+        }
+
+        return pairings;
+      }
+
+      function nextRound() {
+        currentRound++;
+        if (currentRound > totalRounds) {
+          showResults();
+          return;
+        }
+
+        currentPairings = generatePairings();
+        currentPairIndex = 0;
+
+        if (currentPairings.length === 0) {
+          showResults();
+          return;
+        }
+
+        showMatch();
+      }
+
+      function showMatch() {
+        if (currentPairIndex >= currentPairings.length) {
+          nextRound();
+          return;
+        }
+
+        const [a, b] = currentPairings[currentPairIndex];
+        matchCount++;
+
+        document.getElementById("card-a").textContent = a.name;
+        document.getElementById("card-b").textContent = b.name;
+        document.getElementById("progress-label").textContent =
+          `Vergleich ${matchCount} von ${totalMatches}`;
+        document.getElementById("round-label").textContent =
+          `Runde ${currentRound} von ${totalRounds}`;
+        document.getElementById("progress-fill").style.width =
+          `${(matchCount / totalMatches) * 100}%`;
+      }
+
+      function choose(index) {
+        const [a, b] = currentPairings[currentPairIndex];
+        const winner = index === 0 ? a : b;
+        winner.score++;
+
+        a.opponents.push(b.name);
+        b.opponents.push(a.name);
+
+        playedMatches.add(matchKey(a.name, b.name));
+        currentPairIndex++;
+        showMatch();
+      }
+
+      // ── Step 3: Results ──
+      function showResults() {
+        // Compute Buchholz tiebreaker (sum of opponents' scores)
+        contestants.forEach((c) => {
+          c.buchholz = c.opponents.reduce((sum, oppName) => {
+            const opp = contestants.find((x) => x.name === oppName);
+            return sum + (opp ? opp.score : 0);
+          }, 0);
+        });
+
+        // Sort by score, then Buchholz
+        contestants.sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score;
+          return b.buchholz - a.buchholz;
+        });
+
+        const list = document.getElementById("results-list");
+        list.innerHTML = "";
+
+        const top5 = contestants.slice(0, 5);
+        top5.forEach((c, i) => {
+          const item = document.createElement("div");
+          item.className = `result-item rank-${i + 1}`;
+          item.innerHTML = `
+          <div class="result-rank">${i + 1}</div>
+          <div class="result-value">${c.name}</div>
+        `;
+          list.appendChild(item);
+        });
+
+        showScreen("step-results");
+      }
+
+      function restart() {
+        selected = new Set();
+        showScreen("step-selection");
+        initSelection();
+      }
+
+      // ── Event Listeners ──
+      document
+        .getElementById("btn-next")
+        .addEventListener("click", startComparison);
+      document
+        .getElementById("card-a")
+        .addEventListener("click", () => choose(0));
+      document
+        .getElementById("card-b")
+        .addEventListener("click", () => choose(1));
+      document.getElementById("btn-restart").addEventListener("click", restart);
+
+      // ── Init ──
+      initSelection();
+    </script>
+  </body>
+</html>

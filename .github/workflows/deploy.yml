@@ -16,10 +16,15 @@ jobs:
       id-token: write
     runs-on: ubuntu-24.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: public/
+          path: .
 
       - name: Deploy to GitHub Pages
         id: deployment

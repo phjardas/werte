@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useZusammenfassung } from "../hooks/useZusammenfassung";
 import type { Contestant } from "../types";
@@ -103,6 +104,11 @@ export function ResultsScreen({
                 </div>
               </div>
             </div>
+          </div>
+          <div className="intro-footer">
+            <Link to="/" className="btn btn-primary">
+              Neuen Test starten
+            </Link>
           </div>
         </div>
       </div>

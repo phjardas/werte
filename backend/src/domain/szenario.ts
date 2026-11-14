@@ -10,23 +10,23 @@ export interface SzenarioResult {
   version: string;
 }
 
-export const SZENARIO_SYSTEM_PROMPT = `Du erstellst Quiz-Fragen für Eltern. Jede Frage beschreibt eine konkrete Alltagssituation eines Elternteils mit seinen Kindern, in der zwei Werte miteinander in Konflikt geraten. Das Elternteil muss sich für eine von zwei Handlungen entscheiden, die jeweils einem der beiden Werte entspricht.
+export const SZENARIO_SYSTEM_PROMPT = `Du erstellst Quiz-Fragen für Berufstätige. Jede Frage beschreibt eine konkrete Situation aus dem Arbeitsalltag, in der zwei Werte miteinander in Konflikt geraten. Die Person muss sich für eine von zwei Handlungen entscheiden, die jeweils einem der beiden Werte entspricht.
 
 ## Aufbau
 
 Das Szenario besteht aus 2–3 kurzen Sätzen:
-1. **Situation** (1–2 kurze Sätze): Eine konkrete Alltagsszene eines Elternteils mit den Kindern.
+1. **Situation** (1–2 kurze Sätze): Eine konkrete Szene aus dem Arbeitsalltag (z.B. mit Kolleginnen und Kollegen, im Team, mit Vorgesetzten, Kundschaft oder Geschäftspartnern).
 2. **Frage** (1 Satz): "Würdest du eher … oder …?"
 
 Maximal 3 Sätze insgesamt. Keine Einleitung, keine Erklärung, keine Moral, kein zusätzlicher Kontext.
 
 ## Regeln
 
-- Die Szene muss ein Elternteil in seinem Alltag mit Kindern zeigen – nicht eine allgemeine berufliche oder soziale Situation.
-- Beide Optionen müssen vernünftig und vertretbar sein. Keine Option darf offensichtlich falsch, unverantwortlich oder realitätsfern wirken. Ein Elternteil muss beide Optionen ernsthaft in Betracht ziehen können.
+- Die Szene muss im beruflichen Kontext spielen – nicht im Privat- oder Familienleben. Sie soll für Berufstätige in ganz unterschiedlichen Branchen und Rollen nachvollziehbar sein; vermeide Fachjargon und branchenspezifische Details.
+- Beide Optionen müssen vernünftig und vertretbar sein. Keine Option darf offensichtlich falsch, unverantwortlich oder realitätsfern wirken. Eine berufstätige Person muss beide Optionen ernsthaft in Betracht ziehen können.
 - Die beiden Antworten müssen sich in der **Handlung** klar unterscheiden – nicht nur in der Nuance oder Formulierung. Wenn beide Antworten im Kern dasselbe tun, fehlt der echte Konflikt.
 - Der Konflikt muss **spezifisch** für die beiden genannten Werte sein. Teste gedanklich: Könnte dasselbe Szenario auch für ein anderes Wertepaar stehen? Dann ist es zu generisch. Stütze dich auf die Werte-Beschreibungen, um den **Kern** jedes Wertes zu treffen – nicht eine oberflächliche oder verwandte Bedeutung.
-- Jede Antwort muss den Kern des zugeordneten Wertes widerspiegeln – nicht einen verwandten oder ähnlich klingenden Wert. Frage dich: Würde ein Elternteil intuitiv erkennen, welcher Wert hinter welcher Antwort steht?
+- Jede Antwort muss den Kern des zugeordneten Wertes widerspiegeln – nicht einen verwandten oder ähnlich klingenden Wert. Frage dich: Würde eine berufstätige Person intuitiv erkennen, welcher Wert hinter welcher Antwort steht?
 - Wenn sich zwei Werte stark ähneln (z.B. Ausdauer/Fleiß, Aktivität/Leidenschaft), fokussiere auf den feinen Unterschied laut den Beschreibungen.
 - Benenne die Werte nicht explizit und verwende auch keine Synonyme, Ableitungen oder offensichtlichen Umschreibungen – weder im Szenario noch in den Antworten. Beispiel: Bei "Nachhaltigkeit" nicht "nachhaltig", "ressourcenschonend" oder "umweltfreundlich" schreiben. Bei "Konsequenz" nicht "konsequent" verwenden. Bei "Präsenz" nicht "im Moment leben". Der Konflikt soll sich rein aus der Handlung ergeben.
 - Verwende weder Belohnung noch Bestrafung.
@@ -39,7 +39,7 @@ Gib die Antwort als JSON-Dokument aus mit folgenden Feldern:
 - \`gedanke\`: Beantworte folgende Fragen in 4–6 Sätzen, BEVOR du das Szenario formulierst (dieses Feld wird nicht angezeigt, sondern dient der Qualitätssicherung):
   1. Was bedeutet Wert 1 laut seiner Beschreibung konkret? Mit welchem ähnlichen Wert könnte er verwechselt werden?
   2. Was bedeutet Wert 2 laut seiner Beschreibung konkret? Mit welchem ähnlichen Wert könnte er verwechselt werden?
-  3. Worin liegt der Kernunterschied zwischen den beiden Werten? Welche Alltagssituation eines Elternteils erzwingt eine Wahl genau zwischen diesen beiden Werten (und keinem anderen Wertepaar)?
+  3. Worin liegt der Kernunterschied zwischen den beiden Werten? Welche Situation aus dem Arbeitsalltag erzwingt eine Wahl genau zwischen diesen beiden Werten (und keinem anderen Wertepaar)?
   4. Passt Antwort 1 ausschließlich zu Wert 1? Passt Antwort 2 ausschließlich zu Wert 2?
 - \`szenario\`: Der Text des Szenarios (2–3 Sätze).
 - \`antworten\`: Array mit genau zwei Strings – kurze Beschriftungen für zwei Buttons (maximal 6 Wörter pro Antwort). **Wichtig: Die erste Antwort muss immer Wert 1 entsprechen, die zweite Antwort immer Wert 2 – in exakt dieser Reihenfolge.**
@@ -52,13 +52,13 @@ Eingabe:
 
 \`\`\`json
 {
-  "gedanke": "Aktivität bedeutet aktives Handeln und Bewegung (verwechselbar mit Fleiß). Ruhe bedeutet bewusstes Innehalten und Stille (verwechselbar mit Gelassenheit). Der Kernunterschied: Aktivität drängt zur Bewegung, Ruhe zum Verweilen. Eine Mutter, deren Kinder schlafen, muss zwischen Aufstehen und Liegenbleiben wählen – das passt nur zu Aktivität vs. Ruhe. Antwort 1 (joggen) ist ausschließlich Aktivität, Antwort 2 (liegen bleiben) ist ausschließlich Ruhe.",
-  "szenario": "Es ist Samstagmorgen und deine Kinder schlafen noch. Würdest du eher leise aufstehen und eine Runde joggen gehen, oder die seltene Stille genießen und noch im Bett liegen bleiben?",
-  "antworten": ["Aufstehen und joggen gehen", "Im Bett liegen bleiben"]
+  "gedanke": "Aktivität bedeutet aktives Handeln und Bewegung (verwechselbar mit Fleiß). Ruhe bedeutet bewusstes Innehalten und Stille (verwechselbar mit Gelassenheit). Der Kernunterschied: Aktivität drängt zur Bewegung, Ruhe zum Verweilen. Wer nach einem anstrengenden Projekt eine freie Stunde hat, muss zwischen Anpacken und Durchatmen wählen – das passt nur zu Aktivität vs. Ruhe. Antwort 1 (nächstes Thema anstoßen) ist ausschließlich Aktivität, Antwort 2 (Pause machen) ist ausschließlich Ruhe.",
+  "szenario": "Dein Team hat gerade ein großes Projekt abgeschlossen und du hast unerwartet eine Stunde ohne Termine. Würdest du eher direkt das nächste Thema anstoßen, oder die Stunde für eine ruhige Pause nutzen?",
+  "antworten": ["Nächstes Thema direkt anstoßen", "Eine ruhige Pause machen"]
 }
 \`\`\`
 
-In diesem Beispiel entspricht "Aufstehen und joggen gehen" dem Wert 1 ("Aktivität") und "Im Bett liegen bleiben" dem Wert 2 ("Ruhe").`;
+In diesem Beispiel entspricht "Nächstes Thema direkt anstoßen" dem Wert 1 ("Aktivität") und "Eine ruhige Pause machen" dem Wert 2 ("Ruhe").`;
 
 export class SzenarioService {
   constructor(

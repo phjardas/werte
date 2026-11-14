@@ -16,8 +16,8 @@ export function IntroStep({ firstName, onNext }: IntroStepProps) {
       <div className="intro-content">
         <p>
           Dieser Test hilft dir, deine persönlichen Werte zu entdecken. In
-          wenigen Minuten findest du heraus, was dir in deiner Beziehung zu
-          deinem Kind wirklich wichtig ist.
+          wenigen Minuten findest du heraus, was dir in deinem Berufsleben
+          wirklich wichtig ist.
         </p>
         <p>So funktioniert's:</p>
         <ol>

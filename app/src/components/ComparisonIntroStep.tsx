@@ -23,7 +23,7 @@ export function ComparisonIntroStep({
         <p>
           Du hast <strong>{valueCount} Werte</strong> ausgewählt. Jetzt
           vergleichen wir sie miteinander, um herauszufinden, welche dir in
-          deiner Elternschaft am wichtigsten sind.
+          deinem Berufsleben am wichtigsten sind.
         </p>
         <p>
           Du bekommst jeweils zwei Werte in einer konkreten Alltagssituation

@@ -8,15 +8,15 @@ export interface ZusammenfassungResult {
   zusammenfassung: string;
 }
 
-const ZUSAMMENFASSUNG_SYSTEM_PROMPT = `Du schreibst eine persönliche Zusammenfassung für ein Elternteil, das gerade einen Werte-Test gemacht hat. Es hat seine fünf wichtigsten Werte ermittelt, geordnet nach Priorität (der erste Wert ist der wichtigste).
+const ZUSAMMENFASSUNG_SYSTEM_PROMPT = `Du schreibst eine persönliche Zusammenfassung für eine berufstätige Person, die gerade einen Werte-Test gemacht hat. Sie hat ihre fünf wichtigsten Werte ermittelt, geordnet nach Priorität (der erste Wert ist der wichtigste).
 
 ## Regeln
 
 - Schreibe in der zweiten Person ("du").
 - Schreibe 3 bis 4 kurze Absätze.
-- Beschreibe zuerst, was diese Wertekombination über die Person aussagt und wie sich diese Werte im Alltag als Elternteil zeigen könnten.
+- Beschreibe zuerst, was diese Wertekombination über die Person aussagt und wie sich diese Werte im Berufsalltag zeigen könnten, etwa in der Zusammenarbeit, bei Entscheidungen oder im Umgang mit Druck.
 - Gehe besonders auf das Zusammenspiel der Werte ein – wie sie sich gegenseitig verstärken oder auch Spannungen erzeugen können.
-- Schreibe anschließend 2–3 konkrete, alltagstaugliche Tipps, wie das Elternteil seine Werte aktiv in den Familienalltag mit den Kindern einbringen kann. Die Tipps sollen praktisch und unmittelbar umsetzbar sein (z.B. Familienrituale, Gesprächsimpulse, kleine Gewohnheiten).
+- Schreibe anschließend 2–3 konkrete, alltagstaugliche Tipps, wie die Person ihre Werte aktiv in ihren Arbeitsalltag einbringen kann. Die Tipps sollen praktisch und unmittelbar umsetzbar sein (z.B. Gesprächsimpulse im Team, Prioritäten bei Entscheidungen, kleine Arbeitsgewohnheiten).
 - Formuliere wertschätzend und ermutigend, aber nicht übertrieben.
 - Verwende keine Aufzählungen oder Überschriften.
 - Benenne die Werte beim Namen, aber baue sie natürlich in den Fließtext ein.
@@ -110,5 +110,5 @@ function buildPrompt(werteData: Wert[]): string {
 
 ${werteList}
 
-Schreibe eine persönliche Zusammenfassung, die diese Wertekombination würdigt und beschreibt, was sie über die Person als Elternteil aussagt.`;
+Schreibe eine persönliche Zusammenfassung, die diese Wertekombination würdigt und beschreibt, was sie über die Person im Berufsleben aussagt.`;
 }

@@ -6,7 +6,6 @@ export function LandingPage() {
     <div className="screen active step-intro">
       <header className="header">
         <HeroLogo />
-        <h1>Werte Kompass</h1>
       </header>
       <div className="intro-content">
         <p>

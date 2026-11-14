@@ -6,13 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-### Frontend (app/)
+### Frontend (`app/`)
 
 ```bash
 cd app
 pnpm install          # install dependencies
-pnpm dev              # start dev server at localhost:5173
+pnpm dev              # dev server at localhost:5173, talks to the preview API (preview.werte.jardas.de/api)
 pnpm build            # tsc -b && vite build && cp dist/index.html dist/404.html
+pnpm test:e2e         # Playwright end-to-end test (E2E_BASE_URL, default http://localhost:5173)
 ```
 
 ### Backend (`backend/`)
@@ -23,10 +24,10 @@ TypeScript source compiled to `backend/dist/` before deployment.
 cd backend
 pnpm install          # install dependencies
 pnpm test             # run tests (vitest, no build needed)
-pnpm build            # tsc + copy werte.json → dist/
+pnpm build            # tsc + copy werte.json to dist/
 ```
 
-### Infrastructure (infra/)
+### Infrastructure (`infra/`)
 
 ```bash
 cd infra
@@ -45,51 +46,79 @@ cd backend && pnpm install && pnpm build
 
 ### Overview
 
-German values-discovery app. Users select values, compare them in tournament-bracket pairs, and see their top 5 ranked results. Comparisons use Claude AI (via AWS Bedrock) to generate contextual scenarios for each pair.
+German values-discovery app for the business context. Users select values, compare them pairwise in a Swiss-system tournament, and see their top 5 values together with a personal summary. Claude Sonnet 4.6 on AWS Bedrock generates a workplace scenario for each value pair and the final summary.
 
 ### Frontend (`app/`)
 
-- **React 19 + Vite + TypeScript**, deployed to S3 + CloudFront at `werte.jardas.de`
-- **TanStack Router v1** for routing — single route `/` renders `TestPage`
-- Flow state machine inside `TestPage`: `selection → filter → comparison → results`
-- Tournament logic lives in `app/src/hooks/useTournament.ts` — Swiss-system algorithm with Buchholz tiebreaking, `ceil(log2(n))` rounds
-- API base URL in `app/src/api.ts` defaults to the CloudFront `/api` path (configurable via `VITE_API_BASE_URL`)
+- React 19, Vite and TypeScript, deployed to S3 and CloudFront at `werte.jardas.de`.
+- TanStack Router v1, routes defined in `app/src/routes.tsx`:
+  - `/` (`FreePage`) creates a new test via `POST /tests` and redirects to `/tests/$testId`.
+  - `/tests/$testId` (`TestSessionPage`) loads the test. A completed test shows `ResultsScreen`, an active one resumes the flow.
+  - `/impressum` (`ImpressumPage`).
+- Flow steps (`Step` in `app/src/types.ts`): `intro → selection → filter → comparison-intro → comparison`, then the results screen. The filter step is skipped when 10 or fewer values are selected.
+- The test state is saved to the backend after every change (`useStateSync`, `PUT /tests/{testId}/state`), so a test can be resumed via its URL.
+- Tournament logic lives in `app/src/hooks/useTournament.ts`: Swiss system with Buchholz tiebreaking, `ceil(log2(n))` rounds.
+- `useZusammenfassung` polls `GET /tests/{testId}` until the summary is ready. `ResultsScreen` highlights the top 5 values in the summary text (whole words, case-sensitive).
+- The API base URL in `app/src/api.ts` defaults to the CloudFront `/api` path and can be set via `VITE_API_BASE_URL`.
 
 ### Backend (`backend/`)
 
-TypeScript, hexagonal architecture:
+TypeScript with a hexagonal architecture:
 
-- **`src/domain/`** — pure domain services (zero AWS deps): `WerteService`, `SzenarioService`, `ZusammenfassungService`, repository interfaces
-- **`src/infrastructure/`** — AWS implementations: `BedrockAIService`, `DynamoDBCache`, `DynamoDBTestRepository`
-- **`src/lambdas/`** — thin Lambda entry points, each exporting `handler` and a `createHandler(deps)` factory for testing
-- **`werte.json`** — 120 German values, copied to `dist/` at build time
+- **`src/domain/`** holds the pure domain services without AWS dependencies (`WerteService`, `SzenarioService`, `ZusammenfassungService`) and the ports (`AIService`, `Cache`, `TestRepository`).
+- **`src/infrastructure/`** holds the AWS implementations: `BedrockAIService`, `DynamoDBCache`, `DynamoDBTestRepository`.
+- **`src/lambdas/`** holds thin Lambda entry points. Each exports `handler` and a `createHandler(deps)` factory for testing.
+- **`src/werte.json`** contains 120 German values and is copied to `dist/` at build time.
 
-Each Lambda handler instantiates services at module scope (cold start) via the factory. Lambda handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
+Each Lambda handler instantiates its services at module scope (cold start) via the factory. Handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 
-`SzenarioService.getOrCreate` caches by hash of sorted value pair + system prompt. Cache key: `{wert1}_{wert2}` (alphabetically sorted).
+`SzenarioService.getOrCreate` caches by the alphabetically sorted value pair. The cache key is `{wert1}_{wert2}`, the version is a hash of the system prompt and the user prompt, so changing a prompt or a value description invalidates the cached scenarios. `ZusammenfassungService` caches by the ordered top 5 values and a hash of its system prompt.
+
+#### API
+
+| Route | Lambda | Purpose |
+|-------|--------|---------|
+| `GET /werte` | `getWerte` | list of all values |
+| `GET /szenarien/{wert1}/{wert2}` | `getSzenario` | scenario for a value pair (cached) |
+| `POST /szenarien/{wert1}/{wert2}/vote` | `voteSzenario` | up/down vote for a scenario version |
+| `POST /tests` | `createTest` | create a test session |
+| `GET /tests/{testId}` | `getTest` | load a test; re-triggers summary generation if it is missing |
+| `PUT /tests/{testId}/state` | `updateTestState` | save the frontend state; at `comparison-intro` it asynchronously invokes `prewarmSzenarien` |
+| `POST /tests/{testId}/complete` | `completeTest` | store the results and start the `postTest` Step Function |
+| `POST /zusammenfassung` | `getZusammenfassung` | summary for 5 values without a test |
+
+`prewarmSzenarien` generates the scenarios for all pairs of the final values in parallel. The `postTest` Step Function runs `generateTestZusammenfassung` with retries and sets `zusammenfassungStatus = failed` if it fails.
+
+#### Bedrock costs
+
+`BedrockAIService` computes the gross cost of every call from the token usage (Sonnet 4.6: $3 per 1M input tokens, $15 per 1M output tokens, plus 19 % VAT, in USD) and returns it together with the result. Scenarios and summaries store their cost in the cache, and a cache hit reports the stored cost again. The test session holds `szenarienKosten` (set by `prewarmSzenarien` as the sum over all pairs) and `zusammenfassungKosten`. Costs of cached scenarios are therefore counted once per test. The costs are not shown anywhere yet.
 
 ### Infrastructure (`infra/`)
 
-OpenTofu (Terraform fork) manages all AWS resources:
+OpenTofu manages all AWS resources in `eu-central-1`:
 
-- **API Gateway v2 (HTTP API)** — CORS enabled, routes to Lambdas
-- **DynamoDB** — `werte-szenarien` (scenario cache), `werte-tests` (test sessions, TTL enabled)
-- **S3 + ACM + Route53** — Custom domain `werte.jardas.de`
-- **State backend** — S3 bucket `phjardas-infrastructure`, passed to `tofu init` via `-backend-config` (GitHub variable `STATE_BUCKET`)
-- Lambda zip is built by Terraform's `archive_file` data source from `backend/dist/`; all functions share one zip, handlers use `lambdas/` prefix (e.g. `lambdas/getWerte.handler`)
+- **API Gateway v2 (HTTP API)** with CORS, routing to the Lambdas.
+- **Lambda** (Node.js, arm64). All functions share one zip, built by Terraform's `archive_file` data source from `backend/dist/`.
+- **Step Functions**: `{project}-postTest` for the summary.
+- **DynamoDB**: `{project}-szenarien` (scenario and summary cache, keys `pk` and `version`) and `{project}-tests` (test sessions, key `testId`, TTL configured on the `ttl` attribute, which the code does not set yet).
+- **S3, CloudFront, ACM, Route53** for the custom domain.
+- **CloudWatch** log groups, metric filters and a dashboard for cache hits, misses and generation errors.
+- **State backend**: S3 bucket `phjardas-infrastructure`, passed to `tofu init` via `-backend-config` (GitHub variable `STATE_BUCKET`).
+
+`project` is `werte-preview` for the preview environment and `werte` for production.
 
 ### CloudFront URL structure
 
 | Path | Destination | Notes |
 |------|-------------|-------|
 | `/assets/*` | S3 | Vite hashed bundles (long cache) |
-| `/api/*` | API Gateway | REST API — the `api_rewrite` function strips the `/api` prefix before forwarding |
-| everything else | S3 | React SPA and public files — the `spa_router` CloudFront function rewrites every path without a file extension to `/index.html` |
+| `/api/*` | API Gateway | the `api_rewrite` function strips the `/api` prefix before forwarding |
+| everything else | S3 | React SPA and public files; the `spa_router` CloudFront function rewrites every path without a file extension to `/index.html` |
 
 ### Adding frontend routes
 
-When adding a new route to the React app (`app/src/routes.tsx`), no changes to CloudFront are needed, because the `spa_router` function already rewrites every extensionless path to `/index.html`.
+New routes in `app/src/routes.tsx` need no CloudFront changes, because `spa_router` already rewrites every extensionless path to `/index.html`.
 
 ### CI/CD (`.github/workflows/deploy.yml`)
 
-A single `deploy` job runs on every push to `main` (preview environment) and on every published release (production). It tests and builds the backend, builds the React app, runs `tofu apply`, syncs `app/dist/` to the S3 bucket and invalidates CloudFront.
+A single `deploy` job runs on every push to `main` (preview environment) and on every published release (production). It tests and builds the backend, builds the React app, runs `tofu apply`, syncs `app/dist/` to the S3 bucket and invalidates CloudFront. The Playwright test does not run in CI.

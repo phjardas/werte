@@ -3,10 +3,9 @@ import type { AIResponse, AIService } from "../domain/ai.js";
 
 const MODEL_ID = "eu.anthropic.claude-sonnet-4-6";
 
-// Bedrock on-demand prices for Sonnet 4.6 via the EU cross-region profile (USD per token, net).
-// Regional/geo profiles carry a 10 % premium over the global profile ($3 / $15 per MTok).
-const INPUT_PRICE = 3.3 / 1_000_000;
-const OUTPUT_PRICE = 16.5 / 1_000_000;
+// Bedrock on-demand prices for Sonnet 4.6 (USD per token, net): $3 / $15 per MTok.
+const INPUT_PRICE = 3 / 1_000_000;
+const OUTPUT_PRICE = 15 / 1_000_000;
 const UST = 1.19;
 
 export function bruttoKosten(usage: { input_tokens?: number; output_tokens?: number } | undefined): number {

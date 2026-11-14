@@ -46,6 +46,7 @@ export function createHandler(
       zusammenfassung: item.zusammenfassung ?? null,
       zusammenfassungStatus,
       emailGesendet: item.emailGesendetAm != null,
+      ablaufAm: item.ttl != null ? new Date(item.ttl * 1000).toISOString() : null,
     });
   };
 }

@@ -1,6 +1,6 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
-import type { CompleteResult, TestRepository, TestResult, TestSession, UpdateStateResult } from "../domain/test.js";
+import { ablaufTtl, istAbgelaufen, type CompleteResult, TestRepository, TestResult, TestSession, UpdateStateResult } from "../domain/test.js";
 
 export class DynamoDBTestRepository implements TestRepository {
   private readonly ddb: DynamoDBDocumentClient;
@@ -12,10 +12,11 @@ export class DynamoDBTestRepository implements TestRepository {
   }
 
   async create(session: Omit<TestSession, "createdAt"> & { createdAt?: string }): Promise<void> {
+    const createdAt = session.createdAt ?? new Date().toISOString();
     await this.ddb.send(
       new PutCommand({
         TableName: this.tableName,
-        Item: { ...session, createdAt: session.createdAt ?? new Date().toISOString() },
+        Item: { ...session, createdAt, ttl: ablaufTtl(createdAt) },
       }),
     );
   }
@@ -24,7 +25,8 @@ export class DynamoDBTestRepository implements TestRepository {
     const { Item } = await this.ddb.send(
       new GetCommand({ TableName: this.tableName, Key: { testId } }),
     );
-    return (Item as TestSession) ?? null;
+    const session = (Item as TestSession | undefined) ?? null;
+    return session && !istAbgelaufen(session) ? session : null;
   }
 
   async updateState(testId: string, state: unknown): Promise<UpdateStateResult> {

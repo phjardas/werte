@@ -91,6 +91,8 @@ Each Lambda handler instantiates its services at module scope (cold start) via t
 | `POST /zusammenfassung` | `getZusammenfassung` | summary for 5 values without a test |
 | `GET /statistik` | `getStatistik` | number of completed tests and the weighted ranking of values |
 
+Tests expire 12 months after creation (`AUFBEWAHRUNG_MONATE` in `src/domain/test.ts`). `DynamoDBTestRepository.create` sets `ttl`, and `get` treats an expired test as missing because DynamoDB deletes expired items only after a delay of up to a few days. `getTest` exposes the expiry as `ablaufAm`, which the results screen shows. Tests created before this change have no `ttl` and never expire.
+
 `sendEmail` claims the test with a conditional write on `emailGesendetAm` before sending and removes the marker again if SES fails. The address is not stored. `getTest` exposes the marker as `emailGesendet`.
 
 `completeTest` accepts only distinct, known values and receives the full ranking (up to 10 values). It increments running counters in the `{project}-statistik` table: `tests` and one attribute `{rang}|{wert}` per ranked value. `getStatistik` applies the point scale `PUNKTE` in `src/domain/statistik.ts` when reading, so changing the scale re-scores all past tests. The counters are independent of the tests table and its TTL.
@@ -108,7 +110,7 @@ OpenTofu manages all AWS resources in `eu-central-1`:
 - **API Gateway v2 (HTTP API)** with CORS, routing to the Lambdas.
 - **Lambda** (Node.js, arm64). All functions share one zip, built by Terraform's `archive_file` data source from `backend/dist/`.
 - **Step Functions**: `{project}-postTest` for the summary.
-- **DynamoDB**: `{project}-szenarien` (scenario and summary cache, keys `pk` and `version`), `{project}-statistik` (statistics counters, one item with key `pk = "werte"`) and `{project}-tests` (test sessions, key `testId`, TTL configured on the `ttl` attribute, which the code does not set yet).
+- **DynamoDB**: `{project}-szenarien` (scenario and summary cache, keys `pk` and `version`), `{project}-statistik` (statistics counters, one item with key `pk = "werte"`) and `{project}-tests` (test sessions, key `testId`, TTL on the `ttl` attribute).
 - **S3, CloudFront, ACM, Route53** for the custom domain.
 - **SES** (`infra/ses.tf`): domain identity for `var.domain` with DKIM and the MAIL FROM domain `mail.{domain}` (SPF). Emails come from `Werte Kompass <noreply@{domain}>`.
 - **CloudWatch** log groups, metric filters and a dashboard for cache hits, misses and generation errors.

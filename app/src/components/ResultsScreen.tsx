@@ -97,12 +97,14 @@ interface ResultsScreenProps {
   testId?: string;
   results: Contestant[];
   emailGesendet?: boolean;
+  ablaufAm?: string | null;
 }
 
 export function ResultsScreen({
   testId,
   results,
   emailGesendet = false,
+  ablaufAm,
 }: ResultsScreenProps) {
   const top5 = results.slice(0, 5);
   const { zusammenfassung, timedOut } = useZusammenfassung(testId ?? null);
@@ -171,6 +173,13 @@ export function ResultsScreen({
           </div>
           {testId && zusammenfassung ? (
             <EmailForm testId={testId} emailGesendet={emailGesendet} />
+          ) : null}
+          {ablaufAm ? (
+            <p className="email-form-note">
+              Unter diesem Link findest du dein Ergebnis bis zum{" "}
+              {new Date(ablaufAm).toLocaleDateString("de-DE", { dateStyle: "long" })}. Danach
+              wird der Test gelöscht.
+            </p>
           ) : null}
           <div className="intro-footer">
             <Link to="/tests" className="btn btn-primary">

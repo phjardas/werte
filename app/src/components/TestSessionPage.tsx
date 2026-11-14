@@ -36,7 +36,14 @@ export function TestSessionPage() {
     );
 
   if (session.status === "completed" && session.results) {
-    return <ResultsScreen testId={testId} results={session.results} emailGesendet={session.emailGesendet} />;
+    return (
+      <ResultsScreen
+        testId={testId}
+        results={session.results}
+        emailGesendet={session.emailGesendet}
+        ablaufAm={session.ablaufAm}
+      />
+    );
   }
 
   // status === "active"

@@ -23,7 +23,11 @@ export function useTest(testId: string): UseTestResult {
     getTest(testId)
       .then((s) => {
         if (cancelled) return;
-        if (s === null) setError(new Error("Test nicht gefunden"));
+        if (s === null) setError(
+            new Error(
+              "Diesen Test gibt es nicht oder nicht mehr. Tests werden 12 Monate nach dem Start gelöscht.",
+            ),
+          );
         else setSession(s);
         setIsLoading(false);
       })

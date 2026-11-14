@@ -58,6 +58,8 @@ export interface TestSession {
   zusammenfassung: string | null;
   zusammenfassungStatus: "generating" | "completed" | "failed" | null;
   emailGesendet: boolean;
+  /** ISO timestamp after which the test is deleted; null for tests created before expiry was introduced. */
+  ablaufAm: string | null;
 }
 
 export interface Statistik {

@@ -32,7 +32,7 @@ export function LandingPage() {
         <p>
           Der Test ist kostenlos und braucht keine Anmeldung. Deine Antworten
           werden gespeichert, damit du den Test später über seinen Link
-          fortsetzen kannst. Persönliche Daten erfassen wir dabei nicht. Wenn du
+          fortsetzen kannst. Nach 12 Monaten wird der Test gelöscht. Persönliche Daten erfassen wir dabei nicht. Wenn du
           dir dein Ergebnis per E-Mail schickst, verwenden wir die Adresse nur
           für den Versand und speichern sie nicht.
         </p>

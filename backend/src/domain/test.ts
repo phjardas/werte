@@ -18,6 +18,22 @@ export interface TestSession {
   emailGesendetAm?: string;
   createdAt: string;
   completedAt?: string;
+  /** Expiry as Unix time in seconds. DynamoDB deletes the item some time after it. */
+  ttl?: number;
+}
+
+export const AUFBEWAHRUNG_MONATE = 12;
+
+/** Unix time in seconds, AUFBEWAHRUNG_MONATE after createdAt. */
+export function ablaufTtl(createdAt: string): number {
+  const d = new Date(createdAt);
+  d.setUTCMonth(d.getUTCMonth() + AUFBEWAHRUNG_MONATE);
+  return Math.floor(d.getTime() / 1000);
+}
+
+/** DynamoDB deletes expired items with a delay of up to a few days, so reads must check ttl themselves. */
+export function istAbgelaufen(session: Pick<TestSession, "ttl">, now = Date.now()): boolean {
+  return session.ttl != null && session.ttl * 1000 <= now;
 }
 
 export interface UpdateStateResult {

@@ -24,6 +24,12 @@ describe("getTest handler", () => {
     expect(res.statusCode).toBe(400);
   });
 
+  it("returns the expiry date derived from ttl", async () => {
+    mockGet.mockResolvedValue({ testId: "abc", status: "active", ttl: Date.parse("2027-11-14T10:00:00.000Z") / 1000 });
+    const res = await handler({ pathParameters: { testId: "abc" } });
+    expect(JSON.parse(res.body).ablaufAm).toBe("2027-11-14T10:00:00.000Z");
+  });
+
   it("returns 404 when test not found", async () => {
     mockGet.mockResolvedValue(null);
     const res = await handler({ pathParameters: { testId: "abc" } });

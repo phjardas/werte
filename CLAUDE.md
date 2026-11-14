@@ -62,7 +62,7 @@ TypeScript, hexagonal architecture:
 - **`src/domain/`** — pure domain services (zero AWS deps): `WerteService`, `SzenarioService`, `ZusammenfassungService`, repository interfaces
 - **`src/infrastructure/`** — AWS implementations: `BedrockAIService`, `DynamoDBCache`, `DynamoDBTestRepository`
 - **`src/lambdas/`** — thin Lambda entry points, each exporting `handler` and a `createHandler(deps)` factory for testing
-- **`werte.json`** — 81 German values, copied to `dist/` at build time
+- **`werte.json`** — 120 German values, copied to `dist/` at build time
 
 Each Lambda handler instantiates services at module scope (cold start) via the factory. Lambda handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 

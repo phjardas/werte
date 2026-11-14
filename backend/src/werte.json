@@ -30,25 +30,6 @@
       ]
     },
     {
-      "name": "Aktivität",
-      "synonyme": [
-        "Tätigkeit, Aktion, Vorgang, Handlung, Betätigung, Betrieb, Bewegung, Eifer, Fleiß, Geschäftigkeit, Tatendrang, Unternehmungsgeist, Engagement",
-        "Medizin: Hyperkinese",
-        "Psychologie: Konation",
-        "Verhaltensforschung: Appetenz (Begehren, Verlangen)",
-        "Englisch: activity (Tätigkeit, Beschäftigung)"
-      ],
-      "definition": [
-        "Handlung, Tat oder Maßnahme"
-      ],
-      "beschreibung": [
-        "Aktivität bezeichnet grundlegend das aktive Handeln eines Menschen und umfasst sowohl körperliche als auch geistige Tätigkeiten.",
-        "Aktivitäten, die zweckmäßig und zielgerichtet auf die Erfüllung bestimmter individueller und gesellschaftlicher Verpflichtungen ausgerichtet sind, werden unter dem Begriff Arbeit zusammengefasst.",
-        "Aktivitäten, die dem Zeitvertreib und Spaßgewinn oder Lustgewinn eines Menschen dienen, werden als „Spiel“ bezeichnet.",
-        "Eine Aktivität wird immer durch eine extrinsische oder intrinsische Motivation ausgelöst."
-      ]
-    },
-    {
       "name": "Achtsamkeit",
       "synonyme": [
         "Anteilnahme, Gegenwärtigkeit, Beachtung, Behutsamkeit, Empathie, Hingabe, Teilnahme, Bedacht, Engagement, Interesse",
@@ -68,6 +49,25 @@
         "bedächtiges und kräftiges Einatmen (großes, aber angenehmes Volumen), mit der Vorstellung, jetzt, in diesem Moment Energie, Kraft, Leben, Bewusstheit einzuhauchen (tanken),dann „lassend“ und genüsslich ausatmen, als Symbol für Gelassenheit und anschließender Entfaltung.",
         "Einige Meditationslehrer empfehlen eine Übung, bei der die Atemzüge pro Minute gezählt werden. Das erzeugt z. B. das Momentum des Augenblicks sowie das Abschalten der konzentrierten Aufmerksamkeit auf irgendetwas anderes, äußeres – man kommt quasi zu sich selbst, zum Inneren.",
         "* Atem: aus althochdeutsch „ātum“ (8. Jh.) = „Hauch“; abgeleitet aus germanisch „ēþma-“ und altindisch „ātmā́“ = „Hauch, Seele, Selbst“. Luthers Bibelübersetzung bevorzugt die landschaftliche Form „Odem“ (Lebenskraft), die später in der gehobenen, dichterischen Sprache Anwendung fand."
+      ]
+    },
+    {
+      "name": "Aktivität",
+      "synonyme": [
+        "Tätigkeit, Aktion, Vorgang, Handlung, Betätigung, Betrieb, Bewegung, Eifer, Fleiß, Geschäftigkeit, Tatendrang, Unternehmungsgeist, Engagement",
+        "Medizin: Hyperkinese",
+        "Psychologie: Konation",
+        "Verhaltensforschung: Appetenz (Begehren, Verlangen)",
+        "Englisch: activity (Tätigkeit, Beschäftigung)"
+      ],
+      "definition": [
+        "Handlung, Tat oder Maßnahme"
+      ],
+      "beschreibung": [
+        "Aktivität bezeichnet grundlegend das aktive Handeln eines Menschen und umfasst sowohl körperliche als auch geistige Tätigkeiten.",
+        "Aktivitäten, die zweckmäßig und zielgerichtet auf die Erfüllung bestimmter individueller und gesellschaftlicher Verpflichtungen ausgerichtet sind, werden unter dem Begriff Arbeit zusammengefasst.",
+        "Aktivitäten, die dem Zeitvertreib und Spaßgewinn oder Lustgewinn eines Menschen dienen, werden als „Spiel“ bezeichnet.",
+        "Eine Aktivität wird immer durch eine extrinsische oder intrinsische Motivation ausgelöst."
       ]
     },
     {
@@ -221,6 +221,40 @@
       ]
     },
     {
+      "name": "Autonomie",
+      "synonyme": [
+        "Selbstbestimmung, Eigenständigkeit, Selbstständigkeit, Unabhängigkeit, Entscheidungsfreiheit, Handlungsfreiheit, Gestaltungsfreiraum",
+        "Abgeschwächt: Spielraum, Ermessensspielraum",
+        "Englisch: autonomy, self-determination"
+      ],
+      "definition": [
+        "Fähigkeit und Möglichkeit, über das eigene Handeln selbst zu entscheiden"
+      ],
+      "beschreibung": [
+        "Autonomie bedeutet, eigene Entscheidungen treffen und die Art und Weise der eigenen Arbeit selbst bestimmen zu können.",
+        "Im Unterschied zur allgemeinen Freiheit geht es bei Autonomie vor allem um Gestaltungsspielraum innerhalb eines Rahmens, etwa bei der Wahl von Methoden, Zeiteinteilung oder Prioritäten.",
+        "Menschen, denen Autonomie wichtig ist, empfinden enge Vorgaben und kleinteilige Kontrolle als belastend und übernehmen gern Verantwortung für das, was sie selbst entschieden haben.",
+        "Die Selbstbestimmungstheorie der Motivation zählt Autonomie neben Kompetenz und sozialer Eingebundenheit zu den psychologischen Grundbedürfnissen."
+      ]
+    },
+    {
+      "name": "Balance",
+      "synonyme": [
+        "Ausgewogenheit, Gleichgewicht, Ausgeglichenheit, Ebenmaß, Harmonie, Mitte",
+        "Spezifisch: Work-Life-Balance, Vereinbarkeit von Beruf und Privatleben",
+        "Englisch: balance, equilibrium"
+      ],
+      "definition": [
+        "Ausgewogenes Verhältnis zwischen verschiedenen Lebensbereichen und Anforderungen"
+      ],
+      "beschreibung": [
+        "Balance bedeutet, Beruf, Familie, Freundschaften, Gesundheit und eigene Interessen so zu gewichten, dass keiner dieser Bereiche dauerhaft zu kurz kommt.",
+        "Menschen, denen Balance wichtig ist, ziehen bewusst Grenzen, etwa bei Arbeitszeiten oder Erreichbarkeit, und achten auf Erholung.",
+        "Balance ist kein starrer Zustand, sondern muss immer wieder neu hergestellt werden, weil sich Anforderungen und Lebensphasen ändern.",
+        "Ein Mangel an Balance zeigt sich häufig erst spät, etwa in Erschöpfung, Unzufriedenheit oder vernachlässigten Beziehungen."
+      ]
+    },
+    {
       "name": "Begeisterung",
       "synonyme": [
         "Enthusiasmus, Entzücken, Eifer, Leidenschaft, Leidenschaftlichkeit, Lust, Ekstase, Inspiration, Elan, Schwung, Überschwang, Überschwänglichkeit, Inbrunst, Tatendrang, Tatkraft, freudige Erregung, Freude, Gefühlsüberschwang, Hochstimmung, Passion, Schwärmerei, Taumel, Verzücktheit, Verzückung, Glut",
@@ -232,20 +266,6 @@
       ],
       "beschreibung": [
         "Die Begeisterung beschreibt ein außergewöhnlich starkes Interesse in Verbindung mit großer Freude, die durch Anregung der emotionalen Zentren in unserem Gehirn herbeigerufen wird und somit unsere geistigen Fähigkeiten steigern.Der Begriff Begeisterung bezeichnet somit nicht nur ein Verhalten, sondern auch einen biologischen Prozess, der uns Menschen dazu antreibt, beispielsweise etwas zu erlernen und zudem hilft, hierbei schnell Fortschritte zu machen.Begeisterung im Sinne von „inspirieren“ (Geist einhauchen, beseelen) erzeugt viele Aspekte von Motivation, so z.B. auch Teamgeist, Optimismus, Zuversicht, etc. Daher ist es für die positive Entwicklung eines Teams förderlich, wenn eine Grundhaltung bzw. ein Nährboden für Begeisterung vorhanden ist.Oft sind es einzelne Menschen innerhalb eines Teams oder einer Organisation, die Begeisterung ausstrahlen und dadurch andere Teammitglieder bzw. Kollegen konstruktiv anstecken."
-      ]
-    },
-    {
-      "name": "Dankbarkeit",
-      "synonyme": [
-        "Anerkennung, Dankeswort, Dankgefühl, Danksagung, Erkenntlichkeit, Verdankung (schweizerisch), Verbundenheit, dankerfüllt, zu Dank verpflichtet",
-        "Haltbarkeit: Strapazierfähigkeit, Unempfindlichkeit",
-        "Englisch: gratitude, thankfulness, appreciation (Anerkennung, Wertschätzung)"
-      ],
-      "definition": [
-        "Ein Gefühl der Anerkennung an jemanden oder (seltener) an etwas oder eine Situation"
-      ],
-      "beschreibung": [
-        "Das Wort Dankbarkeit beschreibt einen Zustand, in dem man anerkennt bzw. zu schätzen weiß, dass einem jemand oder etwas ein positives Gefühl – durch eine meist immaterielle oder auch materielle Zuwendung – geschenkt hat.Dankbarkeit ist somit meist an eine Bedingung geknüpft, kann aber auch bedingungslos – aufgrund einer grundlegenden „inneren Haltung“ – erfolgen.Durch diese spezielle Form der empfangenen Wertschätzung (positives Feedback) verstärken sich i.d.R. das soziale Verhalten und die Motivation des Empfängers der Dankbarkeit.Dankbarkeit hat einen starken Einfluss auf das Wohlbefinden von Sender und Empfänger. Ein bewusst dankbarer Mensch zeichnet sich durch körperliche und geistige Gesundheit, Ausgeglichenheit sowie gute soziale Beziehungen aus."
       ]
     },
     {
@@ -262,6 +282,20 @@
       "beschreibung": [
         "Die Bescheidenheit ist eine Charaktereigenschaft, die ein geringes Streben oder Verlangen nach Ansprüchen beschreibt, selbst wenn daraus ein Vorteil oder Gewinn resultieren würde.",
         "Zudem beschreibt es ein Bewusstsein für Wertschätzung von Dingen und das bewusste Nichtverlangen von besonders Wertvollem."
+      ]
+    },
+    {
+      "name": "Dankbarkeit",
+      "synonyme": [
+        "Anerkennung, Dankeswort, Dankgefühl, Danksagung, Erkenntlichkeit, Verdankung (schweizerisch), Verbundenheit, dankerfüllt, zu Dank verpflichtet",
+        "Haltbarkeit: Strapazierfähigkeit, Unempfindlichkeit",
+        "Englisch: gratitude, thankfulness, appreciation (Anerkennung, Wertschätzung)"
+      ],
+      "definition": [
+        "Ein Gefühl der Anerkennung an jemanden oder (seltener) an etwas oder eine Situation"
+      ],
+      "beschreibung": [
+        "Das Wort Dankbarkeit beschreibt einen Zustand, in dem man anerkennt bzw. zu schätzen weiß, dass einem jemand oder etwas ein positives Gefühl – durch eine meist immaterielle oder auch materielle Zuwendung – geschenkt hat.Dankbarkeit ist somit meist an eine Bedingung geknüpft, kann aber auch bedingungslos – aufgrund einer grundlegenden „inneren Haltung“ – erfolgen.Durch diese spezielle Form der empfangenen Wertschätzung (positives Feedback) verstärken sich i.d.R. das soziale Verhalten und die Motivation des Empfängers der Dankbarkeit.Dankbarkeit hat einen starken Einfluss auf das Wohlbefinden von Sender und Empfänger. Ein bewusst dankbarer Mensch zeichnet sich durch körperliche und geistige Gesundheit, Ausgeglichenheit sowie gute soziale Beziehungen aus."
       ]
     },
     {
@@ -311,6 +345,23 @@
       ]
     },
     {
+      "name": "Ehrgeiz",
+      "synonyme": [
+        "Ambition, Strebsamkeit, Erfolgsstreben, Leistungswille, Tatendrang, Eifer, Biss",
+        "Abwertend: Geltungsdrang, Karrierismus, Verbissenheit",
+        "Englisch: ambition, drive"
+      ],
+      "definition": [
+        "Starkes Streben danach, etwas zu erreichen und sich zu verbessern"
+      ],
+      "beschreibung": [
+        "Ehrgeiz ist der innere Antrieb, mehr zu erreichen als bisher, sei es in der eigenen Leistung, in der Karriere oder im Vergleich mit anderen.",
+        "Ehrgeizige Menschen setzen sich hohe Ziele, sind bereit, dafür Mühe und Verzicht in Kauf zu nehmen, und geben sich selten mit dem Erreichten zufrieden.",
+        "Während Zielstrebigkeit die konsequente Ausrichtung auf ein Ziel beschreibt, betont Ehrgeiz den Wunsch, hoch hinaus zu wollen.",
+        "In gesundem Maß wirkt Ehrgeiz motivierend, übersteigert kann er zu Rücksichtslosigkeit oder Selbstüberforderung führen."
+      ]
+    },
+    {
       "name": "Ehrlichkeit",
       "synonyme": [
         "Aufrichtigkeit, Authentizität, Echtheit, Geradheit, Geradlinigkeit, Lauterkeit, Freimut, Unverblümtheit, Rechtschaffenheit, Redlichkeit, Integrität.",
@@ -326,6 +377,57 @@
         "Im Begriff Ehrlichkeit steckt das Wort „Ehre“, so ist Ehrlichkeit – im Sinne von tugendhaftem Verhalten – ein ehrenhaftes Auftreten in wahrer Sprache und Text sowie einem offenen und nicht manipulierendem Agieren.",
         "Ehrlichkeit ist die Basis eines vertrauensvollen gemeinsamen Miteinanders. Ohne sie kann kein fundiertes Vertrauen aufgebaut beziehungsweise aufrecht erhalten werden.",
         "Neben der Ehrlichkeit zu anderen, gibt es auch die Ehrlichkeit zu sich selbst. Diese zu erlangen und dauerhaft zu besitzen ist um einiges schwerer, denn es erfordert Selbstdisziplin, um sich selbst, eigene Macken, Fehler und Defizite einzugestehen sowie an dessen Beseitigung zu arbeiten."
+      ]
+    },
+    {
+      "name": "Eigenverantwortung",
+      "synonyme": [
+        "Selbstverantwortung, Selbstständigkeit, Mündigkeit, Eigeninitiative, Ownership",
+        "Ähnlich: Verantwortungsbewusstsein, Selbstbestimmung",
+        "Englisch: personal responsibility, ownership, accountability"
+      ],
+      "definition": [
+        "Bereitschaft, für das eigene Handeln, die eigene Entwicklung und das eigene Leben selbst einzustehen"
+      ],
+      "beschreibung": [
+        "Eigenverantwortung bedeutet, die Verantwortung für eigene Entscheidungen, Fehler und Ergebnisse bei sich selbst zu sehen, statt sie Umständen oder anderen zuzuschreiben.",
+        "Eigenverantwortliche Menschen warten nicht darauf, dass jemand anderes ein Problem löst, sondern ergreifen selbst die Initiative.",
+        "Im Unterschied zur Verantwortung für andere Menschen oder Aufgaben richtet sich Eigenverantwortung vor allem auf die eigene Person und das eigene Handeln.",
+        "Eigenverantwortung setzt Handlungsspielraum voraus und wächst dort, wo Menschen Vertrauen und Freiraum erhalten."
+      ]
+    },
+    {
+      "name": "Einfachheit",
+      "synonyme": [
+        "Schlichtheit, Klarheit, Übersichtlichkeit, Unkompliziertheit, Bescheidenheit, Genügsamkeit, Reduktion",
+        "Lebensstil: Minimalismus",
+        "Englisch: simplicity"
+      ],
+      "definition": [
+        "Beschränkung auf das Wesentliche ohne unnötige Komplexität"
+      ],
+      "beschreibung": [
+        "Einfachheit bedeutet, Dinge so unkompliziert wie möglich zu gestalten und Überflüssiges wegzulassen.",
+        "Im Arbeitsleben zeigt sich Einfachheit in klaren Abläufen, verständlicher Sprache und Lösungen, die ohne großen Aufwand funktionieren.",
+        "Als Lebenshaltung steht Einfachheit für Genügsamkeit und die Überzeugung, dass Zufriedenheit nicht von Besitz oder Status abhängt.",
+        "Einfachheit ist oft schwerer zu erreichen als Komplexität, weil sie ein gutes Verständnis dessen voraussetzt, was wirklich wichtig ist."
+      ]
+    },
+    {
+      "name": "Einfluss",
+      "synonyme": [
+        "Einwirkung, Wirkung, Gewicht, Mitsprache, Prägung, Gestaltungskraft, Durchsetzungskraft",
+        "Ähnlich: Macht, Autorität, Ansehen",
+        "Englisch: influence, impact"
+      ],
+      "definition": [
+        "Möglichkeit, Entscheidungen, Menschen oder Entwicklungen mitzugestalten"
+      ],
+      "beschreibung": [
+        "Einfluss bedeutet, mit den eigenen Ideen, Argumenten oder Entscheidungen etwas zu bewegen und gehört zu werden.",
+        "Menschen, denen Einfluss wichtig ist, möchten an Entscheidungen beteiligt sein, statt nur deren Folgen zu tragen.",
+        "Einfluss kann auf formaler Position beruhen, entsteht aber oft auch durch Fachwissen, Vertrauen und persönliche Überzeugungskraft.",
+        "Im Unterschied zu Macht setzt Einfluss weniger auf Durchsetzung als auf Überzeugung und Mitgestaltung."
       ]
     },
     {
@@ -391,22 +493,20 @@
       ]
     },
     {
-      "name": "Fleiß",
+      "name": "Erfolg",
       "synonyme": [
-        "Strebsamkeit, Eifer, Eifrigkeit, Emsigkeit, Arbeitseifer, Arbeitsfreude, Beflissenheit, Arbeitsamkeit, Lerneifer, Schaffigkeit, Applikation",
-        "Abgeschwächt: Lernbereitschaft",
-        "Fremdwort: Diligenz (lateinisch) = Sorgfalt",
-        "Englisch: diligence, assiduity (Eifer, Beharrlichkeit), studiousness (Lerneifer), on purpose (mit Fleiß), application (Einsatz)"
+        "Gelingen, Durchbruch, Triumph, Sieg, Ergebnis, Errungenschaft, Leistung, Fortschritt",
+        "Beruflich: Karriere, Aufstieg",
+        "Englisch: success, achievement"
       ],
       "definition": [
-        "Arbeitsame Zielstrebigkeit."
+        "Erreichen selbst gesetzter oder vorgegebener Ziele"
       ],
       "beschreibung": [
-        "Ein willentlich strebsames und unermüdliches Arbeiten sowie die beharrliche bzw. intensive Beschäftigung mit einer Sache.",
-        "Fleiß beschreibt dabei hauptsächlich den Tatbestand, dass ein Individuum überdurchschnittlich motiviert, strebsam und fokussiert handelt.",
-        "Fleiß ist einer der sogenannten „Preußischen Tugenden“ (siehe auch im Kapitel „Werte-Kategorien“ im Abschnitt „Kulturelle Wertesysteme“) und ist in der heutigen Zeit deswegen nicht immer beliebt.",
-        "So kann ein gewünschter Erfolg alleine durch Fleiß erreicht werden und andere hochgeschätzte Fähigkeiten – wie „Talent“, „Intelligenz“ oder „Wissen“ – in den Schatten stellen.",
-        "Das Gegenteil von Fleiß ist „Faulheit“."
+        "Erfolg bedeutet, dass die eigenen Anstrengungen zu einem sichtbaren und anerkannten Ergebnis führen.",
+        "Was als Erfolg gilt, ist sehr unterschiedlich: Für manche ist es beruflicher Aufstieg oder finanzieller Gewinn, für andere ein gelungenes Projekt oder ein zufriedener Kunde.",
+        "Menschen, denen Erfolg wichtig ist, orientieren sich stark an Zielen und Ergebnissen und messen ihr Handeln daran, ob es etwas bewirkt.",
+        "Erfolg wirkt motivierend und stärkt das Selbstvertrauen, kann aber auch Druck erzeugen, wenn der eigene Wert vor allem über Erfolge definiert wird."
       ]
     },
     {
@@ -424,6 +524,42 @@
         "Innerhalb von fast allen Gruppen jeder Größe werden Regeln aufgestellt bzw. Vereinbarungen getroffen, die den Umgang eines anständigen und fairen Miteinanders beschreiben. Diese Regeln umfassen beispielsweise humanistische, ethische, soziale, soziokulturelle, kulturelle und/oder geschlechterspezifische Aspekte, welche sich auf die Grundhaltung und Kommunikation untereinander auswirken sollen.",
         "Im Sport spricht man auch von „Fair Play“, was ein regelkonformes (Spielregeln) und kameradschaftliches Verhalten innerhalb und außerhalb des Wettkampfes beschreibt.",
         "Regeln zu Fairness sind nicht gesetzlich geregelt bzw. verankert, sondern bedingen sich durch eine allgemeine Übereinstimmung und Akzeptanz."
+      ]
+    },
+    {
+      "name": "Familie",
+      "synonyme": [
+        "Angehörige, Verwandtschaft, Partnerschaft, Kinder, Eltern, Zuhause, Geborgenheit",
+        "Ähnlich: Zusammenhalt, Fürsorge",
+        "Englisch: family"
+      ],
+      "definition": [
+        "Besondere Bedeutung der Menschen, mit denen man durch Verwandtschaft oder enge Lebensgemeinschaft verbunden ist"
+      ],
+      "beschreibung": [
+        "Familie als Wert bedeutet, den Menschen, mit denen man sein Leben teilt, einen hohen Stellenwert einzuräumen und Zeit und Energie für sie aufzuwenden.",
+        "Für Menschen, denen Familie wichtig ist, sind gemeinsame Zeit, Verlässlichkeit und gegenseitige Unterstützung zentrale Bestandteile eines gelungenen Lebens.",
+        "Im Berufsleben zeigt sich dieser Wert etwa darin, wie Arbeitszeiten, Reisen oder Karriereschritte mit den Bedürfnissen der Familie abgewogen werden.",
+        "Was als Familie empfunden wird, ist nicht auf Blutsverwandtschaft beschränkt, sondern umfasst oft auch Wahlverwandtschaften und enge Lebensgemeinschaften."
+      ]
+    },
+    {
+      "name": "Fleiß",
+      "synonyme": [
+        "Strebsamkeit, Eifer, Eifrigkeit, Emsigkeit, Arbeitseifer, Arbeitsfreude, Beflissenheit, Arbeitsamkeit, Lerneifer, Schaffigkeit, Applikation",
+        "Abgeschwächt: Lernbereitschaft",
+        "Fremdwort: Diligenz (lateinisch) = Sorgfalt",
+        "Englisch: diligence, assiduity (Eifer, Beharrlichkeit), studiousness (Lerneifer), on purpose (mit Fleiß), application (Einsatz)"
+      ],
+      "definition": [
+        "Arbeitsame Zielstrebigkeit."
+      ],
+      "beschreibung": [
+        "Ein willentlich strebsames und unermüdliches Arbeiten sowie die beharrliche bzw. intensive Beschäftigung mit einer Sache.",
+        "Fleiß beschreibt dabei hauptsächlich den Tatbestand, dass ein Individuum überdurchschnittlich motiviert, strebsam und fokussiert handelt.",
+        "Fleiß ist einer der sogenannten „Preußischen Tugenden“ (siehe auch im Kapitel „Werte-Kategorien“ im Abschnitt „Kulturelle Wertesysteme“) und ist in der heutigen Zeit deswegen nicht immer beliebt.",
+        "So kann ein gewünschter Erfolg alleine durch Fleiß erreicht werden und andere hochgeschätzte Fähigkeiten – wie „Talent“, „Intelligenz“ oder „Wissen“ – in den Schatten stellen.",
+        "Das Gegenteil von Fleiß ist „Faulheit“."
       ]
     },
     {
@@ -446,6 +582,23 @@
         "In Zeiten der schnellen Veränderungen innerhalb der Gesellschaft (Globalisierung, Verkürzung der Halbwertszeiten [Innovationszyklen] von Technologien, etc.) ist es notwendig, ein bestimmtes Mindestmaß an Flexibilität zu besitzen oder diese herzustellen. Dies beeinflusst die Überlebensfähigkeit erheblich.",
         "Variante: Anpassungsfähigkeit",
         "Anpassungsfähigkeit (selbstbestimmte Flexibilität) wird fachspezifisch auch als “Adaptivität” oder “Adaptabilität” bezeichnet. Diese Begriffe beschreiben die Fähigkeit eines Lebewesens, einer Gruppe oder einer Gesellschaft, sich selbstorganisatorisch so zu verändern, dass man sich an (gewandelte) äußeren Umstände anpassen kann. Der Zweck ist, sich auf veränderte Wechselwirkungen einzustellen und innerhalb von kollektiven Systemen weiterhin agieren, funktionieren bzw. überleben zu können."
+      ]
+    },
+    {
+      "name": "Fokus",
+      "synonyme": [
+        "Konzentration, Ausrichtung, Schwerpunkt, Aufmerksamkeit, Zielgerichtetheit, Sammlung",
+        "Gegenteil: Ablenkung, Verzettelung",
+        "Englisch: focus, concentration"
+      ],
+      "definition": [
+        "Bündelung von Aufmerksamkeit und Energie auf das Wesentliche"
+      ],
+      "beschreibung": [
+        "Fokus bedeutet, sich auf wenige wichtige Dinge zu konzentrieren und Ablenkungen bewusst auszublenden.",
+        "Menschen, denen Fokus wichtig ist, setzen klare Prioritäten, sagen auch einmal Nein und arbeiten lieber an einer Sache gründlich als an vielen gleichzeitig.",
+        "Fokus ist sowohl eine Fähigkeit im Moment, etwa konzentriertes Arbeiten, als auch eine strategische Haltung, nämlich die Entscheidung, was man nicht tut.",
+        "In einer Arbeitswelt mit vielen gleichzeitigen Anforderungen gilt Fokus als wichtige Voraussetzung für Qualität und Wirksamkeit."
       ]
     },
     {
@@ -488,6 +641,23 @@
         "Bei bestehenden Freundschaften ist freundliches Verhalten – neben Ehrlichkeit, Offenheit und grundsätzlicher Zuneigung – ein obligatorisches Verhalten, um somit diese Freundschaft zu pflegen. Dennoch schließt Freundlichkeit nicht aus, mit der genannten Offenheit kontroverse Positionen zu diskutieren.",
         "In oberflächlichen Kommunikationskulturen wird das „Instrument“ Freundlichkeit gefordert, um „Zugeneigtheit“ und Interesse zu simulieren. Meist findet das bei Organisationen bzw. deren Abteilungen statt, welche z. B. Kundenkontakt haben; aber auch bei Führungskräften, die mit einer freundlichen Tonalität ihre Wirksamkeit in Bezug auf Motivation verstärken wollen. Wenn diese Form der Freundlichkeit nicht authentischen Ursprungs ist, bewirkt sie meist das Gegenteil, in dem bei den Kommunikationspartnern unbewusst und/oder bewusst Argwohn erzeugt wird.",
         "Freundlichkeit wird oft mit Höflichkeit verwechselt."
+      ]
+    },
+    {
+      "name": "Freundschaft",
+      "synonyme": [
+        "Kameradschaft, Verbundenheit, Vertrautheit, Zusammenhalt, Zuneigung, Nähe",
+        "Personen: Freunde, Vertraute, Weggefährten",
+        "Englisch: friendship"
+      ],
+      "definition": [
+        "Auf gegenseitiger Zuneigung und Vertrauen beruhende Beziehung zwischen Menschen"
+      ],
+      "beschreibung": [
+        "Freundschaft als Wert bedeutet, enge Beziehungen zu pflegen, die auf Freiwilligkeit, Vertrauen und gegenseitiger Unterstützung beruhen.",
+        "Menschen, denen Freundschaft wichtig ist, investieren Zeit in ihre Beziehungen und sind für andere da, auch wenn es unbequem ist.",
+        "Freundschaften können auch am Arbeitsplatz entstehen und dort Zusammenhalt und Wohlbefinden stärken, sie können aber auch in Konflikt mit beruflichen Rollen geraten.",
+        "Anders als familiäre Beziehungen werden Freundschaften frei gewählt und müssen aktiv gepflegt werden, um zu bestehen."
       ]
     },
     {
@@ -605,21 +775,37 @@
       ]
     },
     {
-      "name": "Güte",
+      "name": "Glaubwürdigkeit",
       "synonyme": [
-        "Gutherzigkeit, Gutmütigkeit, Herzlichkeit, Liebenswürdigkeit, Milde, Nachsicht, Sanftmut, Freundlichkeit, Entgegenkommen, Selbstlosigkeit, Wärme, Warmherzigkeit, Wohlwollen",
-        "Steigerung (spezifisch): Barmherzigkeit, Gnade (religiös)",
-        "Technisch: Beschaffenheit, Güteklasse, Qualität, Bonität (land- und forstwirtschaftlich)",
-        "Englisch: goodness, benevolence, kindness (Freundlichkeit), graciousness (Liebenswürdigkeit), gentleness (Freundlichkeit, Sanftmut)"
+        "Vertrauenswürdigkeit, Zuverlässigkeit, Redlichkeit, Seriosität, Überzeugungskraft, Authentizität",
+        "Ähnlich: Integrität, Ehrlichkeit",
+        "Englisch: credibility, trustworthiness"
       ],
       "definition": [
-        "Freundliche, wohlwollende und hilfreiche Einstellung mit nachsichtiger oder verzeihender Gesinnung"
+        "Eigenschaft, dass anderen die eigenen Aussagen und Zusagen als zutreffend und ernst gemeint gelten"
       ],
       "beschreibung": [
-        "Als Güte oder Gütigkeit bezeichnet man die meist grundlegende Haltung einer Person gegenüber anderen freundlich, zuvorkommend und nachsichtig zu sein.",
-        "Der Begriff Güte bezeichnet ein qualitatives Attribut im Sinne von Nächstenliebe und Menschlichkeit. Er wird zumeist im historisch spirituellen Kontext verwendet und besagt hier, dass ein Mensch grundsätzlich „Gutes“ tun und „Gnade“ zeigen soll.",
-        "Gleichermaßen wird der Begriff auch dazu verwendet, um sich selbst an etwas „gütlich zu tun“ = sich etwas reichlich gönnen.",
-        "Daneben beschreibt der Begriff auch die qualitative Beschaffenheit eines Produktes bzw. Objektes."
+        "Glaubwürdigkeit entsteht, wenn Worte und Taten über längere Zeit übereinstimmen und man das hält, was man ankündigt.",
+        "Im Unterschied zur Ehrlichkeit, die eine Haltung beschreibt, ist Glaubwürdigkeit die Wirkung dieser Haltung auf andere: Sie wird einem zugeschrieben.",
+        "Für Führungskräfte und alle, die andere überzeugen wollen, ist Glaubwürdigkeit eine zentrale Grundlage, weil ohne sie keine Botschaft ankommt.",
+        "Glaubwürdigkeit wird langsam aufgebaut und kann durch einen einzigen Widerspruch schnell verloren gehen."
+      ]
+    },
+    {
+      "name": "Gleichberechtigung",
+      "synonyme": [
+        "Gleichstellung, Gleichbehandlung, Chancengleichheit, Ebenbürtigkeit, Gleichwertigkeit",
+        "Ähnlich: Gerechtigkeit, Fairness, Vielfalt",
+        "Englisch: equality, equal rights"
+      ],
+      "definition": [
+        "Gleiche Rechte und Chancen für alle Menschen unabhängig von Geschlecht, Herkunft oder anderen Merkmalen"
+      ],
+      "beschreibung": [
+        "Gleichberechtigung bedeutet, dass alle Menschen die gleichen Rechte und Möglichkeiten haben und niemand aufgrund persönlicher Merkmale benachteiligt wird.",
+        "Im Arbeitsleben zeigt sich Gleichberechtigung etwa bei gleicher Bezahlung, fairen Aufstiegschancen und gleichem Gehör in Besprechungen.",
+        "Menschen, denen Gleichberechtigung wichtig ist, achten auf strukturelle Benachteiligungen und setzen sich auch dann für andere ein, wenn sie selbst nicht betroffen sind.",
+        "Während Gerechtigkeit allgemein nach dem angemessenen Ausgleich fragt, betont Gleichberechtigung die grundsätzliche Gleichwertigkeit aller Menschen."
       ]
     },
     {
@@ -640,6 +826,24 @@
         "Großzügigkeit ist die Bereitschaft, uneigennützig, anderen aus freiem Willen und meist mit positiver Absicht unübliche materielle oder immaterielle Zuwendungen zu offerieren.",
         "Dies kann bedeuten, dass eine großzügige Person gerne teilt oder anderen eine Freude bereitet. Weiterhin kann man Großzügigkeit damit ausdrücken, in dem man Hilfe leistet, ohne hierfür eine Erkenntlichkeit zu verlangen.",
         "Ebenso beschreibt der Begriff Großzügigkeit das Anerkennen, Wertschätzen, Ausleben und/oder Proklamieren von größeren als gewöhnlichen Dimensionen in den Bereichen Raumplanung, Raumausgestaltung, Objektgestaltung, Mittelverwendung etc."
+      ]
+    },
+    {
+      "name": "Güte",
+      "synonyme": [
+        "Gutherzigkeit, Gutmütigkeit, Herzlichkeit, Liebenswürdigkeit, Milde, Nachsicht, Sanftmut, Freundlichkeit, Entgegenkommen, Selbstlosigkeit, Wärme, Warmherzigkeit, Wohlwollen",
+        "Steigerung (spezifisch): Barmherzigkeit, Gnade (religiös)",
+        "Technisch: Beschaffenheit, Güteklasse, Qualität, Bonität (land- und forstwirtschaftlich)",
+        "Englisch: goodness, benevolence, kindness (Freundlichkeit), graciousness (Liebenswürdigkeit), gentleness (Freundlichkeit, Sanftmut)"
+      ],
+      "definition": [
+        "Freundliche, wohlwollende und hilfreiche Einstellung mit nachsichtiger oder verzeihender Gesinnung"
+      ],
+      "beschreibung": [
+        "Als Güte oder Gütigkeit bezeichnet man die meist grundlegende Haltung einer Person gegenüber anderen freundlich, zuvorkommend und nachsichtig zu sein.",
+        "Der Begriff Güte bezeichnet ein qualitatives Attribut im Sinne von Nächstenliebe und Menschlichkeit. Er wird zumeist im historisch spirituellen Kontext verwendet und besagt hier, dass ein Mensch grundsätzlich „Gutes“ tun und „Gnade“ zeigen soll.",
+        "Gleichermaßen wird der Begriff auch dazu verwendet, um sich selbst an etwas „gütlich zu tun“ = sich etwas reichlich gönnen.",
+        "Daneben beschreibt der Begriff auch die qualitative Beschaffenheit eines Produktes bzw. Objektes."
       ]
     },
     {
@@ -678,24 +882,6 @@
       ]
     },
     {
-      "name": "Humor",
-      "synonyme": [
-        "Heiterkeit, Lachen, Lebensfreude, Freude, Fröhlichkeit, Frohsinn, fröhliche Laune",
-        "Englisch: humour (Komik), humor (Gemütsverfassung)"
-      ],
-      "definition": [
-        "Gelassene Heiterkeit, die befähigt, eigene und fremde Schwäche (aber auch Stärken) mit Frohsinn anzunehmen und den Mut zu bewahren."
-      ],
-      "beschreibung": [
-        "Humor ist eine Charaktereigenschaft, die den lustigen und den heiteren Aspekt einer Person beschreibt.",
-        "Personen, die Humor haben und somit humorvoll sind, pflegen die Eigenschaft, Spaß zu verstehen oder lustige Dinge zu sagen und somit andere Menschen zum Lachen zu bringen.",
-        "Humor ist ein Ausdruck der Fröhlichkeit und kann mit verschiedenen Auffassungen betrachtet werden.",
-        "Humor ist eine durchaus bodenständige Betrachtung und Verarbeitung von harten Tatsachen, um diese aufzulockern.",
-        "Dass Humor gesund und heilsam ist – wie es zahlreiche Experten und auch Ergebnisberichte behaupten, liegt wohl daran, dass mit dieser Form der Interpretation von Sachverhalten, Anstrengung und Festigkeit in Lockerheit und Gelassenheit verwandelt werden können.",
-        "Die Art und Ausdrucksweise des Humors hängt von kulturellen Aspekten und den jeweils unterschiedlichen Wertesystemen ab. Jedoch ist festzustellen, dass gerade der Humor in unterschiedlichen Kulturen doch relativ ähnliche oder gar gleiche Merkmale aufweist und deswegen verbindend wirken kann."
-      ]
-    },
-    {
       "name": "Höflichkeit",
       "synonyme": [
         "Anstand, Aufmerksamkeit, eine gute Kinderstube, Entgegenkommen, Feinheit, Freundlichkeit, gute Manieren, gute Sitten, gutes Benehmen, gute Umgangsformen, Liebenswürdigkeit, Ritterlichkeit, Rücksichtnahme, Schliff, Taktgefühl, Umgänglichkeit, Verbindlichkeit, Vornehmheit, Zartgefühl, Zuvorkommenheit, Wohlerzogenheit",
@@ -715,6 +901,24 @@
         "So haben verschiedene Kulturen unterschiedliche Vorstellungen von gutem Benehmen bzgl. der jeweiligen Definition von Höflichkeit.",
         "Deshalb ist der Begriff nicht allgemein gültig zu beschreiben, da die Wahrnehmung, was sich “schickt”, abhängig von der jeweiligen subkulturellen Vorstellungen und der entsprechend vorherrschenden Erziehung ist.",
         "Im Kulturkreis Deutschland ist der sog. Knigge (Buch: Über den Umgang mit Menschen) bekannt, der aufklärerisch bestimmte zwischenmenschlichen Werte und Gepflogenheiten propagierte und dadurch (vermutlich unbeabsichtigt) die für uns teils heute noch üblichen “Benimmregeln” mit geprägt hat. Diese “Regeln des guten Benehmens im Umgang mit anderen Menschen” gelten in manchen Kulturkreisen als zum Teil falsch, unwichtig, bewundernswert und/oder befremdlich."
+      ]
+    },
+    {
+      "name": "Humor",
+      "synonyme": [
+        "Heiterkeit, Lachen, Lebensfreude, Freude, Fröhlichkeit, Frohsinn, fröhliche Laune",
+        "Englisch: humour (Komik), humor (Gemütsverfassung)"
+      ],
+      "definition": [
+        "Gelassene Heiterkeit, die befähigt, eigene und fremde Schwäche (aber auch Stärken) mit Frohsinn anzunehmen und den Mut zu bewahren."
+      ],
+      "beschreibung": [
+        "Humor ist eine Charaktereigenschaft, die den lustigen und den heiteren Aspekt einer Person beschreibt.",
+        "Personen, die Humor haben und somit humorvoll sind, pflegen die Eigenschaft, Spaß zu verstehen oder lustige Dinge zu sagen und somit andere Menschen zum Lachen zu bringen.",
+        "Humor ist ein Ausdruck der Fröhlichkeit und kann mit verschiedenen Auffassungen betrachtet werden.",
+        "Humor ist eine durchaus bodenständige Betrachtung und Verarbeitung von harten Tatsachen, um diese aufzulockern.",
+        "Dass Humor gesund und heilsam ist – wie es zahlreiche Experten und auch Ergebnisberichte behaupten, liegt wohl daran, dass mit dieser Form der Interpretation von Sachverhalten, Anstrengung und Festigkeit in Lockerheit und Gelassenheit verwandelt werden können.",
+        "Die Art und Ausdrucksweise des Humors hängt von kulturellen Aspekten und den jeweils unterschiedlichen Wertesystemen ab. Jedoch ist festzustellen, dass gerade der Humor in unterschiedlichen Kulturen doch relativ ähnliche oder gar gleiche Merkmale aufweist und deswegen verbindend wirken kann."
       ]
     },
     {
@@ -795,6 +999,23 @@
       ]
     },
     {
+      "name": "Inspiration",
+      "synonyme": [
+        "Anregung, Eingebung, Impuls, Einfall, Idee, Begeisterung, Beflügelung",
+        "Ähnlich: Kreativität, Motivation",
+        "Englisch: inspiration"
+      ],
+      "definition": [
+        "Anregung zu neuen Gedanken, Ideen oder Taten"
+      ],
+      "beschreibung": [
+        "Inspiration bedeutet, durch Menschen, Ideen oder Erlebnisse innerlich bewegt und zu Neuem angeregt zu werden.",
+        "Menschen, denen Inspiration wichtig ist, suchen bewusst nach neuen Eindrücken, etwa durch Austausch, Reisen, Lektüre oder Kunst.",
+        "Inspiration kann man empfangen, aber auch geben: Wer andere inspiriert, weckt in ihnen Begeisterung und neue Möglichkeiten.",
+        "Ein inspirierendes Umfeld gilt als wichtige Quelle für Kreativität, Motivation und Innovation."
+      ]
+    },
+    {
       "name": "Integrität",
       "synonyme": [
         "Redlichkeit, Ehrenhaftigkeit, Rechtschaffenheit, Aufrichtigkeit, Unbestechlichkeit, Echtheit, Vertrauenswürdigkeit, Anständigkeit, Ehrlichkeit",
@@ -864,6 +1085,40 @@
       ]
     },
     {
+      "name": "Kommunikation",
+      "synonyme": [
+        "Austausch, Verständigung, Dialog, Gespräch, Mitteilung, Information, Offenheit",
+        "Ähnlich: Transparenz, Klarheit",
+        "Englisch: communication"
+      ],
+      "definition": [
+        "Offener und regelmäßiger Austausch von Informationen, Gedanken und Gefühlen"
+      ],
+      "beschreibung": [
+        "Kommunikation als Wert bedeutet, Dinge anzusprechen, andere auf dem Laufenden zu halten und echtes Verständnis füreinander herzustellen.",
+        "Menschen, denen Kommunikation wichtig ist, legen Wert auf Gespräche, in denen zugehört wird, und auf Informationen, die rechtzeitig und verständlich ankommen.",
+        "Gute Kommunikation umfasst nicht nur das Senden, sondern auch das Zuhören und das Nachfragen, wenn etwas unklar ist.",
+        "Viele Konflikte in Teams und Organisationen entstehen weniger aus unterschiedlichen Interessen als aus Missverständnissen und fehlendem Austausch."
+      ]
+    },
+    {
+      "name": "Kompetenz",
+      "synonyme": [
+        "Fachwissen, Expertise, Können, Sachverstand, Fähigkeit, Befähigung, Qualifikation, Professionalität",
+        "Zuständigkeit: Befugnis, Verantwortungsbereich",
+        "Englisch: competence, expertise"
+      ],
+      "definition": [
+        "Fähigkeit, Aufgaben auf Grundlage von Wissen und Erfahrung sachkundig zu bewältigen"
+      ],
+      "beschreibung": [
+        "Kompetenz bedeutet, etwas wirklich gut zu können und sich in einem Fachgebiet sicher zu bewegen.",
+        "Menschen, denen Kompetenz wichtig ist, wollen verstehen, was sie tun, und investieren in ihr Wissen und ihre Fähigkeiten.",
+        "Sie schätzen es, wenn Entscheidungen auf Sachverstand beruhen, und arbeiten gern mit Menschen zusammen, die ihr Handwerk beherrschen.",
+        "Die Selbstbestimmungstheorie der Motivation zählt das Erleben eigener Kompetenz zu den psychologischen Grundbedürfnissen."
+      ]
+    },
+    {
       "name": "Konsequenz",
       "synonyme": [
         "Beharrung: beständig, beharrlich, zielstrebig, streng, planmäßig, stetig, fest, standhaft, zäh, unbeirrt, systematisch, eisern, entschlossen, energisch, resolut, willensstark, charakterfest, ausdauernd, hartnäckig, geradlinig, unerschütterlich",
@@ -882,19 +1137,20 @@
       ]
     },
     {
-      "name": "Tradition",
+      "name": "Kontrolle",
       "synonyme": [
-        "Bewahrend, traditionell, festgelegt, streng",
-        "Negativ: Altmodisch, fortschrittsfeindlich, rückschrittlich, rückständig, rückwärts gerichtet, rückwärtsgewandt, unzeitgemäß, gestrig, unmodern, illiberal, reaktionär, festgelegt, streng, verklemmt",
-        "Englisch: conservative, old-line, tory (politisch), conservatively (vorsichtig), tweedy (tweedartig)"
+        "Überblick, Beherrschung, Steuerung, Lenkung, Aufsicht, Absicherung, Planbarkeit",
+        "Selbstkontrolle: Selbstbeherrschung, Disziplin",
+        "Englisch: control"
       ],
       "definition": [
-        "Bewahrung von früheren gesellschaftlichen Tugenden."
+        "Bedürfnis, Abläufe, Ergebnisse und Risiken selbst zu überblicken und zu steuern"
       ],
       "beschreibung": [
-        "Konservativ – oder besser gesagt: „Konservativismus“ – beschreibt eine politische oder gesellschaftlich kulturelle Geisteshaltung, die danach strebt, alte, traditionelle und bekannte Kenntnisse und entsprechende Rituale zu bewahren.",
-        "Diese Einstellung besitzt man nicht sporadisch, sondern als langlebige Leitlinie für die eigenen Moralvorstellungen, Grundprinzipien, Denk- und Verhaltensmuster.",
-        "Der Begriff „konservativ“ bezeichnet die Denkweise eines Individuums oder einer Personengruppe. Dies geschieht meist in politischen Zusammenhang, man kann aber auch eine politisch unabhängige Person, zum Beispiel einen streng gläubigen oder altmodischen Menschen als konservativ bezeichnen."
+        "Kontrolle bedeutet, den Überblick über das eigene Umfeld zu behalten und Entwicklungen aktiv steuern zu können, statt ihnen ausgeliefert zu sein.",
+        "Menschen, denen Kontrolle wichtig ist, planen sorgfältig, prüfen Ergebnisse und fühlen sich unwohl, wenn wichtige Dinge dem Zufall überlassen werden.",
+        "Kontrolle gibt Sicherheit und hilft, Fehler früh zu erkennen, kann aber in Konflikt mit dem Vertrauen in andere und deren Autonomie geraten.",
+        "Ein gesundes Maß an Kontrolle schließt die Einsicht ein, dass nicht alles beeinflussbar ist."
       ]
     },
     {
@@ -952,6 +1208,91 @@
       ],
       "beschreibung": [
         "Die Leidenschaft beschreibt eine emotionale, in verschiedenen Formen und Ausmaßen auftretende Zuneigung, welche zum Beispiel die Intention für Sammler, Anhänger eines Sportvereins oder ein gewöhnliches Hobby sein kann.Für uns ist die Leidenschaft ein oftmals nicht begreifbarer Antrieb, der uns dazu bringt, gewisse Dinge zu wollen oder zu tun.In den meisten Fällen ist Leidenschaft etwas positives, woraus sich schlussfolgern lässt, dass sie uns partiell oder auch gänzlich zu ergebnisbringenden Handlungen führt.Leidenschaft kann auch zum Verhängnis werden und bei Nichterreichen oder Scheitern des leidenschaftlichen Strebens negativ stimmen. So zum Beispiel, wenn eine leidenschaftliche Liebe nicht erwidert wird."
+      ]
+    },
+    {
+      "name": "Leistung",
+      "synonyme": [
+        "Arbeit, Einsatz, Produktivität, Leistungsfähigkeit, Tüchtigkeit, Ergebnis, Errungenschaft",
+        "Ähnlich: Fleiß, Ehrgeiz, Erfolg",
+        "Englisch: performance, achievement"
+      ],
+      "definition": [
+        "Anspruch, gute Ergebnisse zu erbringen und die eigenen Fähigkeiten voll einzusetzen"
+      ],
+      "beschreibung": [
+        "Leistung als Wert bedeutet, hohe Ansprüche an die eigene Arbeit zu stellen und Ergebnisse zu liefern, auf die man stolz sein kann.",
+        "Menschen, denen Leistung wichtig ist, messen sich gern an Zielen und Maßstäben und schätzen ein Umfeld, in dem gute Arbeit erkannt und belohnt wird.",
+        "Während Fleiß den Einsatz beschreibt, richtet sich Leistung stärker auf das Ergebnis dieses Einsatzes.",
+        "Ein starker Leistungsanspruch kann antreiben, aber auch zu Überlastung führen, wenn Erholung und andere Lebensbereiche dahinter zurücktreten."
+      ]
+    },
+    {
+      "name": "Loyalität",
+      "synonyme": [
+        "Treue, Ergebenheit, Verbundenheit, Zugehörigkeit, Solidarität, Rückhalt, Verlässlichkeit",
+        "Ähnlich: Pflichtgefühl, Anhänglichkeit",
+        "Englisch: loyalty"
+      ],
+      "definition": [
+        "Innere Verbundenheit und Zuverlässigkeit gegenüber einer Person, Gruppe oder Organisation"
+      ],
+      "beschreibung": [
+        "Loyalität bedeutet, zu Menschen, einem Team oder einem Unternehmen zu stehen, auch wenn es schwierig wird oder andere Optionen verlockender erscheinen.",
+        "Loyale Menschen vertreten die Interessen derer, denen sie sich verbunden fühlen, und tragen gemeinsame Entscheidungen nach außen mit, auch wenn sie intern anderer Meinung waren.",
+        "Im Unterschied zur Treue, die oft in persönlichen Beziehungen gemeint ist, wird Loyalität häufig im Arbeitsleben gegenüber Vorgesetzten, Kolleginnen und Kollegen oder dem Arbeitgeber verwendet.",
+        "Loyalität kann in Konflikt mit Ehrlichkeit oder Gerechtigkeit geraten, etwa wenn es darum geht, Fehlverhalten in der eigenen Gruppe anzusprechen."
+      ]
+    },
+    {
+      "name": "Macht",
+      "synonyme": [
+        "Einfluss, Autorität, Stärke, Herrschaft, Kontrolle, Durchsetzungsvermögen, Befugnis, Führung",
+        "Abgeschwächt: Gewicht, Geltung",
+        "Englisch: power, authority"
+      ],
+      "definition": [
+        "Fähigkeit, eigene Vorstellungen auch gegen Widerstände durchzusetzen"
+      ],
+      "beschreibung": [
+        "Macht bedeutet, über Ressourcen, Entscheidungen oder Menschen bestimmen zu können und die Richtung vorzugeben.",
+        "Menschen, denen Macht wichtig ist, streben nach Positionen, in denen sie gestalten und Verantwortung übernehmen können, und scheuen sich nicht, Entscheidungen durchzusetzen.",
+        "Macht kann auf formaler Stellung, Fachwissen, Beziehungen oder Ressourcen beruhen.",
+        "Macht ist an sich weder gut noch schlecht: Sie ermöglicht es, viel zu bewegen, birgt aber die Gefahr des Missbrauchs, wenn sie nicht an Verantwortung und Werte gebunden ist."
+      ]
+    },
+    {
+      "name": "Menschlichkeit",
+      "synonyme": [
+        "Humanität, Mitmenschlichkeit, Nächstenliebe, Barmherzigkeit, Güte, Warmherzigkeit, Herzlichkeit, Mitgefühl",
+        "Englisch: humanity, humaneness"
+      ],
+      "definition": [
+        "Haltung, andere Menschen in ihrer Würde und mit ihren Bedürfnissen und Schwächen ernst zu nehmen"
+      ],
+      "beschreibung": [
+        "Menschlichkeit bedeutet, im Umgang mit anderen den Menschen hinter der Rolle, der Funktion oder der Leistung zu sehen.",
+        "Menschen, denen Menschlichkeit wichtig ist, behandeln andere mit Wärme und Verständnis, gerade in schwierigen Situationen wie Konflikten, Krisen oder Fehlern.",
+        "Im Arbeitsleben zeigt sich Menschlichkeit etwa darin, persönliche Umstände zu berücksichtigen und Entscheidungen nicht nur nach Zahlen zu treffen.",
+        "Menschlichkeit kann in Spannung zu Effizienz oder Leistungsdruck geraten, wenn Rücksicht Zeit und Ressourcen kostet."
+      ]
+    },
+    {
+      "name": "Mut",
+      "synonyme": [
+        "Furchtlosigkeit, Mumm, Waghalsigkeit, Forschheit, Kühnheit, Beherztheit, Optimismus",
+        "Steigerung: Wagemut, mutwillig",
+        "Ähnlich: Sanftmut, Unerschrockenheit",
+        "Negativierung: Hochmut (heutige Verwendung: Arroganz)",
+        "Fremdwörter: Courage",
+        "Englisch: courage, grit (Mumm), mettle (Eifer), guts (Schneid), bravery (Tapferkeit, Wagemut), valour / valor (Heldenmut), audacity (Kühnheit)"
+      ],
+      "definition": [],
+      "beschreibung": [
+        "Mit Mut bezeichnet man einen Zustand, in welchem man sich bestimmten Dingen oder Situationen bedingt hingibt, die besonders unangenehm und/oder gefährlich sind.",
+        "Mut kann eine Charaktereigenschaft sein oder werden z. B. mit dem Motiv, sich gegen Widerstände und/oder Gefahren einzusetzen (konfrontieren), insbesondere für eine lohnenswerte oder richtige Sache (übereinstimmende Werte und/oder ein gegebenes Versprechen).",
+        "Mut erfordert eine bestimmte Menge an Entschlusskraft, um etwas Unangenehmes oder Gefahrvolles zu tun oder auch zu verweigern. Nachteile oder Verluste (zumeist eigene) werden dabei in Kauf genommen.",
+        "Die Begriffe Mut und Angst können oberflächlich als Gegensätze betrachtet werden, sind aber als psychologisches „Gemütskonzept“ zu verstehen – quasi als zwei Seiten einer Medaille. So ist „angstfreier Mut“ in einigen Lebenslagen sehr gefährlich, und „mutfreie Angst“ kann Depressionen oder ähnliches verursachen – bis hin zur „Angst vor der Angst“ (Teufelskreis). So sollte Mut stets auch mit einer bestimmten Angst einhergehen, die in diesem Spannungsbogen als Verantwortungsbewusstsein, Respekt oder kalkuliertes Abwägen bezeichnet werden kann."
       ]
     },
     {
@@ -1035,24 +1376,6 @@
       ],
       "beschreibung": [
         "Offenheit kann die Kommunikation im Allgemeinen fördern, da das Gegenüber ein Interesse der offenen Person wahrnimmt.Verbunden mit Aufmerksamkeit ist Offenheit eine wichtige Persönlichkeitseigenschaft für die ständige persönliche Weiterentwicklung. Menschen mit ausgeprägter Offenheit sind meist einfallsreich, erfinderisch, phantasievoll, offen für neue Ideen, interessiert an Kunst – sie besitzen Vorliebe für Abwechslung (statt Routine), Neigung zu neuen Aktivitäten, neuen Zielen. Sie sind aufmerksam für eigene und fremde Emotionen sowie bereit, traditionelle Werte in Frage zu stellen.Menschen mit wenig Offenheit sind meist traditionsbewusst, konservativ, konventionell, routiniert, uninteressiert."
-      ]
-    },
-    {
-      "name": "Mut",
-      "synonyme": [
-        "Furchtlosigkeit, Mumm, Waghalsigkeit, Forschheit, Kühnheit, Beherztheit, Optimismus",
-        "Steigerung: Wagemut, mutwillig",
-        "Ähnlich: Sanftmut, Unerschrockenheit",
-        "Negativierung: Hochmut (heutige Verwendung: Arroganz)",
-        "Fremdwörter: Courage",
-        "Englisch: courage, grit (Mumm), mettle (Eifer), guts (Schneid), bravery (Tapferkeit, Wagemut), valour / valor (Heldenmut), audacity (Kühnheit)"
-      ],
-      "definition": [],
-      "beschreibung": [
-        "Mit Mut bezeichnet man einen Zustand, in welchem man sich bestimmten Dingen oder Situationen bedingt hingibt, die besonders unangenehm und/oder gefährlich sind.",
-        "Mut kann eine Charaktereigenschaft sein oder werden z. B. mit dem Motiv, sich gegen Widerstände und/oder Gefahren einzusetzen (konfrontieren), insbesondere für eine lohnenswerte oder richtige Sache (übereinstimmende Werte und/oder ein gegebenes Versprechen).",
-        "Mut erfordert eine bestimmte Menge an Entschlusskraft, um etwas Unangenehmes oder Gefahrvolles zu tun oder auch zu verweigern. Nachteile oder Verluste (zumeist eigene) werden dabei in Kauf genommen.",
-        "Die Begriffe Mut und Angst können oberflächlich als Gegensätze betrachtet werden, sind aber als psychologisches „Gemütskonzept“ zu verstehen – quasi als zwei Seiten einer Medaille. So ist „angstfreier Mut“ in einigen Lebenslagen sehr gefährlich, und „mutfreie Angst“ kann Depressionen oder ähnliches verursachen – bis hin zur „Angst vor der Angst“ (Teufelskreis). So sollte Mut stets auch mit einer bestimmten Angst einhergehen, die in diesem Spannungsbogen als Verantwortungsbewusstsein, Respekt oder kalkuliertes Abwägen bezeichnet werden kann."
       ]
     },
     {
@@ -1157,6 +1480,27 @@
       ]
     },
     {
+      "name": "Professionalität",
+      "synonyme": [
+        "Fachmännigkeit, Fachkundigkeit, Befähigung, Profihaftigkeit, Beruf, Meisterschaft",
+        "Adjektiv “professionell”: berufsmäßig, befähigt, qualifiziert, sachverständig, fachgerecht, fähig, fachkundig, meisterhaft, gelehrt, gebildet",
+        "Ähnlich: fehlerfrei, erfahren, gewandt, sattelfest, routiniert, geschickt",
+        "Englisch: professionalism"
+      ],
+      "definition": [
+        "Präzise, konsequente, standesgemäße Haltung und Ausführung, um einem sehr hochwertigen (auch berufsmäßigen) Standard gerecht zu werden."
+      ],
+      "beschreibung": [
+        "Professionalität ist das seriöse und erwartungsgerechte Agieren in fach- und sachkundiger Manier und beinhaltet (in unterschiedlichen Ausprägungen) folgende Aspekte/Merkmale:",
+        "die Geisteshaltung (rollenspezifische Einstellung), das bestmögliche Ergebnis abliefern zu wollenalles notwendige Wissen, um die angestrebten Ziele meisterlich zu erreichenausreichende Fertigkeiten und Kompetenzen, um die gewünschten Ergebnisse zu erhaltenein bestimmtes Maß an Reputation und/oder Qualifizierung sowie vereinzelt auch eine Berechtigung (Zertifikat)ein hohes Bewusstsein für Wertschöpfung im jeweiligen Fachbereich (Fachdisziplin)",
+        "Insgesamt dient Professionalität dazu, einem allgemein hohen Standard gerecht zu werden, der von allen Anspruchsgruppen erwartet wird.",
+        "Ein Mensch, der nachweislich professionell ist und alle Erwartungen erfüllt oder übertrifft, wird im allgemeinen Sprachgebrauch “Profi” genannt, eine Abkürzung aus dem englischen Wort “Professionell”.",
+        "Professionalität wird durch bestimmte Charaktereigenschaften und Wertvorstellungen hergestellt – so z. B. Verlässlichkeit, Redlichkeit, Zielstrebigkeit, Loyalität, Integrität und/oder Pflichtgefühl.",
+        "Das zugesprochene Attribut „professionell“ gilt auch als Kompliment (Lob, Wertschätzung) für eine entsprechende Haltung oder ein Handeln, welche(s) sich an besonders hohe Maßstäben messen kann.",
+        "Ebenso wird das Adjektiv “professionell” dazu verwendet, um einem Produkt bestimmte Attribute von Professionalität (berufsmäßige Verwendung) zu verleihen; z. B. professionelle Maschine (Profi-Gerät, Profi-Ausführung), professionelle Software (Profi-Version) etc."
+      ]
+    },
+    {
       "name": "Pünktlichkeit",
       "synonyme": [
         "Timing (englisch), (zeitliche) Präzision, (zeitliche) Verlässlichkeit, Rechtzeitigkeit, zeitgenau, zeitig, beizeiten, fristgemäß, termingemäß, termingerecht",
@@ -1176,24 +1520,20 @@
       ]
     },
     {
-      "name": "Professionalität",
+      "name": "Qualität",
       "synonyme": [
-        "Fachmännigkeit, Fachkundigkeit, Befähigung, Profihaftigkeit, Beruf, Meisterschaft",
-        "Adjektiv “professionell”: berufsmäßig, befähigt, qualifiziert, sachverständig, fachgerecht, fähig, fachkundig, meisterhaft, gelehrt, gebildet",
-        "Ähnlich: fehlerfrei, erfahren, gewandt, sattelfest, routiniert, geschickt",
-        "Englisch: professionalism"
+        "Güte, Wertigkeit, Hochwertigkeit, Exzellenz, Gediegenheit, Sorgfalt, Perfektion",
+        "Ähnlich: Professionalität, Präzision",
+        "Englisch: quality, excellence"
       ],
       "definition": [
-        "Präzise, konsequente, standesgemäße Haltung und Ausführung, um einem sehr hochwertigen (auch berufsmäßigen) Standard gerecht zu werden."
+        "Anspruch, Arbeit und Ergebnisse auf hohem Niveau zu erbringen"
       ],
       "beschreibung": [
-        "Professionalität ist das seriöse und erwartungsgerechte Agieren in fach- und sachkundiger Manier und beinhaltet (in unterschiedlichen Ausprägungen) folgende Aspekte/Merkmale:",
-        "die Geisteshaltung (rollenspezifische Einstellung), das bestmögliche Ergebnis abliefern zu wollenalles notwendige Wissen, um die angestrebten Ziele meisterlich zu erreichenausreichende Fertigkeiten und Kompetenzen, um die gewünschten Ergebnisse zu erhaltenein bestimmtes Maß an Reputation und/oder Qualifizierung sowie vereinzelt auch eine Berechtigung (Zertifikat)ein hohes Bewusstsein für Wertschöpfung im jeweiligen Fachbereich (Fachdisziplin)",
-        "Insgesamt dient Professionalität dazu, einem allgemein hohen Standard gerecht zu werden, der von allen Anspruchsgruppen erwartet wird.",
-        "Ein Mensch, der nachweislich professionell ist und alle Erwartungen erfüllt oder übertrifft, wird im allgemeinen Sprachgebrauch “Profi” genannt, eine Abkürzung aus dem englischen Wort “Professionell”.",
-        "Professionalität wird durch bestimmte Charaktereigenschaften und Wertvorstellungen hergestellt – so z. B. Verlässlichkeit, Redlichkeit, Zielstrebigkeit, Loyalität, Integrität und/oder Pflichtgefühl.",
-        "Das zugesprochene Attribut „professionell“ gilt auch als Kompliment (Lob, Wertschätzung) für eine entsprechende Haltung oder ein Handeln, welche(s) sich an besonders hohe Maßstäben messen kann.",
-        "Ebenso wird das Adjektiv “professionell” dazu verwendet, um einem Produkt bestimmte Attribute von Professionalität (berufsmäßige Verwendung) zu verleihen; z. B. professionelle Maschine (Profi-Gerät, Profi-Ausführung), professionelle Software (Profi-Version) etc."
+        "Qualität als Wert bedeutet, nicht nur fertig zu werden, sondern etwas wirklich gut zu machen.",
+        "Menschen, denen Qualität wichtig ist, haben hohe Maßstäbe, nehmen sich Zeit für Details und sind mit halbfertigen Lösungen unzufrieden.",
+        "Während Sorgfalt die gewissenhafte Arbeitsweise beschreibt, richtet sich Qualität auf das Ergebnis und dessen Wert für andere.",
+        "Qualität steht häufig in Spannung zu Geschwindigkeit und Kosten, sodass immer wieder abgewogen werden muss, welches Niveau angemessen ist."
       ]
     },
     {
@@ -1253,6 +1593,57 @@
       ]
     },
     {
+      "name": "Rücksichtnahme",
+      "synonyme": [
+        "Rücksicht, Takt, Feingefühl, Schonung, Achtsamkeit, Aufmerksamkeit, Entgegenkommen",
+        "Ähnlich: Höflichkeit, Respekt",
+        "Englisch: consideration, thoughtfulness"
+      ],
+      "definition": [
+        "Berücksichtigung der Bedürfnisse und Gefühle anderer im eigenen Handeln"
+      ],
+      "beschreibung": [
+        "Rücksichtnahme bedeutet, bei eigenen Entscheidungen und Handlungen mitzudenken, wie sie sich auf andere auswirken.",
+        "Rücksichtsvolle Menschen nehmen sich zurück, wenn andere etwas brauchen, achten auf Lärm, Zeit und Belastung anderer und vermeiden unnötige Kränkungen.",
+        "Im Unterschied zur Höflichkeit, die sich an Umgangsformen orientiert, geht es bei Rücksichtnahme um die tatsächlichen Folgen des eigenen Verhaltens für andere.",
+        "Zu viel Rücksichtnahme kann dazu führen, eigene Bedürfnisse oder notwendige Kritik zurückzustellen."
+      ]
+    },
+    {
+      "name": "Ruhe",
+      "synonyme": [
+        "Stille, Frieden, Gelassenheit, Entspannung, Erholung, Muße, Besinnung, Ausgeglichenheit",
+        "Gegenteil: Hektik, Unruhe, Stress",
+        "Englisch: calm, peace, quiet"
+      ],
+      "definition": [
+        "Zustand ohne Hektik, Lärm und Druck, in dem man zu sich kommen kann"
+      ],
+      "beschreibung": [
+        "Ruhe bedeutet, Zeiten und Räume zu haben, in denen nichts gefordert wird und man sich erholen und sammeln kann.",
+        "Menschen, denen Ruhe wichtig ist, meiden ständige Erreichbarkeit und Reizüberflutung und brauchen Rückzug, um gut arbeiten und leben zu können.",
+        "Ruhe kann äußerlich sein, etwa ein stiller Arbeitsplatz, oder innerlich, als Zustand der Gelassenheit trotz äußerer Anforderungen.",
+        "In einer schnellen und lauten Arbeitswelt gilt Ruhe zunehmend als Voraussetzung für Konzentration, Kreativität und Gesundheit."
+      ]
+    },
+    {
+      "name": "Selbstreflexion",
+      "synonyme": [
+        "Selbstbetrachtung, Selbsterkenntnis, Selbstprüfung, Innenschau, Nachdenken, Besinnung",
+        "Fachsprache: Introspektion, Metakognition",
+        "Englisch: self-reflection"
+      ],
+      "definition": [
+        "Fähigkeit und Bereitschaft, über das eigene Denken, Fühlen und Handeln nachzudenken"
+      ],
+      "beschreibung": [
+        "Selbstreflexion bedeutet, das eigene Verhalten kritisch zu betrachten und daraus Schlüsse für die Zukunft zu ziehen.",
+        "Menschen, denen Selbstreflexion wichtig ist, fragen sich nach Erfolgen und Misserfolgen, welchen Anteil sie selbst daran hatten, und holen sich aktiv Rückmeldungen ein.",
+        "Selbstreflexion ist eine wichtige Voraussetzung für persönliches Wachstum, weil man nur verändern kann, was man an sich erkennt.",
+        "Übertriebene Selbstreflexion kann in Grübeln oder Selbstzweifel umschlagen, wenn sie nicht zu Handlungen führt."
+      ]
+    },
+    {
       "name": "Selbstvertrauen",
       "synonyme": [
         "Selbstwert, Selbstwertgefühl, Selbstwertschätzung, Selbstachtung, Selbstbewusstsein, Selbstsicherheit, Stolz, Selbstgefühl, innere Kraft, Moral, Mut, Selbstgewissheit",
@@ -1267,6 +1658,23 @@
         "Selbstvertrauen wird durch gedanklichen Optimismus und insbesondere durch gemeisterte, selbstreflektierte Handlungen erzeugt. Ebenso, wenn die nachstehenden Aspekte und Ressourcen vom “Selbst” positiv gemessen und bewertet worden sind:",
         "Handlungskompetenzen (Fertigkeiten)Wissen in Bezug auf das BevorstehendeErfahrungen und Erkenntnissemotivierte Geisteshaltung (mentale Einstellung auf Wille und Absicht)Verfügbarkeit von sonstigen Ressourcen (Werkzeuge, Informationen, Verbündete)",
         "Ein hohes Maß an Selbstvertrauen ist nur dann sinnvoll, wenn das “Selbst” die Dimensionen der bevorstehenden Situation sowie das Vorhandensein der notwendigen eigenen Ressourcen relativ gut und objektiv einschätzen kann."
+      ]
+    },
+    {
+      "name": "Selbstverwirklichung",
+      "synonyme": [
+        "Selbstentfaltung, Entfaltung, Persönlichkeitsentwicklung, Erfüllung, Selbstfindung",
+        "Ähnlich: Individualität, Authentizität, Wachstum",
+        "Englisch: self-actualization, self-fulfillment"
+      ],
+      "definition": [
+        "Entfaltung der eigenen Fähigkeiten, Neigungen und Möglichkeiten"
+      ],
+      "beschreibung": [
+        "Selbstverwirklichung bedeutet, das eigene Potenzial auszuschöpfen und ein Leben zu führen, das den eigenen Anlagen und Wünschen entspricht.",
+        "Menschen, denen Selbstverwirklichung wichtig ist, suchen nach Tätigkeiten, in denen sie ihre Talente einbringen und sich selbst wiedererkennen können.",
+        "In der Bedürfnispyramide nach Abraham Maslow steht Selbstverwirklichung an der Spitze, als Bedürfnis, das erst nach der Erfüllung grundlegender Bedürfnisse in den Vordergrund tritt.",
+        "Selbstverwirklichung kann mit Pflichten gegenüber anderen oder mit Sicherheitsbedürfnissen in Konflikt geraten."
       ]
     },
     {
@@ -1289,6 +1697,23 @@
         "Um Sicherheit herzustellen, werden entsprechende Konzepte erstellt und umgesetzt. Sicherheitsmaßnahmen sind erfolgreich, wenn sie dazu führen, dass mit ihnen sowohl erwartete als auch unerwartete Beeinträchtigungen abgewehrt bzw. bestmöglich unwahrscheinlich gemacht werden.",
         "In den meisten Fällen schränken Sicherheitssysteme (z.B. Vorschriften, Einschränkungen) die individuelle Freiheit ein, weswegen Sicherheit in diesen Fällen kontrovers wahrgenommen werden kann.",
         "Das Adjektiv „sicher“ findet oft Anwendung als Suffix: zielsicher, einbruchsicher, rutschsicher, fälschungssicher, selbstsicher, krisensicher, bombensicher, totsicher etc."
+      ]
+    },
+    {
+      "name": "Sinnhaftigkeit",
+      "synonyme": [
+        "Sinn, Bedeutung, Zweck, Purpose, Bestimmung, Berufung, Erfüllung",
+        "Ähnlich: Idealismus, Wirksamkeit",
+        "Englisch: meaningfulness, purpose"
+      ],
+      "definition": [
+        "Erleben, dass das eigene Tun einen Zweck hat, der über einen selbst hinausweist"
+      ],
+      "beschreibung": [
+        "Sinnhaftigkeit bedeutet, zu wissen, wofür man etwas tut, und das eigene Handeln als bedeutsam zu erleben.",
+        "Menschen, denen Sinnhaftigkeit wichtig ist, fragen nicht nur, ob etwas funktioniert oder sich lohnt, sondern auch, ob es etwas Gutes bewirkt.",
+        "Im Arbeitsleben zeigt sich das Bedürfnis nach Sinn etwa im Wunsch, an einem Produkt oder einer Mission mitzuwirken, mit der man sich identifizieren kann.",
+        "Fehlende Sinnhaftigkeit gilt als eine der häufigsten Ursachen für innere Kündigung und Unzufriedenheit, auch bei ansonsten guten Arbeitsbedingungen."
       ]
     },
     {
@@ -1331,6 +1756,23 @@
       ]
     },
     {
+      "name": "Souveränität",
+      "synonyme": [
+        "Überlegenheit, Selbstsicherheit, Gelassenheit, Sicherheit, Gewandtheit, Autorität, Unabhängigkeit",
+        "Politik: Eigenstaatlichkeit, Hoheit",
+        "Englisch: sovereignty, poise, composure"
+      ],
+      "definition": [
+        "Fähigkeit, auch unter Druck und in schwierigen Situationen sicher, überlegt und selbstbestimmt zu handeln"
+      ],
+      "beschreibung": [
+        "Souveränität bedeutet, eine Situation zu beherrschen, statt von ihr beherrscht zu werden, und dabei ruhig und überlegt zu bleiben.",
+        "Souveräne Menschen lassen sich von Kritik, Konflikten oder Unvorhergesehenem nicht aus der Fassung bringen und treffen Entscheidungen aus innerer Sicherheit heraus.",
+        "Souveränität beruht auf Erfahrung, Kompetenz und Selbstvertrauen, wirkt aber nicht überheblich, weil sie keine Bestätigung von außen braucht.",
+        "Im Unterschied zur Gelassenheit, die eine innere Ruhe beschreibt, betont Souveränität die Fähigkeit, in schwierigen Lagen aktiv und wirksam zu handeln."
+      ]
+    },
+    {
       "name": "Sparsamkeit",
       "synonyme": [
         "Einteilung, genaues rechnen, Geiz, Wirtschaftlichkeit, Ersparung, Beschränkung, Einschränkung, Haushaltung, Maßhaltung, Rationierung, Zurückhaltung, Einsparung",
@@ -1364,6 +1806,40 @@
       ]
     },
     {
+      "name": "Spiritualität",
+      "synonyme": [
+        "Geistigkeit, Glaube, Frömmigkeit, Religiosität, Transzendenz, Innerlichkeit, Sinnsuche",
+        "Praxis: Meditation, Gebet, Kontemplation",
+        "Englisch: spirituality"
+      ],
+      "definition": [
+        "Suche nach Verbindung zu etwas, das über das Materielle und das eigene Selbst hinausgeht"
+      ],
+      "beschreibung": [
+        "Spiritualität bedeutet, das eigene Leben in einen größeren Zusammenhang einzubetten, sei es religiös, philosophisch oder naturbezogen.",
+        "Menschen, denen Spiritualität wichtig ist, nehmen sich Zeit für Besinnung, Meditation oder Gebet und schöpfen daraus Kraft und Orientierung.",
+        "Spiritualität ist nicht an eine bestimmte Religion gebunden und kann sich sehr individuell ausdrücken.",
+        "Im Arbeitsleben kann Spiritualität Halt in Krisen geben und Prioritäten verschieben, etwa weg von materiellem Erfolg hin zu innerem Frieden."
+      ]
+    },
+    {
+      "name": "Stabilität",
+      "synonyme": [
+        "Beständigkeit, Kontinuität, Festigkeit, Dauerhaftigkeit, Verlässlichkeit, Konstanz, Gleichmaß",
+        "Ähnlich: Sicherheit, Ordnung",
+        "Englisch: stability, continuity"
+      ],
+      "definition": [
+        "Beständigkeit von Verhältnissen, Beziehungen und Lebensumständen über längere Zeit"
+      ],
+      "beschreibung": [
+        "Stabilität bedeutet, sich auf gleichbleibende Verhältnisse verlassen zu können, etwa auf einen sicheren Arbeitsplatz, feste Beziehungen oder vertraute Abläufe.",
+        "Menschen, denen Stabilität wichtig ist, schätzen Kontinuität, meiden unnötige Risiken und brauchen eine verlässliche Grundlage, um sich wohlzufühlen und gute Arbeit zu leisten.",
+        "Im Unterschied zur Sicherheit, die vor allem Schutz vor Gefahren meint, betont Stabilität die Dauerhaftigkeit und Vorhersehbarkeit von Verhältnissen.",
+        "Stabilität kann in Spannung zu Veränderung und Wachstum stehen, bildet aber oft auch die Basis, von der aus Veränderung erst möglich wird."
+      ]
+    },
+    {
       "name": "Sympathie",
       "synonyme": [
         "Zuneigung, Wohlwollen, Verbundenheit, Einheit, Gefallen, Gleichheit, Interesse, Hang, Neigung, Resonanz, Vorliebe, Vertrautheit, Begeisterung, Gefühl, Wohlgefühl, Schwäche (nicht abwertend)",
@@ -1384,6 +1860,23 @@
         "Sympathie kann durch Empathie ausgelöst werden. Sympathie begünstigt Empathie.",
         "Im medizinischen Sinn nutzten die altgriechischen Ärzte „Hippokrates von Kos“ sowie „Galenos“ den Begriff „Sympathikus“, um ein bestimmtes Nervensystem zu bezeichnen, welches die Beziehungen zwischen den Organen herstellt und steuert. Hiervon leitete im Jahr 1722 Jacob Winslow die Bezeichnung des „sympathischen Nervensystems“ ab.",
         "Sinngemäß könnte man das für den menschlichen Organismus bestehende „sympathische Beziehungskonstrukt“ auf Organisationen und Unternehmen übertragen, da auch hier verschiedene Kompetenzen und Funktionen konstruktiv interagieren (kulturell wertschöpfen) sollten."
+      ]
+    },
+    {
+      "name": "Tatkraft",
+      "synonyme": [
+        "Umsetzungskraft, Handlungskraft, Energie, Schwung, Elan, Tatendrang, Initiative, Entschlossenheit, Durchsetzungsvermögen",
+        "Ähnlich: Aktivität, Engagement",
+        "Englisch: drive, energy, get-things-done attitude"
+      ],
+      "definition": [
+        "Fähigkeit und Wille, Vorhaben entschlossen in die Tat umzusetzen"
+      ],
+      "beschreibung": [
+        "Tatkraft bedeutet, nicht nur Ideen zu haben, sondern sie auch anzupacken und zu Ende zu bringen.",
+        "Tatkräftige Menschen ergreifen die Initiative, lassen sich von Hindernissen nicht lange aufhalten und bringen andere durch ihren Schwung in Bewegung.",
+        "Tatkraft verbindet Energie mit Entschlossenheit und ist besonders gefragt, wenn Entscheidungen getroffen sind und es um die Umsetzung geht.",
+        "Ohne ausreichende Reflexion kann Tatkraft in Aktionismus umschlagen."
       ]
     },
     {
@@ -1422,21 +1915,19 @@
       ]
     },
     {
-      "name": "Treue",
+      "name": "Tradition",
       "synonyme": [
-        "Anhänglichkeit, anhängliche Haltung, Ergebenheit, Vertrauen, Hingabe, Loyalität, Adhärenz, Beständigkeit, Zuverlässigkeit",
-        "Gegensatz: Verrat, Untreue, untreu",
-        "Englisch: loyalty, faithfulness (Ergebenheit), constancy (Beständigkeit), fidelity (Ehrlichkeit), faith (Vertrauen), fealty (Festigkeit)"
+        "Bewahrend, traditionell, festgelegt, streng",
+        "Negativ: Altmodisch, fortschrittsfeindlich, rückschrittlich, rückständig, rückwärts gerichtet, rückwärtsgewandt, unzeitgemäß, gestrig, unmodern, illiberal, reaktionär, festgelegt, streng, verklemmt",
+        "Englisch: conservative, old-line, tory (politisch), conservatively (vorsichtig), tweedy (tweedartig)"
       ],
       "definition": [
-        "Verbindliche und verlässliche Loyalität."
+        "Bewahrung von früheren gesellschaftlichen Tugenden."
       ],
       "beschreibung": [
-        "Treue ist eine Tugend, welche die Verlässlichkeit eines Menschen gegenüber einem anderen oder einer Gruppe beschreibt. Treue begründet Loyalität und basiert auf Vertrauen und Zuneigung zu einem Gegenüber, welcher beispielsweise ein Ehepartner, Partner, Freund, der Freundeskreis, ein Kollege, Vorgesetzter oder ein Unternehmen sein kann.",
-        "Umgangssprachlich kann man auch einer Sache treu sein, z.B. einer Marke oder Gebrauchsgegenständen.",
-        "Meist wird die Treue durch ein Ritual (Schwur) oder einen Vertrag besiegelt. In Verbindung mit einem Schwur werden oft materielle Symbole verwendet, wie z.B. der Ehering.",
-        "Das Wort wir auch als sogenanntes Suffix („-treu“) verwendet, was dem vorangestellten Begriff einer der Attribute beständig, konstant, ergeben oder korrekt zuweist. Hier ein paar Beispiele: „prinzipientreu, vertragstreu, formtreu, funktionstreu“.",
-        "Die Symbolfarbe für Treue ist „blau“."
+        "Konservativ – oder besser gesagt: „Konservativismus“ – beschreibt eine politische oder gesellschaftlich kulturelle Geisteshaltung, die danach strebt, alte, traditionelle und bekannte Kenntnisse und entsprechende Rituale zu bewahren.",
+        "Diese Einstellung besitzt man nicht sporadisch, sondern als langlebige Leitlinie für die eigenen Moralvorstellungen, Grundprinzipien, Denk- und Verhaltensmuster.",
+        "Der Begriff „konservativ“ bezeichnet die Denkweise eines Individuums oder einer Personengruppe. Dies geschieht meist in politischen Zusammenhang, man kann aber auch eine politisch unabhängige Person, zum Beispiel einen streng gläubigen oder altmodischen Menschen als konservativ bezeichnen."
       ]
     },
     {
@@ -1463,6 +1954,41 @@
       ]
     },
     {
+      "name": "Treue",
+      "synonyme": [
+        "Anhänglichkeit, anhängliche Haltung, Ergebenheit, Vertrauen, Hingabe, Loyalität, Adhärenz, Beständigkeit, Zuverlässigkeit",
+        "Gegensatz: Verrat, Untreue, untreu",
+        "Englisch: loyalty, faithfulness (Ergebenheit), constancy (Beständigkeit), fidelity (Ehrlichkeit), faith (Vertrauen), fealty (Festigkeit)"
+      ],
+      "definition": [
+        "Verbindliche und verlässliche Loyalität."
+      ],
+      "beschreibung": [
+        "Treue ist eine Tugend, welche die Verlässlichkeit eines Menschen gegenüber einem anderen oder einer Gruppe beschreibt. Treue begründet Loyalität und basiert auf Vertrauen und Zuneigung zu einem Gegenüber, welcher beispielsweise ein Ehepartner, Partner, Freund, der Freundeskreis, ein Kollege, Vorgesetzter oder ein Unternehmen sein kann.",
+        "Umgangssprachlich kann man auch einer Sache treu sein, z.B. einer Marke oder Gebrauchsgegenständen.",
+        "Meist wird die Treue durch ein Ritual (Schwur) oder einen Vertrag besiegelt. In Verbindung mit einem Schwur werden oft materielle Symbole verwendet, wie z.B. der Ehering.",
+        "Das Wort wir auch als sogenanntes Suffix („-treu“) verwendet, was dem vorangestellten Begriff einer der Attribute beständig, konstant, ergeben oder korrekt zuweist. Hier ein paar Beispiele: „prinzipientreu, vertragstreu, formtreu, funktionstreu“.",
+        "Die Symbolfarbe für Treue ist „blau“."
+      ]
+    },
+    {
+      "name": "Veränderung",
+      "synonyme": [
+        "Wandel, Erneuerung, Umgestaltung, Wechsel, Fortschritt, Entwicklung, Neuanfang, Abwechslung",
+        "Fremdwörter: Transformation, Change",
+        "Englisch: change, transformation"
+      ],
+      "definition": [
+        "Bereitschaft und Wunsch, Bestehendes zu hinterfragen und Neues zu wagen"
+      ],
+      "beschreibung": [
+        "Veränderung als Wert bedeutet, Wandel nicht als Bedrohung, sondern als Chance zu sehen und ihn aktiv mitzugestalten.",
+        "Menschen, denen Veränderung wichtig ist, langweilen sich in Routinen, suchen neue Aufgaben und hinterfragen, ob Dinge nicht auch anders gemacht werden könnten.",
+        "Veränderungsbereitschaft gilt in Organisationen als wichtige Voraussetzung, um sich an neue Märkte, Technologien und Anforderungen anzupassen.",
+        "Veränderung steht in einem natürlichen Spannungsverhältnis zu Stabilität und Tradition."
+      ]
+    },
+    {
       "name": "Verantwortung",
       "synonyme": [
         "Gewissenhaftigkeit, Moral, Pflichtbewusstsein, Pflichtgefühl, Pflichttreue, Verantwortlichkeit, Verantwortungsbewusstsein, Verpflichtung, Garantie, Gewährleistung, Haftbarkeit, Haftung, Schuld",
@@ -1477,6 +2003,23 @@
       ],
       "beschreibung": [
         "Der Begriff der Verantwortung (sich verantworten) beinhaltet den der Antwort, die jemand auf einen Anspruch (Ergebnis, Ziel, Produkt, Qualitätsmerkmal) oder auf einen Vorwurf (Anschuldigung, Behauptung) geben kann.Verantwortung ist, im Rahmen einer übernommenen Aufgabe sowie mit einer bestimmten Stellung verbundenen Verpflichtung, dafür zu sorgen, dass – innerhalb eines bestimmten Rahmens – alles einen bestmöglichen Verlauf nimmt. Dabei wird das jeweils Notwendige und Richtige getan, damit kein Schaden entsteht bzw. die anvisierten Ziele erreicht werden können.Die Übertragung der Verantwortung geschieht durch eine Person oder Gruppe gegenüber einer anderen Person oder Gruppe aufgrund eines regelkonformen Anspruchs, der durch die gleiche oder eine übergeordnete Instanz eingefordert werden kann und in Folge zu rechtfertigen bzw. zu erklären ist. Die Folgen der Handlung führen meistens zu Konsequenzen. Die Konsequenzen sind entweder Belohnung, Sanktionierung oder Alternativleistungen.Die Handlungen haben in der Regel Ergebnisse (Ziele, Produkte, Qualitätsmerkmale) zur Folge, die allen Parteien bekannt sein müssen.Ist jemandem die Verantwortung für eine bestimmte Aufgabe oder dauerhafte Aufgabenstellung zugewiesen, spricht man von Verantwortlichkeit."
+      ]
+    },
+    {
+      "name": "Verbindlichkeit",
+      "synonyme": [
+        "Zuverlässigkeit, Verlässlichkeit, Worttreue, Bindung, Verpflichtung, Ernsthaftigkeit",
+        "Höflichkeit: Entgegenkommen, Freundlichkeit",
+        "Englisch: commitment, reliability"
+      ],
+      "definition": [
+        "Haltung, Absprachen und Zusagen ernst zu nehmen und sich daran gebunden zu fühlen"
+      ],
+      "beschreibung": [
+        "Verbindlichkeit bedeutet, dass ein gegebenes Wort gilt: Was vereinbart ist, wird eingehalten, und wenn das nicht möglich ist, wird es rechtzeitig gesagt.",
+        "Verbindliche Menschen sagen klar zu oder ab, statt Dinge offen zu lassen, und stehen zu ihren Entscheidungen.",
+        "Während Verlässlichkeit beschreibt, dass man sich auf jemanden verlassen kann, betont Verbindlichkeit die bewusste Selbstverpflichtung gegenüber Absprachen.",
+        "In Teams schafft Verbindlichkeit Planbarkeit und Vertrauen, weil alle wissen, woran sie sind."
       ]
     },
     {
@@ -1514,6 +2057,39 @@
       ]
     },
     {
+      "name": "Wachstum",
+      "synonyme": [
+        "Entwicklung, Weiterentwicklung, Entfaltung, Fortschritt, Reifung, Lernen, Vorankommen",
+        "Wirtschaftlich: Expansion, Zuwachs, Steigerung",
+        "Englisch: growth, development"
+      ],
+      "definition": [
+        "Stetige Weiterentwicklung der eigenen Fähigkeiten, Persönlichkeit oder Wirkung"
+      ],
+      "beschreibung": [
+        "Wachstum bedeutet, sich nicht mit dem gegenwärtigen Stand zufriedenzugeben, sondern kontinuierlich dazuzulernen und sich weiterzuentwickeln.",
+        "Menschen, denen Wachstum wichtig ist, suchen Herausforderungen, die sie fordern, nehmen Rückmeldungen offen auf und sehen Fehler als Lerngelegenheit.",
+        "Wachstum kann sich auf die eigene Person beziehen, aber auch auf ein Team, ein Unternehmen oder die Menschen, die man begleitet.",
+        "Die Psychologin Carol Dweck beschreibt mit dem Begriff Growth Mindset die Überzeugung, dass Fähigkeiten durch Anstrengung und Lernen wachsen können."
+      ]
+    },
+    {
+      "name": "Weisheit",
+      "synonyme": [
+        "Gelehrtheit, Klugheit, Lebenserfahrung, Weltkenntnis, Geist, Intellekt, Scharfsinn, Beschlagenheit, Bildung, Kunde, Praxis, Reife, Routine, Weitblick",
+        "Ähnlich (abgeschwächt): Überblick, Einsicht, Intelligenz, Verstand, Instinkt, Spürsinn, Denkkraft, Denkvermögen, Schlauheit, Esprit, Witz, Erfahrung, Kenntnis, Vertrautheit, Wissen, Auffassungsgabe",
+        "Englisch: wisdom, sapience, sagacity (Klugheit, Urteilsfähigkeit)"
+      ],
+      "definition": [
+        "Auf Erfahrungen basierendes und über einen längeren Zeitraum gesammeltes sowie sinnvoll gewichtetes Wissen."
+      ],
+      "beschreibung": [
+        "Weisheit wird meist älteren und/oder erfahreneren Personen zugeschrieben, da diese über einen längeren Zeitraum essentielles Wissen ansammeln und auswerten konnten.",
+        "Weisheit misst sich nicht an Wissen allein, das man sich in kurzer Zeit angeeignet hat. Vielmehr an einer sog. Lebenserfahrung, in der durch zahlreiche Fehler (sowie dessen Korrekturen) und tiefgreifende Erlebnisse ein übergeordnetes Wissen erlangt werden konnte.",
+        "Weisheit ist demnach die Gesamtheit allen wertvollen Wissens, das über eine lange bzw. intensive Zeit angesammelten werden konnte."
+      ]
+    },
+    {
       "name": "Weitsicht",
       "synonyme": [
         "Voraussichtig, Augenmaß, Weitblick, Überblick, Fingerspitzengefühl, Visionär, Umsichtigkeit, Überlegung, Bedacht, Bedachtsamkeit, Gemessenheit",
@@ -1531,19 +2107,71 @@
       ]
     },
     {
-      "name": "Weisheit",
+      "name": "Wertschätzung",
       "synonyme": [
-        "Gelehrtheit, Klugheit, Lebenserfahrung, Weltkenntnis, Geist, Intellekt, Scharfsinn, Beschlagenheit, Bildung, Kunde, Praxis, Reife, Routine, Weitblick",
-        "Ähnlich (abgeschwächt): Überblick, Einsicht, Intelligenz, Verstand, Instinkt, Spürsinn, Denkkraft, Denkvermögen, Schlauheit, Esprit, Witz, Erfahrung, Kenntnis, Vertrautheit, Wissen, Auffassungsgabe",
-        "Englisch: wisdom, sapience, sagacity (Klugheit, Urteilsfähigkeit)"
+        "Achtung, Anerkennung, Würdigung, Hochachtung, Respekt, Dankbarkeit, Lob",
+        "Ähnlich: Zuwendung, Aufmerksamkeit",
+        "Englisch: appreciation, esteem"
       ],
       "definition": [
-        "Auf Erfahrungen basierendes und über einen längeren Zeitraum gesammeltes sowie sinnvoll gewichtetes Wissen."
+        "Positive Haltung gegenüber anderen Menschen, die sich in Achtung, Interesse und Anerkennung ihrer Person und Leistung ausdrückt"
       ],
       "beschreibung": [
-        "Weisheit wird meist älteren und/oder erfahreneren Personen zugeschrieben, da diese über einen längeren Zeitraum essentielles Wissen ansammeln und auswerten konnten.",
-        "Weisheit misst sich nicht an Wissen allein, das man sich in kurzer Zeit angeeignet hat. Vielmehr an einer sog. Lebenserfahrung, in der durch zahlreiche Fehler (sowie dessen Korrekturen) und tiefgreifende Erlebnisse ein übergeordnetes Wissen erlangt werden konnte.",
-        "Weisheit ist demnach die Gesamtheit allen wertvollen Wissens, das über eine lange bzw. intensive Zeit angesammelten werden konnte."
+        "Wertschätzung bedeutet, andere Menschen in ihrem Wert zu sehen und ihnen das auch zu zeigen, durch Aufmerksamkeit, Dank oder ehrliches Interesse.",
+        "Während Anerkennung oft das ist, was man für eine Leistung erhält, beschreibt Wertschätzung eher die Haltung, mit der man anderen begegnet, unabhängig von ihrer Leistung.",
+        "Menschen, denen Wertschätzung wichtig ist, achten darauf, wie sie mit anderen umgehen, und fühlen sich in einem Umfeld wohl, in dem Beiträge gesehen werden.",
+        "Fehlende Wertschätzung zählt zu den häufigsten Gründen, warum Menschen innerlich kündigen oder ihren Arbeitsplatz wechseln."
+      ]
+    },
+    {
+      "name": "Wirksamkeit",
+      "synonyme": [
+        "Wirkung, Effektivität, Wirkkraft, Durchschlagskraft, Erfolg, Nutzen, Ergebnisorientierung",
+        "Psychologie: Selbstwirksamkeit",
+        "Englisch: effectiveness, impact"
+      ],
+      "definition": [
+        "Fähigkeit, mit dem eigenen Handeln tatsächlich die beabsichtigte Wirkung zu erzielen"
+      ],
+      "beschreibung": [
+        "Wirksamkeit bedeutet, dass das eigene Tun einen spürbaren Unterschied macht und die gewünschten Ergebnisse hervorbringt.",
+        "Während Effizienz fragt, ob etwas mit möglichst wenig Aufwand geschieht, fragt Wirksamkeit, ob überhaupt das Richtige getan wird und es etwas bewirkt.",
+        "Menschen, denen Wirksamkeit wichtig ist, sind frustriert von Tätigkeiten ohne erkennbare Folgen und richten ihre Energie auf das, was wirklich etwas verändert.",
+        "Das Erleben eigener Wirksamkeit, in der Psychologie Selbstwirksamkeit genannt, stärkt Motivation, Selbstvertrauen und Durchhaltevermögen."
+      ]
+    },
+    {
+      "name": "Wissen",
+      "synonyme": [
+        "Bildung, Kenntnis, Erkenntnis, Gelehrsamkeit, Wissbegier, Verstehen, Lernen, Erfahrung",
+        "Ähnlich: Neugier, Weisheit, Kompetenz",
+        "Englisch: knowledge, learning"
+      ],
+      "definition": [
+        "Streben nach Kenntnissen, Verständnis und Bildung"
+      ],
+      "beschreibung": [
+        "Wissen als Wert bedeutet, Dinge wirklich verstehen zu wollen und sich kontinuierlich weiterzubilden.",
+        "Menschen, denen Wissen wichtig ist, lesen viel, stellen Fragen, gehen Themen auf den Grund und treffen Entscheidungen gern auf Grundlage von Fakten.",
+        "Im Unterschied zur Neugier, die den Antrieb zum Entdecken beschreibt, richtet sich Wissen auf das gesicherte Verständnis und dessen Weitergabe.",
+        "In vielen Organisationen gilt das Teilen von Wissen als wichtige Grundlage für Zusammenarbeit und Innovation."
+      ]
+    },
+    {
+      "name": "Wohlstand",
+      "synonyme": [
+        "Reichtum, Wohlhabenheit, Vermögen, finanzielle Sicherheit, Auskommen, Komfort, Lebensstandard",
+        "Ähnlich: Sicherheit, Erfolg",
+        "Englisch: prosperity, wealth"
+      ],
+      "definition": [
+        "Materielle Absicherung und ein gutes Auskommen"
+      ],
+      "beschreibung": [
+        "Wohlstand bedeutet, über genügend materielle Mittel zu verfügen, um gut leben und sich und seine Angehörigen absichern zu können.",
+        "Menschen, denen Wohlstand wichtig ist, achten auf Einkommen und Vermögensaufbau und berücksichtigen finanzielle Aspekte bei beruflichen Entscheidungen bewusst.",
+        "Wohlstand kann Freiheit und Sicherheit ermöglichen, etwa durch Unabhängigkeit von einem bestimmten Arbeitgeber oder Möglichkeiten für die Familie.",
+        "Wohlstand steht mitunter in Spannung zu Werten wie Sinnhaftigkeit oder Balance, wenn ein höheres Einkommen mit mehr Belastung oder weniger erfüllender Arbeit verbunden ist."
       ]
     },
     {
@@ -1585,23 +2213,37 @@
       ]
     },
     {
-      "name": "Zuversicht",
+      "name": "Zufriedenheit",
       "synonyme": [
-        "Lebensbejahung, Lebensmut, Zukunftsglaube, gute Erwartung, Gewissheit, Glaube an das Gute, Gottvertrauen, positive Lebenseinstellung, Vertrauen in die Zukunft, Zutrauen",
-        "Ähnlich: Vorfreude, Perspektive, positive Aussicht, Daseinsfreude, Heiterkeit, Lebensfreude",
-        "Steigerung: Vertrauen, Optimismus",
-        "Abgeschwächt: Hoffnung, Lichtblick, Möglichkeit, Ausweg, Chance",
-        "Englisch: confidence (sicheres Vertrauen), trust (Vertrauen), faith (Glauben)"
+        "Genügsamkeit, Wohlbefinden, Behagen, Glück, Erfüllung, Ausgeglichenheit, innerer Frieden",
+        "Ähnlich: Dankbarkeit, Gelassenheit",
+        "Englisch: contentment, satisfaction"
       ],
       "definition": [
-        "Festes Vertrauen auf eine positive Entwicklung in der Zukunft, auf die Erfüllung bestimmter Wünsche und Hoffnungen (Quelle: Dudenverlag 2016)"
+        "Innerer Zustand, mit dem Erreichten und den eigenen Lebensumständen im Reinen zu sein"
       ],
       "beschreibung": [
-        "Zuversicht ist eine Grundhaltung, die temporär (z.B. nur auf bestimmte Ereignisse, Themen) oder langfristig (in Form einer persönlichen Geisteshaltung) existieren kann.",
-        "Bei anhaltender und grundlegender Zuversicht als Charaktereigenschaft entsteht Optimismus.",
-        "Zuversicht kann ausgelöst werden bzw. entstehen durch",
-        "ein Umfeld, das optimistische oder positive Gedanken auslöst,eigene Erfahrungen (Erinnerungen), die zur Erkenntnis führen, dass auch schwierige Situationen gemeistert werden können,einem hohen Selbstvertrauen und Selbstwertgefühl.",
-        "Ähnlich des Placeboeffektes kann Zuversicht dazu führen, dass die positiven Ereignisse durch bewusste oder unbewusste Entscheidungen und/oder Handlungen herbeigeführt werden."
+        "Zufriedenheit bedeutet, das Vorhandene wertzuschätzen, statt ständig nach mehr zu streben.",
+        "Menschen, denen Zufriedenheit wichtig ist, messen ihr Leben weniger an äußeren Maßstäben und richten ihre Entscheidungen darauf aus, was ihnen ein gutes Gefühl gibt.",
+        "Zufriedenheit ist von kurzfristiger Freude zu unterscheiden: Sie beschreibt eine länger anhaltende, ruhigere Grundstimmung.",
+        "Zufriedenheit kann in Spannung zu Ehrgeiz und Wachstum stehen, weil sie den Antrieb zur Veränderung verringern kann."
+      ]
+    },
+    {
+      "name": "Zugehörigkeit",
+      "synonyme": [
+        "Verbundenheit, Gemeinschaft, Zusammengehörigkeit, Eingebundenheit, Mitgliedschaft, Heimat, Rückhalt",
+        "Ähnlich: Teamgeist, Solidarität",
+        "Englisch: belonging"
+      ],
+      "definition": [
+        "Gefühl, Teil einer Gemeinschaft zu sein und darin angenommen zu werden"
+      ],
+      "beschreibung": [
+        "Zugehörigkeit bedeutet, sich in einer Gruppe, einem Team oder einer Organisation aufgehoben und willkommen zu fühlen.",
+        "Menschen, denen Zugehörigkeit wichtig ist, suchen stabile Gemeinschaften, identifizieren sich mit ihnen und tragen gern zum gemeinsamen Ganzen bei.",
+        "Das Bedürfnis nach Zugehörigkeit gilt als menschliches Grundbedürfnis und findet sich in vielen psychologischen Modellen, etwa bei Maslow oder in der Selbstbestimmungstheorie.",
+        "Zugehörigkeit kann in Spannung zu Individualität oder Unabhängigkeit stehen, wenn die Gemeinschaft Anpassung erwartet."
       ]
     },
     {
@@ -1622,6 +2264,26 @@
         "Offen gezeigte Zuneigung ist ein wirksames Mittel, um eine Beziehung, sowie der damit verbundenen konstruktiven und achtsamen Kommunikation, aufzubauen bzw. zu pflegen.",
         "Zuneigung kann verbal oder körperlich ausgedrückt werden.",
         "Wenn der Empfänger der offen gezeigten Zuneigung diese akzeptiert, entsteht bei ihm i.d.R. ein Gefühl der Geborgenheit sowie einer umfassenden Anerkennung."
+      ]
+    },
+    {
+      "name": "Zuversicht",
+      "synonyme": [
+        "Lebensbejahung, Lebensmut, Zukunftsglaube, gute Erwartung, Gewissheit, Glaube an das Gute, Gottvertrauen, positive Lebenseinstellung, Vertrauen in die Zukunft, Zutrauen",
+        "Ähnlich: Vorfreude, Perspektive, positive Aussicht, Daseinsfreude, Heiterkeit, Lebensfreude",
+        "Steigerung: Vertrauen, Optimismus",
+        "Abgeschwächt: Hoffnung, Lichtblick, Möglichkeit, Ausweg, Chance",
+        "Englisch: confidence (sicheres Vertrauen), trust (Vertrauen), faith (Glauben)"
+      ],
+      "definition": [
+        "Festes Vertrauen auf eine positive Entwicklung in der Zukunft, auf die Erfüllung bestimmter Wünsche und Hoffnungen (Quelle: Dudenverlag 2016)"
+      ],
+      "beschreibung": [
+        "Zuversicht ist eine Grundhaltung, die temporär (z.B. nur auf bestimmte Ereignisse, Themen) oder langfristig (in Form einer persönlichen Geisteshaltung) existieren kann.",
+        "Bei anhaltender und grundlegender Zuversicht als Charaktereigenschaft entsteht Optimismus.",
+        "Zuversicht kann ausgelöst werden bzw. entstehen durch",
+        "ein Umfeld, das optimistische oder positive Gedanken auslöst,eigene Erfahrungen (Erinnerungen), die zur Erkenntnis führen, dass auch schwierige Situationen gemeistert werden können,einem hohen Selbstvertrauen und Selbstwertgefühl.",
+        "Ähnlich des Placeboeffektes kann Zuversicht dazu führen, dass die positiven Ereignisse durch bewusste oder unbewusste Entscheidungen und/oder Handlungen herbeigeführt werden."
       ]
     }
   ]

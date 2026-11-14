@@ -2,7 +2,7 @@
 
 Werte Kompass is a free web app, in German, that helps people find out which personal values matter most to them at work. It runs at [werte.jardas.de](https://werte.jardas.de).
 
-The test takes a few minutes. You first pick the values that appeal to you from a list of 81. If you pick more than ten, you narrow them down to your top ten. The app then shows you pairs of values in short, everyday work situations and asks which way you would act. A Swiss-system tournament turns those choices into a ranking, and at the end you get your top five values together with a short personal summary. Both the scenarios and the summary are written by Claude through AWS Bedrock. Scenarios are cached, so most pairs load instantly.
+The test takes a few minutes. You first pick the values that appeal to you from a list of 120. If you pick more than ten, you narrow them down to your top ten. The app then shows you pairs of values in short, everyday work situations and asks which way you would act. A Swiss-system tournament turns those choices into a ranking, and at the end you get your top five values together with a short personal summary. Both the scenarios and the summary are written by Claude through AWS Bedrock. Scenarios are cached, so most pairs load instantly.
 
 ## Repository layout
 

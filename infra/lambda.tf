@@ -304,3 +304,25 @@ resource "aws_lambda_function" "get_zusammenfassung" {
     log_format = "Text"
   }
 }
+
+# sendEmail
+
+resource "aws_lambda_function" "send_email" {
+  function_name    = "${var.project}-sendEmail"
+  role             = aws_iam_role.lambda.arn
+  handler          = "lambdas/sendEmail.handler"
+  runtime          = "nodejs26.x"
+  architectures    = ["arm64"]
+  filename         = data.archive_file.functions.output_path
+  source_code_hash = data.archive_file.functions.output_base64sha256
+  timeout          = 10
+  memory_size      = 128
+
+  environment {
+    variables = {
+      DYNAMODB_TABLE = aws_dynamodb_table.tests.name
+      EMAIL_FROM     = local.email_from
+      APP_URL        = "https://${var.domain}"
+    }
+  }
+}

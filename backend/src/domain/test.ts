@@ -17,6 +17,8 @@ export interface TestSession {
   firstName?: string;
   lastName?: string;
   email?: string;
+  /** When the result email was sent. The address itself is not stored. */
+  emailGesendetAm?: string;
   createdAt: string;
   completedAt?: string;
 }
@@ -40,4 +42,7 @@ export interface TestRepository {
   updateZusammenfassung(testId: string, zusammenfassung: string, kosten: number): Promise<void>;
   setSzenarienKosten(testId: string, kosten: number): Promise<void>;
   updateZusammenfassungStatus(testId: string, status: "generating" | "completed" | "failed"): Promise<void>;
+  /** Sets emailGesendetAm. Returns false if it was already set. */
+  markEmailSent(testId: string): Promise<boolean>;
+  clearEmailSent(testId: string): Promise<void>;
 }

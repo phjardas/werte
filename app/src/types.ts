@@ -59,4 +59,5 @@ export interface TestSession {
   zusammenfassung: string | null;
   zusammenfassungStatus: "generating" | "completed" | "failed" | null;
   firstName: string | null;
+  emailGesendet: boolean;
 }

@@ -95,3 +95,28 @@ export async function createTest(): Promise<string> {
   const data = await res.json();
   return data.testId;
 }
+
+export type SendEmailResult = "sent" | "already_sent" | "error";
+
+export async function sendEmail(
+  testId: string,
+  email: string,
+): Promise<SendEmailResult> {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/tests/${encodeURIComponent(testId)}/email`,
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email }),
+      },
+    );
+    if (res.ok) return "sent";
+    if (res.status === 409 && (await res.json()).error === "already_sent") {
+      return "already_sent";
+    }
+    return "error";
+  } catch {
+    return "error";
+  }
+}

@@ -37,7 +37,7 @@ export function TestSessionPage() {
     );
 
   if (session.status === "completed" && session.results) {
-    return <ResultsScreen testId={testId} firstName={session.firstName} results={session.results} />;
+    return <ResultsScreen testId={testId} firstName={session.firstName} results={session.results} emailGesendet={session.emailGesendet} />;
   }
 
   // status === "active"

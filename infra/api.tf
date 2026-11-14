@@ -192,3 +192,25 @@ resource "aws_lambda_permission" "get_zusammenfassung" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.main.execution_arn}/*/*"
 }
+
+# sendEmail integration + route
+
+resource "aws_apigatewayv2_integration" "send_email" {
+  api_id                 = aws_apigatewayv2_api.main.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.send_email.invoke_arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "send_email" {
+  api_id    = aws_apigatewayv2_api.main.id
+  route_key = "POST /tests/{testId}/email"
+  target    = "integrations/${aws_apigatewayv2_integration.send_email.id}"
+}
+
+resource "aws_lambda_permission" "send_email" {
+  function_name = aws_lambda_function.send_email.function_name
+  action        = "lambda:InvokeFunction"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.main.execution_arn}/*/*"
+}

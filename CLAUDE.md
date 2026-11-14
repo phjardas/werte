@@ -85,7 +85,10 @@ Each Lambda handler instantiates its services at module scope (cold start) via t
 | `GET /tests/{testId}` | `getTest` | load a test; re-triggers summary generation if it is missing |
 | `PUT /tests/{testId}/state` | `updateTestState` | save the frontend state; at `comparison-intro` it asynchronously invokes `prewarmSzenarien` |
 | `POST /tests/{testId}/complete` | `completeTest` | store the results and start the `postTest` Step Function |
+| `POST /tests/{testId}/email` | `sendEmail` | send the top 5 and the summary to an address via SES, once per test |
 | `POST /zusammenfassung` | `getZusammenfassung` | summary for 5 values without a test |
+
+`sendEmail` claims the test with a conditional write on `emailGesendetAm` before sending and removes the marker again if SES fails. The address is not stored. `getTest` exposes the marker as `emailGesendet`.
 
 `prewarmSzenarien` generates the scenarios for all pairs of the final values in parallel. The `postTest` Step Function runs `generateTestZusammenfassung` with retries and sets `zusammenfassungStatus = failed` if it fails.
 
@@ -102,6 +105,7 @@ OpenTofu manages all AWS resources in `eu-central-1`:
 - **Step Functions**: `{project}-postTest` for the summary.
 - **DynamoDB**: `{project}-szenarien` (scenario and summary cache, keys `pk` and `version`) and `{project}-tests` (test sessions, key `testId`, TTL configured on the `ttl` attribute, which the code does not set yet).
 - **S3, CloudFront, ACM, Route53** for the custom domain.
+- **SES** (`infra/ses.tf`): domain identity for `jardas.de` with DKIM and the MAIL FROM domain `mail.jardas.de` (SPF). Emails come from `philipp@jardas.de`. The `jardas.de` identity is shared by both environments and owned by the preview stack.
 - **CloudWatch** log groups, metric filters and a dashboard for cache hits, misses and generation errors.
 - **State backend**: S3 bucket `phjardas-infrastructure`, passed to `tofu init` via `-backend-config` (GitHub variable `STATE_BUCKET`).
 

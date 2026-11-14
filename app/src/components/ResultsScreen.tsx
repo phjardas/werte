@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
+import { sendEmail, type SendEmailResult } from "../api";
 import { useZusammenfassung } from "../hooks/useZusammenfassung";
 import type { Contestant } from "../types";
 import { HeroLogo } from "./Logo";
@@ -24,16 +25,77 @@ function highlightValues(text: string, values: string[]): ReactNode {
     );
 }
 
+function EmailForm({
+  testId,
+  emailGesendet,
+}: {
+  testId: string;
+  emailGesendet: boolean;
+}) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<SendEmailResult | "idle" | "sending">(
+    emailGesendet ? "already_sent" : "idle",
+  );
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
+    setStatus(await sendEmail(testId, email));
+  }
+
+  if (status === "sent") {
+    return <p className="email-form-note">Die E-Mail ist unterwegs. ✉️</p>;
+  }
+  if (status === "already_sent") {
+    return (
+      <p className="email-form-note">
+        Das Ergebnis dieses Tests wurde bereits per E-Mail verschickt.
+      </p>
+    );
+  }
+
+  return (
+    <form className="email-form" onSubmit={handleSubmit}>
+      <label htmlFor="email-input">Ergebnis per E-Mail schicken</label>
+      <div className="email-form-row">
+        <input
+          id="email-input"
+          type="email"
+          required
+          autoComplete="email"
+          placeholder="deine@adresse.de"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="btn btn-secondary"
+          disabled={status === "sending"}
+        >
+          Senden
+        </button>
+      </div>
+      <p className="email-form-note">
+        {status === "error"
+          ? "Das hat leider nicht geklappt. Bitte versuche es noch einmal."
+          : "Wir verwenden deine Adresse nur für diese eine E-Mail und speichern sie nicht. Pro Test ist ein Versand möglich."}
+      </p>
+    </form>
+  );
+}
+
 interface ResultsScreenProps {
   testId?: string;
   firstName?: string | null;
   results: Contestant[];
+  emailGesendet?: boolean;
 }
 
 export function ResultsScreen({
   testId,
   firstName,
   results,
+  emailGesendet = false,
 }: ResultsScreenProps) {
   const top5 = results.slice(0, 5);
   const { zusammenfassung, timedOut } = useZusammenfassung(testId ?? null);
@@ -105,6 +167,9 @@ export function ResultsScreen({
               </div>
             </div>
           </div>
+          {testId && zusammenfassung ? (
+            <EmailForm testId={testId} emailGesendet={emailGesendet} />
+          ) : null}
           <div className="intro-footer">
             <Link to="/" className="btn btn-primary">
               Neuen Test starten

@@ -112,4 +112,32 @@ export class DynamoDBTestRepository implements TestRepository {
       }),
     );
   }
+
+  async markEmailSent(testId: string): Promise<boolean> {
+    try {
+      await this.ddb.send(
+        new UpdateCommand({
+          TableName: this.tableName,
+          Key: { testId },
+          UpdateExpression: "SET emailGesendetAm = :now",
+          ConditionExpression: "attribute_exists(testId) AND attribute_not_exists(emailGesendetAm)",
+          ExpressionAttributeValues: { ":now": new Date().toISOString() },
+        }),
+      );
+      return true;
+    } catch (err) {
+      if ((err as { name: string }).name === "ConditionalCheckFailedException") return false;
+      throw err;
+    }
+  }
+
+  async clearEmailSent(testId: string): Promise<void> {
+    await this.ddb.send(
+      new UpdateCommand({
+        TableName: this.tableName,
+        Key: { testId },
+        UpdateExpression: "REMOVE emailGesendetAm",
+      }),
+    );
+  }
 }

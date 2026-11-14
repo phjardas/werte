@@ -46,6 +46,7 @@ export function createHandler(
       zusammenfassung: item.zusammenfassung ?? null,
       zusammenfassungStatus,
       firstName: item.firstName ?? null,
+      emailGesendet: item.emailGesendetAm != null,
     });
   };
 }

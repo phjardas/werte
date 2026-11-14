@@ -40,7 +40,6 @@ export function createHandler(
       zusammenfassung: session.zusammenfassung,
       appUrl,
       testId,
-      firstName: session.firstName,
     });
 
     try {

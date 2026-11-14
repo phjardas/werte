@@ -1,21 +1,16 @@
+import { Link } from "@tanstack/react-router";
 import { HeroLogo } from "./Logo";
 
-interface IntroStepProps {
-  firstName?: string | null;
-  onNext: () => void;
-}
-
-export function IntroStep({ firstName, onNext }: IntroStepProps) {
+export function LandingPage() {
   return (
     <div className="screen active step-intro">
       <header className="header">
         <HeroLogo />
-        {firstName && <p className="greeting">Hallo, {firstName}!</p>}
-        <h1>Entdecke deine Werte</h1>
+        <h1>Werte Kompass</h1>
       </header>
       <div className="intro-content">
         <p>
-          Dieser Test hilft dir, deine persönlichen Werte zu entdecken. In
+          Der Werte Kompass hilft dir, deine persönlichen Werte zu entdecken. In
           wenigen Minuten findest du heraus, was dir in deinem Berufsleben
           wirklich wichtig ist.
         </p>
@@ -35,11 +30,12 @@ export function IntroStep({ firstName, onNext }: IntroStepProps) {
             Top-5-Werte mit einer individuellen Auswertung.
           </li>
         </ol>
+        <p>Der Test ist kostenlos und braucht keine Anmeldung.</p>
       </div>
       <div className="intro-footer">
-        <button className="btn btn-primary" onClick={onNext}>
-          Los geht's!
-        </button>
+        <Link to="/tests" className="btn btn-primary">
+          Los geht's
+        </Link>
       </div>
     </div>
   );

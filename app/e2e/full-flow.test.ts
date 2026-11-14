@@ -15,13 +15,8 @@ const FIXED_VALUES = [
 test("full integration flow", async ({ page }) => {
   // ── 1. Start page creates a test session and redirects ────────────────────
 
-  await page.goto("/");
+  await page.goto("/tests");
   await page.waitForURL(/\/tests\//, { timeout: 15_000 });
-
-  // ── 2. Intro step ─────────────────────────────────────────────────────────
-
-  await expect(page.locator(".step-intro")).toBeVisible();
-  await page.getByRole("button", { name: "Los geht's!" }).click();
 
   // ── 3. Selection step: select exactly the fixed values ────────────────────
 

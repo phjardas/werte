@@ -16,7 +16,7 @@ describe("completeTest handler", () => {
     handler({ pathParameters: { testId: "abc" }, body: JSON.stringify({ results }) });
 
   beforeEach(() => {
-    complete = vi.fn().mockResolvedValue({ found: true, active: true, session: { firstName: "Max" } });
+    complete = vi.fn().mockResolvedValue({ found: true, active: true, session: {} });
     recordTest = vi.fn().mockResolvedValue(undefined);
     startPostTest = vi.fn().mockResolvedValue(undefined);
     handler = createHandler({ complete }, { recordTest }, werteService, startPostTest);

@@ -1,13 +1,11 @@
 import { HeroLogo } from "./Logo";
 
 interface ComparisonIntroStepProps {
-  firstName?: string | null;
   valueCount: number;
   onNext: () => void;
 }
 
 export function ComparisonIntroStep({
-  firstName,
   valueCount,
   onNext,
 }: ComparisonIntroStepProps) {
@@ -15,9 +13,7 @@ export function ComparisonIntroStep({
     <div className="screen active step-intro">
       <header className="header">
         <HeroLogo />
-        <h1>
-          Jetzt wird's spannend{firstName ? `, ${firstName}` : ""}!
-        </h1>
+        <h1>Jetzt wird's spannend!</h1>
       </header>
       <div className="intro-content">
         <p>

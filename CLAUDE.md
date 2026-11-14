@@ -52,11 +52,12 @@ German values-discovery app for the business context. Users select values, compa
 
 - React 19, Vite and TypeScript, deployed to S3 and CloudFront at `werte.jardas.de`.
 - TanStack Router v1, routes defined in `app/src/routes.tsx`:
-  - `/` (`FreePage`) creates a new test via `POST /tests` and redirects to `/tests/$testId`.
+  - `/` (`LandingPage`) explains the compass briefly and links to `/tests`.
+  - `/tests` (`FreePage`) creates a new test via `POST /tests` and redirects to `/tests/$testId`.
   - `/tests/$testId` (`TestSessionPage`) loads the test. A completed test shows `ResultsScreen`, an active one resumes the flow.
   - `/statistik` (`StatistikPage`) shows the number of completed tests and the top 10 values by points.
   - `/impressum` (`ImpressumPage`).
-- Flow steps (`Step` in `app/src/types.ts`): `intro → selection → filter → comparison-intro → comparison`, then the results screen. The filter step is skipped when 10 or fewer values are selected.
+- Flow steps (`Step` in `app/src/types.ts`): `selection → filter → comparison-intro → comparison`, then the results screen. The filter step is skipped when 10 or fewer values are selected.
 - The test state is saved to the backend after every change (`useStateSync`, `PUT /tests/{testId}/state`), so a test can be resumed via its URL.
 - Tournament logic lives in `app/src/hooks/useTournament.ts`: Swiss system with Buchholz tiebreaking, `ceil(log2(n))` rounds.
 - `useZusammenfassung` polls `GET /tests/{testId}` until the summary is ready. `ResultsScreen` highlights the top 5 values in the summary text (whole words, case-sensitive).

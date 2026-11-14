@@ -10,7 +10,6 @@ export interface ErgebnisEmailInput {
   /** Base URL of the app, e.g. https://werte.jardas.de */
   appUrl: string;
   testId: string;
-  firstName?: string | null;
 }
 
 export type SendEmailFn = (to: string, content: EmailContent) => Promise<void>;
@@ -56,13 +55,12 @@ const MEDALS = ["🥇", "🥈", "🥉"];
 
 const SIGNATUR = ["Ich hoffe, der Werte-Kompass hat dir gefallen. Empfiehl ihn gerne weiter!", "Dein Philipp"];
 
-export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId, firstName }: ErgebnisEmailInput): EmailContent {
+export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId }: ErgebnisEmailInput): EmailContent {
   const link = `${appUrl}/tests/${encodeURIComponent(testId)}`;
-  const anrede = firstName ? `Hallo ${firstName},` : "Hallo,";
   const absaetze = zusammenfassung.split("\n\n");
 
   const text = [
-    anrede,
+    "Hallo,",
     "",
     "das sind deine Top 5 Werte:",
     "",
@@ -113,16 +111,14 @@ export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId, fi
 <tr><td align="center" style="padding:0 0 32px;font-family:${SERIF};font-size:24px;color:${COLORS.primary};">Werte Kompass</td></tr>
 
 <tr><td align="center" style="padding:0 0 4px;font-family:${SERIF};font-size:32px;font-weight:600;color:${COLORS.primary};">Deine Top 5 Werte</td></tr>
-<tr><td align="center" style="padding:0 0 24px;font-family:${SANS};font-size:15px;color:${COLORS.muted};">${
-    firstName ? `Das sind deine persönlichen Werte, ${escapeHtml(firstName)}.` : "Das sind die Werte, die dir am wichtigsten sind."
-  }</td></tr>
+<tr><td align="center" style="padding:0 0 24px;font-family:${SANS};font-size:15px;color:${COLORS.muted};">Das sind die Werte, die dir am wichtigsten sind.</td></tr>
 
 ${werteRows}
 
 <tr><td style="padding:20px 0 0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.card};border-radius:0 19px 19px 19px;">
 <tr><td style="padding:24px 24px 8px;">
-<p style="${p}">${escapeHtml(anrede)}</p>
+<p style="${p}">Hallo,</p>
 ${absaetze.map((a) => `<p style="${p}">${highlightWerte(a, werte)}</p>`).join("\n")}
 <p style="${p}">${escapeHtml(SIGNATUR[0])}</p>
 <p style="${p}">${escapeHtml(SIGNATUR[1])}</p>

@@ -9,7 +9,6 @@ import { ComparisonIntroStep } from "./ComparisonIntroStep";
 import { ComparisonStep } from "./ComparisonStep";
 import { ErrorScreen } from "./ErrorScreen";
 import { FilterStep } from "./FilterStep";
-import { IntroStep } from "./IntroStep";
 import { ResultsScreen } from "./ResultsScreen";
 import { SelectionStep } from "./SelectionStep";
 
@@ -37,21 +36,25 @@ export function TestSessionPage() {
     );
 
   if (session.status === "completed" && session.results) {
-    return <ResultsScreen testId={testId} firstName={session.firstName} results={session.results} emailGesendet={session.emailGesendet} />;
+    return <ResultsScreen testId={testId} results={session.results} emailGesendet={session.emailGesendet} />;
   }
 
   // status === "active"
-  return <ActiveTest testId={testId} firstName={session.firstName} initialState={session.state} />;
+  return <ActiveTest testId={testId} initialState={session.state} />;
 }
 
 interface ActiveTestProps {
   testId: string;
-  firstName: string | null;
   initialState: TestState | null;
 }
 
-function ActiveTest({ testId, firstName, initialState }: ActiveTestProps) {
-  const [step, setStep] = useState<Step>(initialState?.step ?? "intro");
+function ActiveTest({ testId, initialState }: ActiveTestProps) {
+  const [step, setStep] = useState<Step>(
+    // Tests saved before the intro step was removed may still carry "intro".
+    initialState?.step && (initialState.step as string) !== "intro"
+      ? initialState.step
+      : "selection",
+  );
   const [selectedValues, setSelectedValues] = useState<string[]>(
     initialState?.selectedValues ?? [],
   );
@@ -149,7 +152,7 @@ function ActiveTest({ testId, firstName, initialState }: ActiveTestProps) {
   }, [buildState, syncState]);
 
   if (step === "comparison" && tournament.isComplete) {
-    return <ResultsScreen testId={testId} firstName={firstName} results={tournament.results} />;
+    return <ResultsScreen testId={testId} results={tournament.results} />;
   }
 
   const tournamentWithWrappedVote = { ...tournament, vote: handleVote };
@@ -157,7 +160,6 @@ function ActiveTest({ testId, firstName, initialState }: ActiveTestProps) {
   return (
     <>
       <SaveIndicator status={saveStatus} />
-      {step === "intro" && <IntroStep firstName={firstName} onNext={() => setStep("selection")} />}
       {step === "selection" && <SelectionStep onNext={handleSelectionNext} />}
       {step === "filter" && (
         <FilterStep
@@ -168,7 +170,6 @@ function ActiveTest({ testId, firstName, initialState }: ActiveTestProps) {
       )}
       {step === "comparison-intro" && (
         <ComparisonIntroStep
-          firstName={firstName}
           valueCount={finalValues.length}
           onNext={handleStartComparison}
         />

@@ -72,12 +72,6 @@ describe("sendEmail handler", () => {
 });
 
 describe("renderErgebnisEmail", () => {
-  it("greets by first name when known", () => {
-    const { text, html } = renderErgebnisEmail({ werte: ["A"], zusammenfassung: "x", appUrl: "u", testId: "t", firstName: "<Max>" });
-    expect(text.startsWith("Hallo <Max>,")).toBe(true);
-    expect(html).toContain("Hallo &lt;Max&gt;,");
-  });
-
   it("highlights whole-word values, links the logo and signs off", () => {
     const { text, html } = renderErgebnisEmail({
       werte: ["Mut", "Ehrlichkeit"],

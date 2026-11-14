@@ -14,9 +14,6 @@ export interface TestSession {
   szenarienKosten?: number;
   /** Gross Bedrock cost in USD of the summary (cache hits included). */
   zusammenfassungKosten?: number;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
   /** When the result email was sent. The address itself is not stored. */
   emailGesendetAm?: string;
   createdAt: string;

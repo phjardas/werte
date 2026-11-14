@@ -49,9 +49,6 @@ export function createHandler(
     await startPostTest({
       testId,
       werte: results.slice(0, 5).map((r) => r.name),
-      email: result.session?.email ?? null,
-      firstName: result.session?.firstName ?? null,
-      lastName: result.session?.lastName ?? null,
     });
 
     return response(200, { ok: true });

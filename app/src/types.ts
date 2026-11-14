@@ -14,7 +14,6 @@ export interface Szenario {
 }
 
 export type Step =
-  | "intro"
   | "selection"
   | "filter"
   | "comparison-intro"
@@ -58,7 +57,6 @@ export interface TestSession {
   results: Contestant[] | null;
   zusammenfassung: string | null;
   zusammenfassungStatus: "generating" | "completed" | "failed" | null;
-  firstName: string | null;
   emailGesendet: boolean;
 }
 

@@ -7,6 +7,7 @@ import {
 import { Footer } from "./components/Footer";
 import { FreePage } from "./components/FreePage";
 import { ImpressumPage } from "./components/ImpressumPage";
+import { LandingPage } from "./components/LandingPage";
 import { StatistikPage } from "./components/StatistikPage";
 import { TestSessionPage } from "./components/TestSessionPage";
 
@@ -25,9 +26,15 @@ const rootRoute = createRootRoute({
   ),
 });
 
-export const freeRoute = createRoute({
+export const landingRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
+  component: LandingPage,
+});
+
+export const freeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/tests",
   component: FreePage,
 });
 
@@ -50,6 +57,7 @@ export const statistikRoute = createRoute({
 });
 
 const routeTree = rootRoute.addChildren([
+  landingRoute,
   freeRoute,
   testSessionRoute,
   impressumRoute,

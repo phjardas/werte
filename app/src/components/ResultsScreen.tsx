@@ -95,14 +95,12 @@ function EmailForm({
 
 interface ResultsScreenProps {
   testId?: string;
-  firstName?: string | null;
   results: Contestant[];
   emailGesendet?: boolean;
 }
 
 export function ResultsScreen({
   testId,
-  firstName,
   results,
   emailGesendet = false,
 }: ResultsScreenProps) {
@@ -114,11 +112,7 @@ export function ResultsScreen({
       <div className="results-header">
         <HeroLogo />
         <h1>Deine Top 5 Werte</h1>
-        <p>
-          {firstName
-            ? `Das sind deine persönlichen Werte, ${firstName}.`
-            : "Das sind die Werte, die dir am wichtigsten sind."}
-        </p>
+        <p>Das sind die Werte, die dir am wichtigsten sind.</p>
       </div>
       <div className="screen active step-results">
         <div className="results-container">
@@ -149,14 +143,13 @@ export function ResultsScreen({
                   </span>
                   {zusammenfassung ? (
                     <div className="chat-bubble summary-text">
-                      {firstName ? <p>Hallo {firstName},</p> : null}
                       {zusammenfassung.split("\n\n").map((paragraph, i) => (
                         <p key={i}>{highlightValues(paragraph, top5.map((c) => c.name))}</p>
                       ))}
                     </div>
                   ) : timedOut ? (
                     <div className="chat-bubble summary-text">
-                      {firstName ? <p>Hallo {firstName},</p> : <p>Hallo!</p>}
+                      <p>Hallo!</p>
                       <p>
                         Ich brauche noch ein paar Minuten, um deine persönliche
                         Zusammenfassung zu schreiben. 🙈
@@ -180,7 +173,7 @@ export function ResultsScreen({
             <EmailForm testId={testId} emailGesendet={emailGesendet} />
           ) : null}
           <div className="intro-footer">
-            <Link to="/" className="btn btn-primary">
+            <Link to="/tests" className="btn btn-primary">
               Neuen Test starten
             </Link>
           </div>

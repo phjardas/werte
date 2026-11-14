@@ -38,14 +38,12 @@ describe("getTest handler", () => {
       results: [{ name: "Freiheit", score: 10 }],
       zusammenfassung: "Eine tolle Zusammenfassung",
       zusammenfassungStatus: "completed",
-      firstName: "Max",
       createdAt: "2024-01-01",
     });
     const res = await handler({ pathParameters: { testId: "abc" } });
     expect(res.statusCode).toBe(200);
     const body = JSON.parse(res.body);
     expect(body.testId).toBe("abc");
-    expect(body.firstName).toBe("Max");
     expect(body.zusammenfassungStatus).toBe("completed");
   });
 

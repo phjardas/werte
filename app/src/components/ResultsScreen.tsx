@@ -6,12 +6,16 @@ import { HeroLogo } from "./Logo";
 function highlightValues(text: string, values: string[]): ReactNode {
   if (values.length === 0) return text;
   const escaped = values.map((v) => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  const pattern = new RegExp(`(${escaped.join("|")})`, "gi");
-  const lowerValues = new Set(values.map((v) => v.toLowerCase()));
+  // Whole words only, case-sensitive. \b is ASCII-only, so umlauts need Unicode lookarounds.
+  const pattern = new RegExp(
+    `(?<![\\p{L}\\p{N}])(${escaped.join("|")})(?![\\p{L}\\p{N}])`,
+    "gu",
+  );
+  // split() puts the captured matches at the odd indices
   return text
     .split(pattern)
     .map((part, i) =>
-      lowerValues.has(part.toLowerCase()) ? (
+      i % 2 === 1 ? (
         <mark key={i} className="value-highlight">{part}</mark>
       ) : (
         part

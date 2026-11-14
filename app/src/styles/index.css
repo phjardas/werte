@@ -7,8 +7,8 @@
 }
 
 :root {
-  --font-serif: "Antic Didone", serif;
-  --font-sans: "Faculty Glyphic", sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Geist", system-ui, sans-serif;
   /* Deep blue primary, teal secondary. Keep in sync with public/logo.svg. */
   --primary-hue: 250;
   --primary: oklch(42% 0.09 var(--primary-hue));
@@ -85,7 +85,7 @@ body {
 .header h1 {
   font-family: var(--font-serif);
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--primary);
   margin-top: 0.5rem;
   margin-bottom: 0.25rem;
@@ -229,7 +229,7 @@ body {
 .step-comparison h1 {
   font-family: var(--font-serif);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--primary);
   margin-bottom: 1.5rem;
 }
@@ -421,7 +421,7 @@ body {
 .results-header h1 {
   font-family: var(--font-serif);
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 0.25rem;
   color: var(--primary);
 }

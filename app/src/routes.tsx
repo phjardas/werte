@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import { Footer } from "./components/Footer";
 import { FreePage } from "./components/FreePage";
+import { ImpressumPage } from "./components/ImpressumPage";
 import { TestSessionPage } from "./components/TestSessionPage";
 
 declare module "@tanstack/react-router" {
@@ -35,9 +36,16 @@ export const testSessionRoute = createRoute({
   component: TestSessionPage,
 });
 
+export const impressumRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/impressum",
+  component: ImpressumPage,
+});
+
 const routeTree = rootRoute.addChildren([
   freeRoute,
   testSessionRoute,
+  impressumRoute,
 ]);
 
 export const router = createRouter({

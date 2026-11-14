@@ -1,9 +1,10 @@
-import Logo from "./Logo";
+import { Link } from "@tanstack/react-router";
 
 export function Footer() {
   return (
     <footer className="site-footer">
-      <Logo />
+      made with <span role="img" aria-label="Liebe">❤️</span> by Philipp
+      Jardas · <Link to="/impressum">Impressum</Link>
     </footer>
   );
 }

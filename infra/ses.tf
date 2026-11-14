@@ -1,9 +1,44 @@
-# Emails are sent from philipp@jardas.de. The SES identity for jardas.de (including DKIM) already
-# exists in the account and is managed outside this project, so it is only referenced here.
+# SES domain identity for the result emails, with DKIM and a custom MAIL FROM domain for SPF.
+# Each environment has its own domain and therefore its own identity.
 
 locals {
-  email_from       = "Philipp Jardas <philipp@jardas.de>"
-  ses_identity_arn = "arn:aws:ses:eu-central-1:${data.aws_caller_identity.current.account_id}:identity/jardas.de"
+  email_from         = "Werte Kompass <noreply@${var.domain}>"
+  ses_mail_from_name = "mail.${var.domain}"
+}
+
+resource "aws_sesv2_email_identity" "main" {
+  email_identity = var.domain
+}
+
+resource "aws_route53_record" "ses_dkim" {
+  count   = 3
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = "${aws_sesv2_email_identity.main.dkim_signing_attributes[0].tokens[count.index]}._domainkey.${var.domain}"
+  type    = "CNAME"
+  ttl     = 600
+  records = ["${aws_sesv2_email_identity.main.dkim_signing_attributes[0].tokens[count.index]}.dkim.amazonses.com"]
+}
+
+resource "aws_sesv2_email_identity_mail_from_attributes" "main" {
+  email_identity         = aws_sesv2_email_identity.main.email_identity
+  mail_from_domain       = local.ses_mail_from_name
+  behavior_on_mx_failure = "USE_DEFAULT_VALUE"
+}
+
+resource "aws_route53_record" "ses_mail_from_mx" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = local.ses_mail_from_name
+  type    = "MX"
+  ttl     = 600
+  records = ["10 feedback-smtp.eu-central-1.amazonses.com"]
+}
+
+resource "aws_route53_record" "ses_mail_from_spf" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = local.ses_mail_from_name
+  type    = "TXT"
+  ttl     = 600
+  records = ["v=spf1 include:amazonses.com ~all"]
 }
 
 resource "aws_iam_role_policy" "lambda_ses" {
@@ -15,7 +50,7 @@ resource "aws_iam_role_policy" "lambda_ses" {
     Statement = [{
       Effect   = "Allow"
       Action   = "ses:SendEmail"
-      Resource = local.ses_identity_arn
+      Resource = aws_sesv2_email_identity.main.arn
     }]
   })
 }

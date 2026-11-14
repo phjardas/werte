@@ -38,7 +38,8 @@ export function createHandler(
     const content = renderErgebnisEmail({
       werte: session.results.slice(0, 5).map((r) => r.name),
       zusammenfassung: session.zusammenfassung,
-      link: `${appUrl}/tests/${encodeURIComponent(testId)}`,
+      appUrl,
+      testId,
       firstName: session.firstName,
     });
 

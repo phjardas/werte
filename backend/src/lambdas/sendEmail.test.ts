@@ -73,8 +73,23 @@ describe("sendEmail handler", () => {
 
 describe("renderErgebnisEmail", () => {
   it("greets by first name when known", () => {
-    const { text, html } = renderErgebnisEmail({ werte: ["A"], zusammenfassung: "x", link: "l", firstName: "<Max>" });
+    const { text, html } = renderErgebnisEmail({ werte: ["A"], zusammenfassung: "x", appUrl: "u", testId: "t", firstName: "<Max>" });
     expect(text.startsWith("Hallo <Max>,")).toBe(true);
     expect(html).toContain("Hallo &lt;Max&gt;,");
+  });
+
+  it("highlights whole-word values, links the logo and signs off", () => {
+    const { text, html } = renderErgebnisEmail({
+      werte: ["Mut", "Ehrlichkeit"],
+      zusammenfassung: "Mut und Ehrlichkeit, nicht Mutter.",
+      appUrl: "https://werte.example",
+      testId: "abc",
+    });
+    expect(html).toContain('<img src="https://werte.example/logo.png"');
+    expect(html.match(/<strong[^>]*>Mut<\/strong>/g)).toHaveLength(1);
+    expect(html).toContain(">Ehrlichkeit</strong>");
+    expect(html).toContain("Mutter.");
+    expect(text.trimEnd().endsWith("Empfiehl ihn gerne weiter!\n\nDein Philipp")).toBe(true);
+    expect(html).toContain("Dein Philipp");
   });
 });

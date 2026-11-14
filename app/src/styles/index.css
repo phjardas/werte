@@ -477,7 +477,17 @@ body {
 }
 
 .email-form,
-.results-container > .email-form-note {
+.results-container > .email-form .btn:disabled,
+.email-form input:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.spinner-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 2px;
+}
+.email-form-note {
   max-width: 600px;
   margin: 2rem auto 0;
 }

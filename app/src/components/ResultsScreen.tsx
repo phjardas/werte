@@ -66,13 +66,22 @@ function EmailForm({
           placeholder="deine@adresse.de"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={status === "sending"}
         />
         <button
           type="submit"
           className="btn btn-secondary"
           disabled={status === "sending"}
+          aria-busy={status === "sending"}
         >
-          Senden
+          {status === "sending" ? (
+            <>
+              <span className="spinner spinner-sm" aria-hidden="true" />
+              Wird gesendet…
+            </>
+          ) : (
+            "Senden"
+          )}
         </button>
       </div>
       <p className="email-form-note">

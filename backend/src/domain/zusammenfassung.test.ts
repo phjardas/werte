@@ -37,11 +37,12 @@ describe("ZusammenfassungService", () => {
 
   it("generates and caches on cache miss", async () => {
     vi.mocked(mockCache.get).mockResolvedValue(null);
-    vi.mocked(mockAI.invokeText).mockResolvedValue("generated summary");
+    vi.mocked(mockAI.invokeText).mockResolvedValue({ result: "generated summary", kosten: 0.03 });
     vi.mocked(mockCache.put).mockResolvedValue(undefined);
 
     const result = await service.getOrCreate(FIVE_WERTE);
     expect(result?.zusammenfassung).toBe("generated summary");
+    expect(result?.kosten).toBe(0.03);
     expect(result?.werte).toEqual(FIVE_WERTE);
     expect(mockCache.put).toHaveBeenCalledOnce();
   });

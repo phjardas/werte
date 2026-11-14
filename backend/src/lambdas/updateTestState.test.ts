@@ -64,7 +64,7 @@ describe("updateTestState handler", () => {
         body: JSON.stringify(comparisonIntroState),
       });
       expect(res.statusCode).toBe(200);
-      expect(mockPrewarm).toHaveBeenCalledWith(comparisonIntroState.finalValues);
+      expect(mockPrewarm).toHaveBeenCalledWith("abc", comparisonIntroState.finalValues);
     });
 
     it("does not trigger prewarm for other steps", async () => {

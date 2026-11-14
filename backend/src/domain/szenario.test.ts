@@ -52,30 +52,32 @@ describe("SzenarioService", () => {
 
   describe("getOrCreate", () => {
     it("returns cached result on cache hit", async () => {
-      const cached = { werte: ["Aktivität", "Ruhe"], szenario: "cached", antworten: ["a", "b"] };
+      const cached = { werte: ["Aktivität", "Ruhe"], szenario: "cached", antworten: ["a", "b"], kosten: 0.02 };
       vi.mocked(mockCache.get).mockResolvedValue(cached as Record<string, unknown>);
 
       const result = await service.getOrCreate("Aktivität", "Ruhe");
       expect(result?.szenario).toBe("cached");
+      expect(result?.kosten).toBe(0.02);
       expect(result?.version).toBeDefined();
       expect(mockAI.invoke).not.toHaveBeenCalled();
     });
 
     it("generates and caches on cache miss", async () => {
       vi.mocked(mockCache.get).mockResolvedValue(null);
-      vi.mocked(mockAI.invoke).mockResolvedValue({ szenario: "generated", antworten: ["x", "y"] });
+      vi.mocked(mockAI.invoke).mockResolvedValue({ result: { szenario: "generated", antworten: ["x", "y"] }, kosten: 0.01 });
       vi.mocked(mockCache.put).mockResolvedValue(undefined);
 
       const result = await service.getOrCreate("Aktivität", "Ruhe");
       expect(result?.szenario).toBe("generated");
       expect(result?.werte).toEqual(["Aktivität", "Ruhe"]);
       expect(result?.version).toBeDefined();
-      expect(mockCache.put).toHaveBeenCalledOnce();
+      expect(result?.kosten).toBe(0.01);
+      expect(mockCache.put).toHaveBeenCalledWith("Aktivität_Ruhe", expect.any(String), expect.objectContaining({ kosten: 0.01 }));
     });
 
     it("sorts value pair before caching", async () => {
       vi.mocked(mockCache.get).mockResolvedValue(null);
-      vi.mocked(mockAI.invoke).mockResolvedValue({ szenario: "s", antworten: ["a", "b"] });
+      vi.mocked(mockAI.invoke).mockResolvedValue({ result: { szenario: "s", antworten: ["a", "b"] }, kosten: 0.01 });
       vi.mocked(mockCache.put).mockResolvedValue(undefined);
 
       const result = await service.getOrCreate("Ruhe", "Aktivität");
@@ -94,7 +96,7 @@ describe("SzenarioService", () => {
     });
 
     it("skips cache when skipCache is true", async () => {
-      vi.mocked(mockAI.invoke).mockResolvedValue({ szenario: "fresh", antworten: ["a", "b"] });
+      vi.mocked(mockAI.invoke).mockResolvedValue({ result: { szenario: "fresh", antworten: ["a", "b"] }, kosten: 0.01 });
       vi.mocked(mockCache.put).mockResolvedValue(undefined);
 
       await service.getOrCreate("Aktivität", "Ruhe", true);

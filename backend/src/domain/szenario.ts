@@ -8,6 +8,8 @@ export interface SzenarioResult {
   szenario: string;
   antworten: [string, string];
   version: string;
+  /** Gross Bedrock cost in USD for generating this scenario (also reported for cache hits). */
+  kosten: number;
 }
 
 export const SZENARIO_SYSTEM_PROMPT = `Du erstellst Quiz-Fragen für Berufstätige. Jede Frage beschreibt eine konkrete Situation aus dem Arbeitsalltag, in der zwei Werte miteinander in Konflikt geraten. Die Person muss sich für eine von zwei Handlungen entscheiden, die jeweils einem der beiden Werte entspricht.
@@ -92,14 +94,18 @@ export class SzenarioService {
           szenario: cached["szenario"] as string,
           antworten: cached["antworten"] as [string, string],
           version,
+          kosten: (cached["kosten"] as number | undefined) ?? 0,
         };
       }
     }
 
     const t0 = Date.now();
     let generated: { szenario: string; antworten: [string, string] };
+    let kosten: number;
     try {
-      generated = (await this.ai.invoke(SZENARIO_SYSTEM_PROMPT, userPrompt, 1024)) as typeof generated;
+      const res = await this.ai.invoke(SZENARIO_SYSTEM_PROMPT, userPrompt, 1024);
+      generated = res.result as typeof generated;
+      kosten = res.kosten;
     } catch (err) {
       console.log(JSON.stringify({ event: "gen_error", fn: "getSzenario", key: pk, error: (err as Error).message, generationMs: Date.now() - t0 }));
       return null;
@@ -113,6 +119,7 @@ export class SzenarioService {
       szenario: generated.szenario,
       antworten: generated.antworten,
       version,
+      kosten,
     };
 
     if (!skipCache) {
@@ -120,6 +127,7 @@ export class SzenarioService {
         werte: result.werte,
         szenario: result.szenario,
         antworten: result.antworten,
+        kosten: result.kosten,
       });
     }
 

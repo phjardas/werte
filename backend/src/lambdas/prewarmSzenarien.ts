@@ -1,16 +1,19 @@
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import type { SzenarioService } from "../domain/szenario.js";
+import type { TestRepository } from "../domain/test.js";
 import { SzenarioService as SzenarioServiceImpl } from "../domain/szenario.js";
 import type { WerteService } from "../domain/werte.js";
 import { WerteService as WerteServiceImpl } from "../domain/werte.js";
 import { BedrockAIService } from "../infrastructure/bedrock.js";
 import { DynamoDBCache } from "../infrastructure/dynamodb-cache.js";
+import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
 import werteData from "../werte.json" with { type: "json" };
 import { response } from "./response.js";
 
 export function createHandler(
   szenarioService: Pick<SzenarioService, "getOrCreate">,
   werteService: Pick<WerteService, "has">,
+  testRepository: Pick<TestRepository, "setSzenarienKosten">,
 ) {
   return async function handler(event: Partial<APIGatewayProxyEventV2>) {
     const body = JSON.parse(event.body ?? "{}");
@@ -39,10 +42,17 @@ export function createHandler(
       pairs.map(([a, b]) => szenarioService.getOrCreate(a, b)),
     );
 
-    const succeeded = results.filter(
-      (r) => r.status === "fulfilled" && r.value,
-    ).length;
+    const generated = results.flatMap((r) =>
+      r.status === "fulfilled" && r.value ? [r.value] : [],
+    );
+    const succeeded = generated.length;
     const failed = pairs.length - succeeded;
+    // ponytail: cache hits count with their original generation cost, so shared scenarios are counted per test.
+    const kosten = generated.reduce((sum, s) => sum + s.kosten, 0);
+
+    if (typeof body.testId === "string") {
+      await testRepository.setSzenarienKosten(body.testId, kosten);
+    }
 
     console.log(
       JSON.stringify({
@@ -50,6 +60,7 @@ export function createHandler(
         pairs: pairs.length,
         succeeded,
         failed,
+        kosten,
       }),
     );
 
@@ -64,4 +75,8 @@ const szenarioService = new SzenarioServiceImpl(
   werteService,
 );
 
-export const handler = createHandler(szenarioService, werteService);
+export const handler = createHandler(
+  szenarioService,
+  werteService,
+  new DynamoDBTestRepository(process.env.TESTS_TABLE!),
+);

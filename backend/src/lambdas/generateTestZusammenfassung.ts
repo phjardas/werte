@@ -25,7 +25,7 @@ export function createHandler(
       throw new Error(`Failed to generate Zusammenfassung for testId=${testId}`);
     }
 
-    await testRepository.updateZusammenfassung(testId, result.zusammenfassung);
+    await testRepository.updateZusammenfassung(testId, result.zusammenfassung, result.kosten);
 
     return event;
   };

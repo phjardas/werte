@@ -75,13 +75,26 @@ export class DynamoDBTestRepository implements TestRepository {
     }
   }
 
-  async updateZusammenfassung(testId: string, zusammenfassung: string): Promise<void> {
+  async updateZusammenfassung(testId: string, zusammenfassung: string, kosten: number): Promise<void> {
     await this.ddb.send(
       new UpdateCommand({
         TableName: this.tableName,
         Key: { testId },
-        UpdateExpression: "SET zusammenfassung = :z, zusammenfassungStatus = :completed",
-        ExpressionAttributeValues: { ":z": zusammenfassung, ":completed": "completed" },
+        UpdateExpression:
+          "SET zusammenfassung = :z, zusammenfassungStatus = :completed, zusammenfassungKosten = :k",
+        ExpressionAttributeValues: { ":z": zusammenfassung, ":completed": "completed", ":k": kosten },
+      }),
+    );
+  }
+
+  async setSzenarienKosten(testId: string, kosten: number): Promise<void> {
+    await this.ddb.send(
+      new UpdateCommand({
+        TableName: this.tableName,
+        Key: { testId },
+        UpdateExpression: "SET szenarienKosten = :k",
+        ConditionExpression: "attribute_exists(testId)",
+        ExpressionAttributeValues: { ":k": kosten },
       }),
     );
   }

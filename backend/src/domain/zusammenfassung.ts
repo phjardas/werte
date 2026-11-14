@@ -6,6 +6,8 @@ import type { Wert, WerteService } from "./werte.js";
 export interface ZusammenfassungResult {
   werte: string[];
   zusammenfassung: string;
+  /** Gross Bedrock cost in USD for generating this summary (also reported for cache hits). */
+  kosten: number;
 }
 
 const ZUSAMMENFASSUNG_SYSTEM_PROMPT = `Du schreibst eine persönliche Zusammenfassung für eine berufstätige Person, die gerade einen Werte-Test gemacht hat. Sie hat ihre fünf wichtigsten Werte ermittelt, geordnet nach Priorität (der erste Wert ist der wichtigste).
@@ -49,6 +51,7 @@ export class ZusammenfassungService {
       return {
         werte: cached["werte"] as string[],
         zusammenfassung: cached["zusammenfassung"] as string,
+        kosten: (cached["kosten"] as number | undefined) ?? 0,
       };
     }
 
@@ -56,12 +59,13 @@ export class ZusammenfassungService {
     const userPrompt = buildPrompt(werteData);
     const t0 = Date.now();
     let zusammenfassung: string;
+    let kosten: number;
     try {
-      zusammenfassung = await this.ai.invokeText(
+      ({ result: zusammenfassung, kosten } = await this.ai.invokeText(
         ZUSAMMENFASSUNG_SYSTEM_PROMPT,
         userPrompt,
         4096,
-      );
+      ));
     } catch (err) {
       console.log(
         JSON.stringify({
@@ -88,11 +92,13 @@ export class ZusammenfassungService {
     const result: ZusammenfassungResult = {
       werte: werteNames,
       zusammenfassung,
+      kosten,
     };
 
     await this.cache.put(key, version, {
       werte: result.werte,
       zusammenfassung: result.zusammenfassung,
+      kosten: result.kosten,
     });
     return result;
   }

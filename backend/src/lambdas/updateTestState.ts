@@ -4,7 +4,7 @@ import type { TestRepository } from "../domain/test.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
 import { response } from "./response.js";
 
-export type PrewarmerFn = (werte: string[]) => Promise<void>;
+export type PrewarmerFn = (testId: string, werte: string[]) => Promise<void>;
 
 function extractFinalValues(state: unknown): string[] | null {
   if (typeof state !== "object" || state === null) return null;
@@ -41,7 +41,7 @@ export function createHandler(
     const finalValues = extractFinalValues(state);
     if (finalValues && prewarm) {
       // Await the async invocation — it returns immediately (Event type), not when prewarming finishes
-      await prewarm(finalValues).catch((err) =>
+      await prewarm(testId, finalValues).catch((err) =>
         console.error(JSON.stringify({ event: "prewarm_trigger_error", error: String(err) })),
       );
     }
@@ -52,13 +52,13 @@ export function createHandler(
 
 function createPrewarmer(functionName: string): PrewarmerFn {
   const lambda = new LambdaClient({});
-  return async (werte: string[]) => {
+  return async (testId: string, werte: string[]) => {
     console.log(JSON.stringify({ event: "prewarm_trigger", werte_count: werte.length }));
     await lambda.send(
       new InvokeCommand({
         FunctionName: functionName,
         InvocationType: "Event",
-        Payload: Buffer.from(JSON.stringify({ body: JSON.stringify({ werte }) })),
+        Payload: Buffer.from(JSON.stringify({ body: JSON.stringify({ testId, werte }) })),
       }),
     );
   };

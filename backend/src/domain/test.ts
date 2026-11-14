@@ -10,6 +10,10 @@ export interface TestSession {
   results?: TestResult[];
   zusammenfassung?: string;
   zusammenfassungStatus?: "generating" | "completed" | "failed";
+  /** Gross Bedrock cost in USD of all scenarios prewarmed for this test (cache hits included). */
+  szenarienKosten?: number;
+  /** Gross Bedrock cost in USD of the summary (cache hits included). */
+  zusammenfassungKosten?: number;
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -33,6 +37,7 @@ export interface TestRepository {
   get(testId: string): Promise<TestSession | null>;
   updateState(testId: string, state: unknown): Promise<UpdateStateResult>;
   complete(testId: string, results: TestResult[]): Promise<CompleteResult>;
-  updateZusammenfassung(testId: string, zusammenfassung: string): Promise<void>;
+  updateZusammenfassung(testId: string, zusammenfassung: string, kosten: number): Promise<void>;
+  setSzenarienKosten(testId: string, kosten: number): Promise<void>;
   updateZusammenfassungStatus(testId: string, status: "generating" | "completed" | "failed"): Promise<void>;
 }

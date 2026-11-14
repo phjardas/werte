@@ -275,6 +275,7 @@ resource "aws_lambda_function" "prewarm_szenarien" {
   environment {
     variables = {
       DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
+      TESTS_TABLE    = aws_dynamodb_table.tests.name
     }
   }
 }

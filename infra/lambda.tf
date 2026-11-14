@@ -50,6 +50,22 @@ resource "aws_iam_role_policy" "lambda_tests_dynamodb" {
   })
 }
 
+resource "aws_iam_role_policy" "lambda_statistik_dynamodb" {
+  name = "${var.project}-lambda-statistik-dynamodb"
+  role = aws_iam_role.lambda.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["dynamodb:GetItem", "dynamodb:UpdateItem"]
+        Resource = aws_dynamodb_table.statistik.arn
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy" "lambda_bedrock" {
   name = "${var.project}-lambda-bedrock"
   role = aws_iam_role.lambda.id
@@ -213,6 +229,7 @@ resource "aws_lambda_function" "complete_test" {
   environment {
     variables = {
       DYNAMODB_TABLE    = aws_dynamodb_table.tests.name
+      STATISTIK_TABLE   = aws_dynamodb_table.statistik.name
       STEP_FUNCTION_ARN = aws_sfn_state_machine.post_test.arn
     }
   }
@@ -323,6 +340,26 @@ resource "aws_lambda_function" "send_email" {
       DYNAMODB_TABLE = aws_dynamodb_table.tests.name
       EMAIL_FROM     = local.email_from
       APP_URL        = "https://${var.domain}"
+    }
+  }
+}
+
+# getStatistik
+
+resource "aws_lambda_function" "get_statistik" {
+  function_name    = "${var.project}-getStatistik"
+  role             = aws_iam_role.lambda.arn
+  handler          = "lambdas/getStatistik.handler"
+  runtime          = "nodejs26.x"
+  architectures    = ["arm64"]
+  filename         = data.archive_file.functions.output_path
+  source_code_hash = data.archive_file.functions.output_base64sha256
+  timeout          = 10
+  memory_size      = 128
+
+  environment {
+    variables = {
+      STATISTIK_TABLE = aws_dynamodb_table.statistik.name
     }
   }
 }

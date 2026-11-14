@@ -139,7 +139,7 @@ function ActiveTest({ testId, firstName, initialState }: ActiveTestProps) {
   useEffect(() => {
     if (step === "comparison" && tournament.isComplete && !completed) {
       setCompleted(true);
-      completeTest(testId, tournament.results.slice(0, 5)).catch(console.error);
+      completeTest(testId, tournament.results).catch(console.error);
     }
   }, [step, tournament.isComplete, tournament.results, testId, completed]);
 

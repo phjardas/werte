@@ -61,3 +61,9 @@ export interface TestSession {
   firstName: string | null;
   emailGesendet: boolean;
 }
+
+export interface Statistik {
+  tests: number;
+  punkteskala: number[];
+  rangliste: { name: string; punkte: number; platzierungen: number[] }[];
+}

@@ -32,3 +32,17 @@ resource "aws_dynamodb_table" "tests" {
     enabled        = true
   }
 }
+
+# Running counters for the public statistics page. Kept separate from the tests
+# table so the counts survive test expiry.
+resource "aws_dynamodb_table" "statistik" {
+  name         = "${var.project}-statistik"
+  billing_mode = "PAY_PER_REQUEST"
+
+  hash_key = "pk"
+
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+}

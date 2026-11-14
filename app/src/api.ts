@@ -1,5 +1,6 @@
 import type {
   Contestant,
+  Statistik,
   Szenario,
   TestSession,
   TestState,
@@ -119,4 +120,10 @@ export async function sendEmail(
   } catch {
     return "error";
   }
+}
+
+export async function fetchStatistik(): Promise<Statistik> {
+  const res = await fetch(`${API_BASE_URL}/statistik`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }

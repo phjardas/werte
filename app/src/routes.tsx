@@ -7,6 +7,7 @@ import {
 import { Footer } from "./components/Footer";
 import { FreePage } from "./components/FreePage";
 import { ImpressumPage } from "./components/ImpressumPage";
+import { StatistikPage } from "./components/StatistikPage";
 import { TestSessionPage } from "./components/TestSessionPage";
 
 declare module "@tanstack/react-router" {
@@ -42,10 +43,17 @@ export const impressumRoute = createRoute({
   component: ImpressumPage,
 });
 
+export const statistikRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/statistik",
+  component: StatistikPage,
+});
+
 const routeTree = rootRoute.addChildren([
   freeRoute,
   testSessionRoute,
   impressumRoute,
+  statistikRoute,
 ]);
 
 export const router = createRouter({

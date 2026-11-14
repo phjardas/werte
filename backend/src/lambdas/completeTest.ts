@@ -1,47 +1,72 @@
 import { SFNClient, StartExecutionCommand } from "@aws-sdk/client-sfn";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import type { StatistikRepository } from "../domain/statistik.js";
 import type { TestRepository, TestResult } from "../domain/test.js";
+import { WerteService } from "../domain/werte.js";
+import { DynamoDBStatistikRepository } from "../infrastructure/dynamodb-statistik.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
+import werteData from "../werte.json" with { type: "json" };
 import { response } from "./response.js";
 
-const sfn = new SFNClient({ region: "eu-central-1" });
-const STEP_FUNCTION_ARN = process.env.STEP_FUNCTION_ARN;
+export type StartPostTestFn = (input: Record<string, unknown>) => Promise<void>;
 
-export function createHandler(testRepository: Pick<TestRepository, "complete">) {
+// The results feed the public statistics, so only known values without duplicates are accepted.
+function isValidResults(results: unknown, werteService: WerteService): results is TestResult[] {
+  if (!Array.isArray(results) || results.length === 0) return false;
+  const names = results.map((r) => (r as TestResult | null)?.name);
+  return names.every((n) => typeof n === "string" && werteService.has(n)) && new Set(names).size === names.length;
+}
+
+export function createHandler(
+  testRepository: Pick<TestRepository, "complete">,
+  statistik: Pick<StatistikRepository, "recordTest">,
+  werteService: WerteService,
+  startPostTest: StartPostTestFn,
+) {
   return async function handler(event: Partial<APIGatewayProxyEventV2>) {
     const testId = event.pathParameters?.testId;
     if (!testId) return response(400, { error: "testId is required" });
 
-    let body: { results?: TestResult[] };
+    let body: { results?: unknown };
     try {
       body = JSON.parse(event.body ?? "null");
     } catch {
       return response(400, { error: "Invalid JSON body" });
     }
 
-    if (!Array.isArray(body?.results)) {
-      return response(400, { error: "Body must include a results array" });
+    if (!isValidResults(body?.results, werteService)) {
+      return response(400, { error: "Body must include a results array of distinct known values" });
     }
+    const results = body.results;
 
-    const result = await testRepository.complete(testId, body.results);
+    const result = await testRepository.complete(testId, results);
     if (!result.found) return response(404, { error: "not_found" });
     if (!result.active) return response(409, { error: "test_not_active" });
 
-    await sfn.send(
-      new StartExecutionCommand({
-        stateMachineArn: STEP_FUNCTION_ARN,
-        input: JSON.stringify({
-          testId,
-          werte: body.results.slice(0, 5).map((r) => r.name),
-          email: result.session?.email ?? null,
-          firstName: result.session?.firstName ?? null,
-          lastName: result.session?.lastName ?? null,
-        }),
-      }),
-    );
+    // ponytail: a failed counter update loses this test for the statistics, the test itself is unaffected
+    await statistik.recordTest(results.map((r) => r.name)).catch((err) => console.error("recordTest failed:", err));
+
+    await startPostTest({
+      testId,
+      werte: results.slice(0, 5).map((r) => r.name),
+      email: result.session?.email ?? null,
+      firstName: result.session?.firstName ?? null,
+      lastName: result.session?.lastName ?? null,
+    });
 
     return response(200, { ok: true });
   };
 }
 
-export const handler = createHandler(new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!));
+const sfn = new SFNClient({ region: "eu-central-1" });
+
+export const handler = createHandler(
+  new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
+  new DynamoDBStatistikRepository(process.env.STATISTIK_TABLE!),
+  new WerteService(werteData.werte),
+  async (input) => {
+    await sfn.send(
+      new StartExecutionCommand({ stateMachineArn: process.env.STEP_FUNCTION_ARN, input: JSON.stringify(input) }),
+    );
+  },
+);

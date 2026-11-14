@@ -184,6 +184,7 @@ body {
   font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.15s ease;
@@ -764,31 +765,161 @@ body {
 }
 
 /* ── Statistik ── */
-.intro-content h2 {
+.statistik-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.statistik-container h2 {
   font-family: var(--font-serif);
   font-size: 1.25rem;
+  font-weight: 600;
   color: var(--primary);
-  margin: 1.5rem 0 0.75rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.statistik-tests {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
 .statistik-tests strong {
   font-family: var(--font-serif);
-  font-size: 2rem;
-  color: var(--primary);
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--secondary);
 }
 
-.intro-content .statistik-rangliste li {
+.statistik-podium,
+.statistik-rest {
+  list-style: none;
+}
+
+.statistik-eintrag {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 1rem;
-  margin-bottom: 0.25rem;
+  opacity: 0;
+  animation: fadeIn 0.4s ease forwards;
+  animation-delay: calc(var(--i) * 0.06s);
 }
 
-.statistik-punkte,
-.statistik-hinweis {
+.statistik-podium .statistik-eintrag {
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.statistik-podium .rank-1 {
+  padding: 1.25rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.statistik-rest {
+  margin-top: 1.25rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.statistik-rest .statistik-eintrag {
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+}
+
+.statistik-rest .statistik-eintrag + .statistik-eintrag {
+  border-top: 1px solid oklch(0 0 0 / 0.06);
+}
+
+.statistik-rest .result-rank {
+  width: 28px;
+  height: 28px;
+  font-size: 0.9rem;
   color: var(--text-muted);
 }
 
-.statistik-hinweis {
+.statistik-rest .result-value {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.statistik-eintrag-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.statistik-eintrag-kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.statistik-eintrag-kopf .result-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statistik-punkte {
+  flex-shrink: 0;
   font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.statistik-balken {
+  height: 8px;
+  border-radius: 4px;
+  background: oklch(0 0 0 / 0.05);
+  overflow: hidden;
+}
+
+.statistik-podium .statistik-balken {
+  height: 12px;
+  border-radius: 6px;
+}
+
+.statistik-balken-fill {
+  height: 100%;
+  width: calc(var(--anteil) * 100%);
+  border-radius: inherit;
+  background: var(--secondary-light);
+  transform-origin: left;
+  animation: balkenWachsen 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 0.06s + 0.15s);
+}
+
+.statistik-podium .statistik-balken-fill {
+  background: var(--secondary);
+}
+
+@keyframes balkenWachsen {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statistik-eintrag,
+  .statistik-balken-fill {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+.statistik-hinweis {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }

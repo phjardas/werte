@@ -4,6 +4,7 @@ import {
   createRouter,
   Outlet,
 } from "@tanstack/react-router";
+import { DatenschutzPage } from "./components/DatenschutzPage";
 import { Footer } from "./components/Footer";
 import { FreePage } from "./components/FreePage";
 import { ImpressumPage } from "./components/ImpressumPage";
@@ -50,6 +51,12 @@ export const impressumRoute = createRoute({
   component: ImpressumPage,
 });
 
+export const datenschutzRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/datenschutz",
+  component: DatenschutzPage,
+});
+
 export const statistikRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/statistik",
@@ -61,6 +68,7 @@ const routeTree = rootRoute.addChildren([
   freeRoute,
   testSessionRoute,
   impressumRoute,
+  datenschutzRoute,
   statistikRoute,
 ]);
 

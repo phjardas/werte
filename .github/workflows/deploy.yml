@@ -1,0 +1,89 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types:
+      - published
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment: ${{ github.event_name == 'release' && 'production' || 'preview' }}
+    concurrency: ${{ github.event_name == 'release' && 'production' || 'preview' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Node.js 26 no longer ships corepack, so pnpm is installed as a standalone binary.
+      - name: Install pnpm and Node.js
+        uses: pnpm/setup@v3
+        with:
+          version: 12.18.0
+          runtime: node@26
+          install: false
+          cache: true
+          cache-dependency-path: |
+            app/pnpm-lock.yaml
+            backend/pnpm-lock.yaml
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: pnpm install --frozen-lockfile
+
+      - name: Run backend tests
+        working-directory: backend
+        run: pnpm test --coverage
+
+      - name: Build backend
+        working-directory: backend
+        run: pnpm build
+
+      - name: Install app dependencies
+        working-directory: app
+        run: pnpm install --frozen-lockfile
+
+      - name: Build React app
+        working-directory: app
+        run: pnpm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: eu-central-1
+
+      - name: Set up OpenTofu
+        uses: opentofu/setup-opentofu@v2
+
+      - name: OpenTofu Init
+        working-directory: infra
+        run: tofu init -backend-config="key=${{ github.event_name == 'release' && 'werte' || 'werte-preview' }}/terraform.tfstate"
+
+      - name: OpenTofu Apply
+        working-directory: infra
+        run: tofu apply -auto-approve
+        env:
+          TF_VAR_project: ${{ github.event_name == 'release' && 'werte' || 'werte-preview' }}
+          TF_VAR_domain: ${{ vars.DOMAIN }}
+          TF_VAR_zone_id: ${{ vars.ZONE_ID }}
+
+      - name: Deploy static assets to S3
+        working-directory: infra
+        run: |
+          BUCKET=$(tofu output -raw s3_bucket_name)
+          aws s3 sync ../app/dist/ s3://$BUCKET/ --delete
+
+      - name: Invalidate CloudFront cache
+        working-directory: infra
+        run: |
+          DIST_ID=$(tofu output -raw cloudfront_distribution_id)
+          aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"

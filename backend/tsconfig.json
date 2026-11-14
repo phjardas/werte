@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2025",
+    "lib": ["ES2025"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "./src",
+    "strict": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "types": ["@types/node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules", "**/*.test.ts", "scripts"]
+}

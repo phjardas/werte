@@ -1,0 +1,26 @@
+{
+  "name": "werte-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "VITE_API_BASE_URL=https://preview.werte.jardas.de/api vite",
+    "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
+    "preview": "VITE_API_BASE_URL=https://preview.werte.jardas.de/api vite preview",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "packageManager": "pnpm@12.18.0",
+  "dependencies": {
+    "@tanstack/react-router": "^1.170.46",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

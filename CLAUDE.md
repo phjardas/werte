@@ -30,7 +30,7 @@ pnpm build            # tsc + copy werte.json → dist/
 
 ```bash
 cd infra
-tofu init             # initialise providers and S3 backend
+tofu init -backend-config="bucket=phjardas-infrastructure" -backend-config="key=werte-preview/terraform.tfstate"
 tofu plan             # preview changes
 tofu apply            # deploy to AWS (auto-approved in CI)
 ```
@@ -75,7 +75,7 @@ OpenTofu (Terraform fork) manages all AWS resources:
 - **API Gateway v2 (HTTP API)** — CORS enabled, routes to Lambdas
 - **DynamoDB** — `werte-szenarien` (scenario cache), `werte-tests` (test sessions, TTL enabled)
 - **S3 + ACM + Route53** — Custom domain `werte.jardas.de`
-- **State backend** — S3 bucket `phjardas-terraform`
+- **State backend** — S3 bucket `phjardas-infrastructure`, passed to `tofu init` via `-backend-config` (GitHub variable `STATE_BUCKET`)
 - Lambda zip is built by Terraform's `archive_file` data source from `backend/dist/`; all functions share one zip, handlers use `lambdas/` prefix (e.g. `lambdas/getWerte.handler`)
 
 ### CloudFront URL structure

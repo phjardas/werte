@@ -12,8 +12,8 @@ terraform {
     }
   }
 
+  # The bucket is passed via -backend-config="bucket=..." (STATE_BUCKET in CI).
   backend "s3" {
-    bucket       = "phjardas-terraform"
     region       = "eu-central-1"
     use_lockfile = true
   }

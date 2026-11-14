@@ -66,7 +66,7 @@ jobs:
 
       - name: OpenTofu Init
         working-directory: infra
-        run: tofu init -backend-config="key=${{ github.event_name == 'release' && 'werte' || 'werte-preview' }}/terraform.tfstate"
+        run: tofu init -backend-config="bucket=${{ vars.STATE_BUCKET }}" -backend-config="key=${{ github.event_name == 'release' && 'werte' || 'werte-preview' }}/terraform.tfstate"
 
       - name: OpenTofu Apply
         working-directory: infra

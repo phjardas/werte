@@ -105,6 +105,11 @@ resource "aws_lambda_function" "get_werte" {
   source_code_hash = data.archive_file.functions.output_base64sha256
   timeout          = 10
   memory_size      = 128
+
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
 }
 
 # getSzenario
@@ -120,16 +125,17 @@ resource "aws_lambda_function" "get_szenario" {
   timeout          = 30
   memory_size      = 256
 
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
+
   environment {
     variables = {
       DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
     }
   }
 
-  logging_config {
-    log_group  = aws_cloudwatch_log_group.get_szenario.name
-    log_format = "Text"
-  }
 }
 
 # createTest
@@ -144,6 +150,11 @@ resource "aws_lambda_function" "create_test" {
   source_code_hash = data.archive_file.functions.output_base64sha256
   timeout          = 10
   memory_size      = 128
+
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
 
   environment {
     variables = {
@@ -165,6 +176,11 @@ resource "aws_lambda_function" "get_test" {
   timeout          = 10
   memory_size      = 128
 
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
+
   environment {
     variables = {
       DYNAMODB_TABLE                         = aws_dynamodb_table.tests.name
@@ -185,6 +201,11 @@ resource "aws_lambda_function" "update_test_state" {
   source_code_hash = data.archive_file.functions.output_base64sha256
   timeout          = 15
   memory_size      = 128
+
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
 
   environment {
     variables = {
@@ -226,6 +247,11 @@ resource "aws_lambda_function" "complete_test" {
   timeout          = 10
   memory_size      = 128
 
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
+
   environment {
     variables = {
       DYNAMODB_TABLE    = aws_dynamodb_table.tests.name
@@ -248,6 +274,11 @@ resource "aws_lambda_function" "generate_test_zusammenfassung" {
   timeout          = 120
   memory_size      = 256
 
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
+
   environment {
     variables = {
       DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
@@ -269,6 +300,11 @@ resource "aws_lambda_function" "vote_szenario" {
   timeout          = 10
   memory_size      = 128
 
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
+
   environment {
     variables = {
       DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
@@ -288,6 +324,11 @@ resource "aws_lambda_function" "prewarm_szenarien" {
   source_code_hash = data.archive_file.functions.output_base64sha256
   timeout          = 90
   memory_size      = 256
+
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
 
   environment {
     variables = {
@@ -310,16 +351,17 @@ resource "aws_lambda_function" "get_zusammenfassung" {
   timeout          = 30
   memory_size      = 256
 
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
+
   environment {
     variables = {
       DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
     }
   }
 
-  logging_config {
-    log_group  = aws_cloudwatch_log_group.get_zusammenfassung.name
-    log_format = "Text"
-  }
 }
 
 # sendEmail
@@ -334,6 +376,11 @@ resource "aws_lambda_function" "send_email" {
   source_code_hash = data.archive_file.functions.output_base64sha256
   timeout          = 10
   memory_size      = 128
+
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
 
   environment {
     variables = {
@@ -356,6 +403,11 @@ resource "aws_lambda_function" "get_statistik" {
   source_code_hash = data.archive_file.functions.output_base64sha256
   timeout          = 10
   memory_size      = 128
+
+  logging_config {
+    log_group  = aws_cloudwatch_log_group.lambda.name
+    log_format = "Text"
+  }
 
   environment {
     variables = {

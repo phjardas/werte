@@ -1,25 +1,17 @@
-# These log groups are auto-created by Lambda on first invocation.
-# Import them into state before applying if they already exist:
-#   tofu import aws_cloudwatch_log_group.get_szenario /aws/lambda/werte-getSzenario
-#   tofu import aws_cloudwatch_log_group.get_zusammenfassung /aws/lambda/werte-getZusammenfassung
-
 data "aws_region" "current" {}
 
-resource "aws_cloudwatch_log_group" "get_szenario" {
-  name              = "/aws/lambda/${var.project}-getSzenario"
+# All Lambda functions log to this group. Lambda prefixes each log stream with
+# the function name, and the JSON events carry the function in `fn`.
+resource "aws_cloudwatch_log_group" "lambda" {
+  name              = "/aws/lambda/${var.project}"
   retention_in_days = 30
 }
 
-resource "aws_cloudwatch_log_group" "get_zusammenfassung" {
-  name              = "/aws/lambda/${var.project}-getZusammenfassung"
-  retention_in_days = 30
-}
+# ── Metric filters ────────────────────────────────────────────────────────────
 
-# ── Metric filters: getSzenario ───────────────────────────────────────────────
-
-resource "aws_cloudwatch_log_metric_filter" "szenario_cache_hits" {
-  name           = "${var.project}-szenario-cache-hits"
-  log_group_name = aws_cloudwatch_log_group.get_szenario.name
+resource "aws_cloudwatch_log_metric_filter" "cache_hits" {
+  name           = "${var.project}-cache-hits"
+  log_group_name = aws_cloudwatch_log_group.lambda.name
   pattern        = "{ $.event = \"cache_hit\" }"
 
   metric_transformation {
@@ -32,9 +24,9 @@ resource "aws_cloudwatch_log_metric_filter" "szenario_cache_hits" {
   }
 }
 
-resource "aws_cloudwatch_log_metric_filter" "szenario_cache_misses" {
-  name           = "${var.project}-szenario-cache-misses"
-  log_group_name = aws_cloudwatch_log_group.get_szenario.name
+resource "aws_cloudwatch_log_metric_filter" "cache_misses" {
+  name           = "${var.project}-cache-misses"
+  log_group_name = aws_cloudwatch_log_group.lambda.name
   pattern        = "{ $.event = \"cache_miss\" }"
 
   metric_transformation {
@@ -46,13 +38,28 @@ resource "aws_cloudwatch_log_metric_filter" "szenario_cache_misses" {
   }
 }
 
-resource "aws_cloudwatch_log_metric_filter" "szenario_generation_duration" {
-  name           = "${var.project}-szenario-generation-duration"
-  log_group_name = aws_cloudwatch_log_group.get_szenario.name
-  pattern        = "{ $.event = \"cache_miss\" }"
+resource "aws_cloudwatch_log_metric_filter" "gen_errors" {
+  name           = "${var.project}-gen-errors"
+  log_group_name = aws_cloudwatch_log_group.lambda.name
+  pattern        = "{ $.event = \"gen_error\" }"
 
   metric_transformation {
-    # Field-reference values ($.field) cannot be combined with dimensions; use a unique metric name instead
+    name       = "GenerationErrors"
+    namespace  = "Werte/Scenarios"
+    value      = "1"
+    unit       = "Count"
+    dimensions = { Function = "$.fn" }
+  }
+}
+
+# Field-reference values ($.field) cannot be combined with dimensions, so each
+# duration metric gets its own name and filters on `fn`.
+resource "aws_cloudwatch_log_metric_filter" "szenario_generation_duration" {
+  name           = "${var.project}-szenario-generation-duration"
+  log_group_name = aws_cloudwatch_log_group.lambda.name
+  pattern        = "{ $.event = \"cache_miss\" && $.fn = \"getSzenario\" }"
+
+  metric_transformation {
     name      = "SzenarioGenerationDurationMs"
     namespace = "Werte/Scenarios"
     value     = "$.generationMs"
@@ -60,74 +67,16 @@ resource "aws_cloudwatch_log_metric_filter" "szenario_generation_duration" {
   }
 }
 
-resource "aws_cloudwatch_log_metric_filter" "szenario_gen_errors" {
-  name           = "${var.project}-szenario-gen-errors"
-  log_group_name = aws_cloudwatch_log_group.get_szenario.name
-  pattern        = "{ $.event = \"gen_error\" }"
-
-  metric_transformation {
-    name       = "GenerationErrors"
-    namespace  = "Werte/Scenarios"
-    value      = "1"
-    unit       = "Count"
-    dimensions = { Function = "$.fn" }
-  }
-}
-
-# ── Metric filters: getZusammenfassung ───────────────────────────────────────
-
-resource "aws_cloudwatch_log_metric_filter" "zusammenfassung_cache_hits" {
-  name           = "${var.project}-zusammenfassung-cache-hits"
-  log_group_name = aws_cloudwatch_log_group.get_zusammenfassung.name
-  pattern        = "{ $.event = \"cache_hit\" }"
-
-  metric_transformation {
-    name       = "CacheHits"
-    namespace  = "Werte/Scenarios"
-    value      = "1"
-    unit       = "Count"
-    dimensions = { Function = "$.fn" }
-  }
-}
-
-resource "aws_cloudwatch_log_metric_filter" "zusammenfassung_cache_misses" {
-  name           = "${var.project}-zusammenfassung-cache-misses"
-  log_group_name = aws_cloudwatch_log_group.get_zusammenfassung.name
-  pattern        = "{ $.event = \"cache_miss\" }"
-
-  metric_transformation {
-    name       = "CacheMisses"
-    namespace  = "Werte/Scenarios"
-    value      = "1"
-    unit       = "Count"
-    dimensions = { Function = "$.fn" }
-  }
-}
-
 resource "aws_cloudwatch_log_metric_filter" "zusammenfassung_generation_duration" {
   name           = "${var.project}-zusammenfassung-generation-duration"
-  log_group_name = aws_cloudwatch_log_group.get_zusammenfassung.name
-  pattern        = "{ $.event = \"cache_miss\" }"
+  log_group_name = aws_cloudwatch_log_group.lambda.name
+  pattern        = "{ $.event = \"cache_miss\" && $.fn = \"getZusammenfassung\" }"
 
   metric_transformation {
     name      = "ZusammenfassungGenerationDurationMs"
     namespace = "Werte/Scenarios"
     value     = "$.generationMs"
     unit      = "Milliseconds"
-  }
-}
-
-resource "aws_cloudwatch_log_metric_filter" "zusammenfassung_gen_errors" {
-  name           = "${var.project}-zusammenfassung-gen-errors"
-  log_group_name = aws_cloudwatch_log_group.get_zusammenfassung.name
-  pattern        = "{ $.event = \"gen_error\" }"
-
-  metric_transformation {
-    name       = "GenerationErrors"
-    namespace  = "Werte/Scenarios"
-    value      = "1"
-    unit       = "Count"
-    dimensions = { Function = "$.fn" }
   }
 }
 

@@ -6,7 +6,8 @@
     "build": "tsc && cp src/werte.json dist/werte.json && echo '{\"type\":\"module\"}' > dist/package.json",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "beispielszenarien": "pnpm build && node scripts/beispielszenarien.ts"
+    "beispielszenarien": "pnpm build && node scripts/beispielszenarien.ts",
+    "werteinfos": "pnpm build && node scripts/werteinfos.ts"
   },
   "packageManager": "pnpm@12.18.0",
   "dependencies": {

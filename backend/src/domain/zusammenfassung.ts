@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import type { AIService } from "./ai.js";
 import type { Cache } from "./cache.js";
+import { KONTEXTE, type KontextId, STANDARD_KONTEXT } from "./kontext.js";
 import type { Wert, WerteService } from "./werte.js";
 
 export interface ZusammenfassungResult {
@@ -10,25 +11,27 @@ export interface ZusammenfassungResult {
   kosten: number;
 }
 
-const ZUSAMMENFASSUNG_SYSTEM_PROMPT = `Du schreibst eine persönliche Zusammenfassung für eine berufstätige Person, die gerade einen Werte-Test gemacht hat. Sie hat ihre fünf wichtigsten Werte ermittelt, geordnet nach Priorität (der erste Wert ist der wichtigste).
+export function zusammenfassungSystemPrompt(kontextId: KontextId): string {
+  const k = KONTEXTE[kontextId];
+  return `Du schreibst eine persönliche Zusammenfassung für ${k.person}, die gerade einen Werte-Test gemacht hat. Sie hat ihre fünf wichtigsten Werte ermittelt, geordnet nach Priorität (der erste Wert ist der wichtigste).
 
 ## Regeln
 
 - Schreibe in der zweiten Person ("du").
 - Schreibe 3 bis 4 kurze Absätze.
-- Beschreibe zuerst, was diese Wertekombination über die Person aussagt und wie sich diese Werte im Berufsalltag zeigen könnten, etwa in der Zusammenarbeit, bei Entscheidungen oder im Umgang mit Druck.
+- Beschreibe zuerst, was diese Wertekombination über die Person aussagt und wie sich diese Werte ${k.zusammenfassungsbereich}.
 - Gehe besonders auf das Zusammenspiel der Werte ein – wie sie sich gegenseitig verstärken oder auch Spannungen erzeugen können.
-- Schreibe anschließend 2–3 konkrete, alltagstaugliche Tipps, wie die Person ihre Werte aktiv in ihren Arbeitsalltag einbringen kann. Die Tipps sollen praktisch und unmittelbar umsetzbar sein (z.B. Gesprächsimpulse im Team, Prioritäten bei Entscheidungen, kleine Arbeitsgewohnheiten).
+- Schreibe anschließend 2–3 konkrete, alltagstaugliche Tipps, wie die Person ihre Werte aktiv in ihren ${k.alltag} einbringen kann. Die Tipps sollen praktisch und unmittelbar umsetzbar sein (${k.tippbeispiele}).
 - Formuliere wertschätzend und ermutigend, aber nicht übertrieben.
 - Verwende keine Aufzählungen oder Überschriften.
 - Benenne die Werte beim Namen, aber baue sie natürlich in den Fließtext ein.
 - Schreibe grammatikalisch korrektes, natürliches Deutsch.
 - Gib nur den Text aus, ohne JSON, Markdown oder sonstige Formatierung.`;
+}
 
-const PROMPT_VERSION = createHash("sha256")
-  .update(ZUSAMMENFASSUNG_SYSTEM_PROMPT)
-  .digest("hex")
-  .slice(0, 12);
+function promptVersion(systemPrompt: string): string {
+  return createHash("sha256").update(systemPrompt).digest("hex").slice(0, 12);
+}
 
 export class ZusammenfassungService {
   constructor(
@@ -39,9 +42,11 @@ export class ZusammenfassungService {
 
   async getOrCreate(
     werteNames: string[],
+    kontext: KontextId = STANDARD_KONTEXT,
   ): Promise<ZusammenfassungResult | null> {
     const key = werteNames.join("_");
-    const version = PROMPT_VERSION;
+    const systemPrompt = zusammenfassungSystemPrompt(kontext);
+    const version = promptVersion(systemPrompt);
 
     const cached = await this.cache.get(key, version);
     if (cached) {
@@ -56,13 +61,13 @@ export class ZusammenfassungService {
     }
 
     const werteData = werteNames.map((name) => this.werteService.get(name)!);
-    const userPrompt = buildPrompt(werteData);
+    const userPrompt = buildPrompt(werteData, kontext);
     const t0 = Date.now();
     let zusammenfassung: string;
     let kosten: number;
     try {
       ({ result: zusammenfassung, kosten } = await this.ai.invokeText(
-        ZUSAMMENFASSUNG_SYSTEM_PROMPT,
+        systemPrompt,
         userPrompt,
         4096,
       ));
@@ -104,7 +109,7 @@ export class ZusammenfassungService {
   }
 }
 
-function buildPrompt(werteData: Wert[]): string {
+function buildPrompt(werteData: Wert[], kontext: KontextId): string {
   const werteList = werteData
     .map((w, i) => {
       const desc = w.beschreibung.join("\n");
@@ -116,5 +121,5 @@ function buildPrompt(werteData: Wert[]): string {
 
 ${werteList}
 
-Schreibe eine persönliche Zusammenfassung, die diese Wertekombination würdigt und beschreibt, was sie über die Person im Berufsleben aussagt.`;
+Schreibe eine persönliche Zusammenfassung, die diese Wertekombination würdigt und beschreibt, was sie über die Person ${KONTEXTE[kontext].lebensbereich} aussagt.`;
 }

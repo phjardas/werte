@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AIService } from "./ai.js";
 import type { Cache } from "./cache.js";
-import { ZusammenfassungService } from "./zusammenfassung.js";
+import { ZusammenfassungService, zusammenfassungSystemPrompt } from "./zusammenfassung.js";
 import { WerteService } from "./werte.js";
 
 const TEST_WERTE = [
@@ -53,5 +53,26 @@ describe("ZusammenfassungService", () => {
 
     const result = await service.getOrCreate(FIVE_WERTE);
     expect(result).toBeNull();
+  });
+
+  it("uses the context's system prompt and a context specific version", async () => {
+    vi.mocked(mockCache.get).mockResolvedValue(null);
+    vi.mocked(mockAI.invokeText).mockResolvedValue({ result: "text", kosten: 0 });
+
+    await service.getOrCreate(FIVE_WERTE, "beruf");
+    await service.getOrCreate(FIVE_WERTE, "privat");
+
+    const [beruf, privat] = vi.mocked(mockCache.put).mock.calls;
+    expect(beruf[1]).not.toBe(privat[1]);
+    expect(vi.mocked(mockAI.invokeText).mock.calls[0][0]).toBe(zusammenfassungSystemPrompt("beruf"));
+    expect(vi.mocked(mockAI.invokeText).mock.calls[1][0]).toBe(zusammenfassungSystemPrompt("privat"));
+  });
+
+  it("asks for the summary in the context's area of life", async () => {
+    vi.mocked(mockCache.get).mockResolvedValue(null);
+    vi.mocked(mockAI.invokeText).mockResolvedValue({ result: "text", kosten: 0 });
+
+    await service.getOrCreate(FIVE_WERTE, "privat");
+    expect(vi.mocked(mockAI.invokeText).mock.calls[0][1]).not.toContain("Berufsleben");
   });
 });

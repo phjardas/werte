@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AIService } from "./ai.js";
 import type { Cache } from "./cache.js";
-import { SzenarioService } from "./szenario.js";
+import { KONTEXTE } from "./kontext.js";
+import { SzenarioService, szenarioSystemPrompt } from "./szenario.js";
 import { WerteService } from "./werte.js";
 
 const TEST_WERTE = [
@@ -99,9 +100,40 @@ describe("SzenarioService", () => {
       vi.mocked(mockAI.invoke).mockResolvedValue({ result: { szenario: "fresh", antworten: ["a", "b"] }, kosten: 0.01 });
       vi.mocked(mockCache.put).mockResolvedValue(undefined);
 
-      await service.getOrCreate("Aktivität", "Ruhe", true);
+      await service.getOrCreate("Aktivität", "Ruhe", "beruf", true);
       expect(mockCache.get).not.toHaveBeenCalled();
       expect(mockCache.put).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("contexts", () => {
+    it("renders a context specific system prompt", () => {
+      const beruf = szenarioSystemPrompt("beruf");
+      const privat = szenarioSystemPrompt("privat");
+      expect(beruf).toContain(KONTEXTE.beruf.zielgruppe);
+      expect(privat).toContain(KONTEXTE.privat.abgrenzung);
+      expect(privat).not.toContain("Arbeitsalltag");
+    });
+
+    it("uses a different cache version per context for the same pair", async () => {
+      vi.mocked(mockCache.get).mockResolvedValue(null);
+      vi.mocked(mockAI.invoke).mockResolvedValue({ result: { szenario: "s", antworten: ["a", "b"] }, kosten: 0 });
+
+      const beruf = await service.getOrCreate("Aktivität", "Ruhe", "beruf");
+      const privat = await service.getOrCreate("Aktivität", "Ruhe", "privat");
+
+      expect(beruf?.version).not.toBe(privat?.version);
+      const [berufPut, privatPut] = vi.mocked(mockCache.put).mock.calls;
+      expect(berufPut[0]).toBe(privatPut[0]);
+      expect(vi.mocked(mockAI.invoke).mock.calls[1][0]).toBe(szenarioSystemPrompt("privat"));
+    });
+
+    it("defaults to beruf", async () => {
+      vi.mocked(mockCache.get).mockResolvedValue(null);
+      vi.mocked(mockAI.invoke).mockResolvedValue({ result: { szenario: "s", antworten: ["a", "b"] }, kosten: 0 });
+
+      await service.getOrCreate("Aktivität", "Ruhe");
+      expect(vi.mocked(mockAI.invoke).mock.calls[0][0]).toBe(szenarioSystemPrompt("beruf"));
     });
   });
 

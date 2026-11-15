@@ -29,6 +29,7 @@ export function FilterStep({ values, werte, onNext, onBack }: FilterStepProps) {
         <h1>Deine 10 wichtigsten Werte</h1>
         <p>
           Du hast {values.length} Werte gesammelt. Nimm jetzt nur die mit, auf die du am wenigsten verzichten könntest.
+          Die Reihenfolge spielt dabei keine Rolle, die findest du im nächsten Schritt heraus.
         </p>
       </header>
       <ol className="filter-slots" aria-label="Deine Auswahl">

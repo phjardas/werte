@@ -24,4 +24,10 @@ describe("KONTEXTE", () => {
   it("has an entry for every id", () => {
     for (const id of KONTEXT_IDS) expect(KONTEXTE[id].id).toBe(id);
   });
+
+  it("names the person so that both templates stay grammatical", () => {
+    // The summary template says "für {person}, die … Sie hat ihre …" and the scenario template
+    // uses it in the nominative, so the form must be feminine and the same in both cases.
+    for (const id of KONTEXT_IDS) expect(KONTEXTE[id].person).toMatch(/^eine /);
+  });
 });

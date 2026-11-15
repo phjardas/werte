@@ -11,7 +11,7 @@ export interface Kontext {
   id: KontextId;
   /** Who takes the test, in the plural: "Quiz-Fragen für {zielgruppe}". */
   zielgruppe: string;
-  /** One such person, lower case: "{person} muss beide Optionen ernsthaft in Betracht ziehen können". */
+  /** One such person, lower case and feminine ("eine …"), used as "{person} muss …" and "für {person}, die …". */
   person: string;
   /** The everyday life the scenes come from, without article: "aus dem {alltag}", "in ihren {alltag}". */
   alltag: string;
@@ -55,7 +55,7 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
   privat: {
     id: "privat",
     zielgruppe: "Erwachsene in ihrem Privatleben",
-    person: "ein erwachsener Mensch",
+    person: "eine erwachsene Person",
     alltag: "privaten Alltag",
     lebensbereich: "im Privatleben",
     szenenort:

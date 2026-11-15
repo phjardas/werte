@@ -2,7 +2,7 @@
  * The area of life a test is about. The context only changes the prompts for scenarios
  * and summaries; the values are the same in every context.
  */
-export type KontextId = "beruf" | "privat";
+export type KontextId = "beruf" | "privat" | "fuehrung";
 
 /** Tests created before contexts existed have none and count as this one. */
 export const STANDARD_KONTEXT: KontextId = "beruf";
@@ -73,6 +73,33 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
       "im privaten Alltag zeigen könnten, etwa in Freundschaften, in der Freizeit, bei Entscheidungen über Geld und Zeit oder im Umgang mit Belastungen",
     tippbeispiele:
       "z.B. Gesprächsimpulse mit Freunden oder Familie, Prioritäten bei der Planung freier Zeit, kleine Alltagsgewohnheiten",
+  },
+  fuehrung: {
+    id: "fuehrung",
+    zielgruppe: "Führungskräfte",
+    person: "eine Führungskraft",
+    alltag: "Führungsalltag",
+    lebensbereich: "als Führungskraft",
+    szenenort:
+      "z.B. bei der Verteilung von Aufgaben und Arbeitslast, in Feedback- und Beurteilungsgesprächen, bei Konflikten im Team, beim Setzen von Prioritäten, bei Entscheidungen unter Unsicherheit, gegenüber der eigenen Vorgesetzten oder der Geschäftsleitung, bei Einstellungen oder bei Veränderungen",
+    abgrenzung:
+      "Die Szene muss eine Entscheidung zeigen, die du als Führungskraft triffst und die andere Menschen betrifft, etwa dein Team, einzelne Mitarbeitende oder Bewerberinnen und Bewerber. Sie spielt nicht im Privatleben und nicht in Situationen, in denen du nur als Teammitglied handelst. Sie soll für Führungskräfte in ganz unterschiedlichen Branchen und auf allen Ebenen nachvollziehbar sein, von der Teamleitung bis zur Geschäftsführung; vermeide Fachjargon, branchenspezifische Details und Annahmen über die Größe des Unternehmens.",
+    beispiel: {
+      gedanke:
+        "Aktivität bedeutet aktives Handeln und Bewegung (verwechselbar mit Fleiß). Ruhe bedeutet bewusstes Innehalten und Stille (verwechselbar mit Gelassenheit). Der Kernunterschied: Aktivität drängt zur Bewegung, Ruhe zum Verweilen. Wer als Führungskraft nach einer anstrengenden Phase über die nächsten Wochen des Teams entscheidet, muss zwischen Anpacken und Durchatmen wählen – das passt nur zu Aktivität vs. Ruhe. Antwort 1 (nächstes Vorhaben anstoßen) ist ausschließlich Aktivität, Antwort 2 (ruhigere Woche einplanen) ist ausschließlich Ruhe.",
+      szenario:
+        "Dein Team hat gerade eine anstrengende Phase hinter sich, und für die nächsten Wochen steht nichts Dringendes an. Würdest du eher gleich mit allen das nächste Vorhaben anstoßen, oder dem Team bewusst eine ruhigere Woche geben?",
+      antworten: ["Nächstes Vorhaben gleich anstoßen", "Eine ruhigere Woche einplanen"],
+    },
+    zusammenfassungsbereich:
+      "in ihrer Führungsrolle zeigen könnten, etwa im Umgang mit dem Team, bei Entscheidungen, in Feedback und Konflikten oder unter Druck von oben",
+    tippbeispiele:
+      "z.B. Gesprächsimpulse in Mitarbeitergesprächen, Prioritäten bei Teamentscheidungen, kleine Führungsgewohnheiten",
+    zusatzregeln: [
+      "Beide Antworten sind Handlungen, die du selbst als Führungskraft wählst und die spürbare Folgen für andere haben. Die Frage ist nicht, wie du selbst arbeitest, sondern wie du führst.",
+      "Wähle das Thema der Szene passend zum Wertepaar und greife nicht immer auf ein Gespräch mit einem einzelnen Teammitglied zurück. Ebenso gut passen Arbeitsverteilung, Einstellungen, Prioritäten, Veränderungen, Entscheidungen mit unsicherer Lage oder das Auftreten gegenüber der Geschäftsleitung.",
+      "Werte, die vor allem das eigene Leben betreffen (z.B. Wohlstand, Familie, Gesundheit), dürfen dein eigenes Interesse meinen, solange die Entscheidung in deiner Führungsrolle fällt und andere betrifft, etwa dein Bonus, deine Erreichbarkeit oder deine Belastung im Vergleich zu der des Teams.",
+    ],
   },
 };
 

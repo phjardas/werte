@@ -11,6 +11,7 @@ describe("parseKontext", () => {
   it("accepts known ids", () => {
     expect(parseKontext("privat")).toBe("privat");
     expect(parseKontext("beruf")).toBe("beruf");
+    expect(parseKontext("fuehrung")).toBe("fuehrung");
   });
 
   it("rejects unknown ids", () => {

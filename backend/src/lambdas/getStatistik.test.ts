@@ -12,7 +12,7 @@ describe("getStatistik handler", () => {
   let handler: ReturnType<typeof createHandler>;
 
   beforeEach(() => {
-    get = vi.fn(async (kontext: string) => ROH[kontext]);
+    get = vi.fn(async (kontext: string) => ROH[kontext] ?? { tests: 0, platzierungen: {} });
     handler = createHandler({ get });
   });
 

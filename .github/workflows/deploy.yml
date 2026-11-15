@@ -51,6 +51,10 @@ jobs:
         working-directory: app
         run: pnpm install --frozen-lockfile
 
+      - name: Test app
+        working-directory: app
+        run: pnpm test
+
       - name: Build React app
         working-directory: app
         run: pnpm run build

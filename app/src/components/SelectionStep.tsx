@@ -1,94 +1,76 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { fetchWerte } from "../api";
-import type { KontextId } from "../kontexte";
+import type { WertInfo } from "../types";
 import { HeroLogo } from "./Logo";
-import { shuffle } from "../utils";
 import { ValueChip } from "./ValueChip";
 
 interface SelectionStepProps {
-  kontext: KontextId;
-  onNext: (selected: string[]) => void;
+  seite: WertInfo[];
+  page: number;
+  pageCount: number;
+  selected: string[];
+  /** False on the last page while too few values are selected and there is nothing to suggest. */
+  canContinue: boolean;
+  onToggle: (value: string) => void;
+  onBack: () => void;
+  onNext: () => void;
 }
 
-export function SelectionStep({ kontext, onNext }: SelectionStepProps) {
-  const [allValues, setAllValues] = useState<string[]>([]);
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [error, setError] = useState<string | null>(null);
-
-  const shuffledValues = useMemo(() => shuffle(allValues), [allValues]);
-
-  useEffect(() => {
-    fetchWerte(kontext)
-      .then(setAllValues)
-      .catch(() =>
-        setError(
-          "Werte konnten nicht geladen werden. Bitte versuche es später erneut.",
-        ),
-      );
-  }, [kontext]);
-
-  const toggle = useCallback((value: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(value)) {
-        next.delete(value);
-      } else {
-        next.add(value);
-      }
-      return next;
-    });
-  }, []);
-
-  const handleNext = useCallback(() => {
-    onNext([...selected]);
-  }, [onNext, selected]);
-
-  if (error) {
-    return (
-      <div className="screen active">
-        <div className="header">
-          <p>{error}</p>
-        </div>
-      </div>
-    );
-  }
+export function SelectionStep({
+  seite,
+  page,
+  pageCount,
+  selected,
+  canContinue,
+  onToggle,
+  onBack,
+  onNext,
+}: SelectionStepProps) {
+  const percent = ((page + 1) / pageCount) * 100;
 
   return (
-    <>
-      <div className="screen active">
-        <header className="header">
-          <HeroLogo />
-          <h1>Entdecke deine Werte</h1>
-          <p>
-            Wähle die Werte aus, die dich ansprechen. Denk nicht lange nach,
-            entscheide einfach aus dem Bauch heraus. Es gibt keine Obergrenze.
-          </p>
-        </header>
-        <div className="values-grid">
-          {shuffledValues.length === 0 ? (
-            <p>Werte werden geladen…</p>
-          ) : (
-            shuffledValues.map((value) => (
-              <ValueChip
-                key={value}
-                value={value}
-                selected={selected.has(value)}
-                onClick={() => toggle(value)}
-              />
-            ))
-          )}
+    <div className="screen active">
+      <header className="header">
+        <HeroLogo />
+        <h1>Entdecke deine Werte</h1>
+        <p>
+          Wähle die Werte aus, die dich ansprechen. Denk nicht lange nach, entscheide einfach aus dem Bauch heraus. Es
+          gibt keine Obergrenze. Bei einem unbekannten Begriff hilft dir das kleine i.
+        </p>
+      </header>
+      <div className="progress-bar-container selection-progress">
+        <div className="progress-info">
+          <span>
+            Seite {page + 1} von {pageCount}
+          </span>
+          <span>{selected.length} ausgewählt</span>
         </div>
-        <div className="bottom-bar">
-          <span className="counter">{selected.size} ausgewählt (min. 5)</span>
-          <button
-            className="btn btn-primary"
-            disabled={selected.size < 5}
-            onClick={handleNext}
-          >
+        <div className="progress-track">
+          <div className="progress-fill" style={{ width: `${percent}%` }} />
+        </div>
+      </div>
+      <div className="values-grid">
+        {seite.map((w) => (
+          <ValueChip
+            key={w.name}
+            value={w.name}
+            beschreibung={w.kurzbeschreibung}
+            selected={selected.includes(w.name)}
+            onClick={() => onToggle(w.name)}
+          />
+        ))}
+      </div>
+      <div className="bottom-bar">
+        {!canContinue && <span className="counter">Wähle mindestens 5 Werte aus.</span>}
+        <div className="bottom-bar-buttons">
+          {page > 0 && (
+            <button className="btn btn-secondary" onClick={onBack}>
+              Zurück
+            </button>
+          )}
+          <button className="btn btn-primary" disabled={!canContinue} onClick={onNext}>
             Weiter
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

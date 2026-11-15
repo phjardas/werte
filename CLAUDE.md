@@ -13,6 +13,7 @@ cd app
 pnpm install          # install dependencies
 pnpm dev              # dev server at localhost:5173, talks to the preview API (preview.werte.jardas.de/api)
 pnpm build            # tsc -b && vite build && cp dist/index.html dist/404.html
+pnpm test             # unit tests of the selection logic (node --test)
 pnpm test:e2e         # Playwright end-to-end test (E2E_BASE_URL, default http://localhost:5173)
 ```
 
@@ -58,7 +59,11 @@ German values-discovery app. Users choose a context (area of life: Berufsleben o
   - `/statistik` (`StatistikPage`) shows the number of completed tests and the top 10 values by points, in total or per context.
   - `/impressum` (`ImpressumPage`).
 - The contexts the user can pick (id, title, description, icon) are listed in `app/src/kontexte.ts`. The test's context comes from `GET /tests/{testId}` and is passed to the scenario fetch, the comparison intro and the results screen.
-- Flow steps (`Step` in `app/src/types.ts`): `selection → filter → comparison-intro → comparison`, then the results screen. The filter step is skipped when 10 or fewer values are selected.
+- Flow steps (`Step` in `app/src/types.ts`): `selection → suggestions → filter-intro → filter → comparison-intro → comparison`, then the results screen.
+  - `selection` shows the values in pages of 20 (`app/src/auswahl.ts`). The shuffled order and the current page are saved in the test state (`order`, `page`), so a test resumes on the same page. Values no longer offered drop out of a saved order, new ones are appended.
+  - `suggestions` shows up to 12 unselected values that the selected ones list most often as `verwandt`. It is skipped when there are none.
+  - `filter-intro` and `filter` are skipped when 10 or fewer values are selected. The filter step looks deliberately different (ten slots, coloured header), because it is about giving values up rather than collecting them.
+  - Every value chip has an ⓘ button next to the value that opens the short description in a native `popover`.
 - The test state is saved to the backend after every change (`useStateSync`, `PUT /tests/{testId}/state`), so a test can be resumed via its URL.
 - Tournament logic lives in `app/src/hooks/useTournament.ts`: Swiss system with Buchholz tiebreaking, `ceil(log2(n))` rounds.
 - `useZusammenfassung` polls `GET /tests/{testId}` until the summary is ready. `ResultsScreen` highlights the top 5 values in the summary text (whole words, case-sensitive).
@@ -71,7 +76,7 @@ TypeScript with a hexagonal architecture:
 - **`src/domain/`** holds the pure domain services without AWS dependencies (`WerteService`, `SzenarioService`, `ZusammenfassungService`) and the ports (`AIService`, `Cache`, `TestRepository`).
 - **`src/infrastructure/`** holds the AWS implementations: `BedrockAIService`, `DynamoDBCache`, `DynamoDBTestRepository`.
 - **`src/lambdas/`** holds thin Lambda entry points. Each exports `handler` and a `createHandler(deps)` factory for testing.
-- **`src/werte.json`** contains 135 German values and is copied to `dist/` at build time. A value with `kontexte` is offered only in those contexts (e.g. Sexualität only in `privat` and `partnerschaft`), a value without it in every context. The other routes accept every known value regardless of context.
+- **`src/werte.json`** contains 135 German values and is copied to `dist/` at build time. Every value has a `kurzbeschreibung` shown in the app and four to six `verwandt` values used for suggestions, both generated with `AWS_PROFILE=phjardas pnpm werteinfos [Wert ...]` and reviewed by hand; `werte.test.ts` checks them. Run the script for new or renamed values. A value with `kontexte` is offered only in those contexts (e.g. Sexualität only in `privat` and `partnerschaft`), a value without it in every context. The other routes accept every known value regardless of context.
 
 Each Lambda handler instantiates its services at module scope (cold start) via the factory. Handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 
@@ -85,7 +90,7 @@ The value descriptions in `werte.json` are written without reference to work, so
 
 | Route | Lambda | Purpose |
 |-------|--------|---------|
-| `GET /werte?kontext=` | `getWerte` | values offered in a context (default `beruf`, unknown context 400) |
+| `GET /werte?kontext=` | `getWerte` | values offered in a context with `name`, `kurzbeschreibung` and `verwandt` (restricted to values offered there); default `beruf`, unknown context 400 |
 | `GET /szenarien/{wert1}/{wert2}?kontext=` | `getSzenario` | scenario for a value pair in a context (cached; default `beruf`, unknown context 400) |
 | `POST /szenarien/{wert1}/{wert2}/vote` | `voteSzenario` | up/down vote for a scenario version |
 | `POST /tests` | `createTest` | create a test session; body `{ kontext }` (default `beruf`, unknown context 400) |
@@ -149,4 +154,4 @@ New routes in `app/src/routes.tsx` need no CloudFront changes, because the 403 e
 
 ### CI/CD (`.github/workflows/deploy.yml`)
 
-A single `deploy` job runs on every push to `main` (preview environment) and on every published release (production). It tests and builds the backend, builds the React app, runs `tofu apply`, syncs `app/dist/` to the S3 bucket and invalidates CloudFront. The Playwright test does not run in CI.
+A single `deploy` job runs on every push to `main` (preview environment) and on every published release (production). It tests and builds the backend, tests and builds the React app, runs `tofu apply`, syncs `app/dist/` to the S3 bucket and invalidates CloudFront. The Playwright test does not run in CI.

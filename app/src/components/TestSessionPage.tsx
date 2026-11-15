@@ -1,17 +1,21 @@
 import { useParams } from "@tanstack/react-router";
-import { useCallback, useEffect, useState } from "react";
-import { completeTest } from "../api";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { completeTest, fetchWerte } from "../api";
+import { MAX_FINALE_WERTE, ordne, seiten, vorschlaege } from "../auswahl";
 import { useStateSync } from "../hooks/useStateSync";
 import { useTest } from "../hooks/useTest";
 import { useTournament } from "../hooks/useTournament";
 import type { KontextId } from "../kontexte";
-import type { SerializedTournament, Step, TestState } from "../types";
+import type { SerializedTournament, Step, TestState, WertInfo } from "../types";
+import { shuffle } from "../utils";
 import { ComparisonIntroStep } from "./ComparisonIntroStep";
 import { ComparisonStep } from "./ComparisonStep";
 import { ErrorScreen } from "./ErrorScreen";
+import { FilterIntroStep } from "./FilterIntroStep";
 import { FilterStep } from "./FilterStep";
 import { ResultsScreen } from "./ResultsScreen";
 import { SelectionStep } from "./SelectionStep";
+import { SuggestionStep } from "./SuggestionStep";
 
 export function TestSessionPage() {
   const { testId } = useParams({ from: "/tests/$testId" });
@@ -74,9 +78,24 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   const [finalValues, setFinalValues] = useState<string[]>(
     initialState?.finalValues ?? [],
   );
+  const [order, setOrder] = useState<string[]>([]);
+  const [page, setPage] = useState(initialState?.page ?? 0);
+  const [werte, setWerte] = useState<WertInfo[] | null>(null);
+  const [werteError, setWerteError] = useState(false);
   const [completed, setCompleted] = useState(false);
 
   const { syncState, saveStatus } = useStateSync(testId);
+
+  const brauchtWerte = step === "selection" || step === "suggestions" || step === "filter-intro" || step === "filter";
+  useEffect(() => {
+    if (!brauchtWerte || werte) return;
+    fetchWerte(kontext)
+      .then((geladen) => {
+        setWerte(geladen);
+        setOrder(ordne(initialState?.order, shuffle(geladen.map((w) => w.name))));
+      })
+      .catch(() => setWerteError(true));
+  }, [brauchtWerte, werte, kontext, initialState?.order]);
 
   const tournament = useTournament(
     step === "comparison" ? finalValues : [],
@@ -88,7 +107,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   const buildState = useCallback(
     (
       overrides: Partial<
-        Pick<TestState, "step" | "selectedValues" | "finalValues"> & {
+        Pick<TestState, "step" | "selectedValues" | "finalValues" | "page"> & {
           tournament: SerializedTournament | undefined;
         }
       >,
@@ -96,50 +115,70 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
       step: overrides.step ?? step,
       selectedValues: overrides.selectedValues ?? selectedValues,
       finalValues: overrides.finalValues ?? finalValues,
+      order: order.length > 0 ? order : initialState?.order,
+      page: overrides.page ?? page,
       tournament: overrides.tournament,
     }),
-    [step, selectedValues, finalValues],
+    [step, selectedValues, finalValues, order, page, initialState?.order],
   );
 
-  const handleSelectionNext = useCallback(
-    (selected: string[]) => {
-      setSelectedValues(selected);
-      if (selected.length <= 10) {
-        setFinalValues(selected);
-        setStep("comparison-intro");
-        syncState(
-          buildState({
-            step: "comparison-intro",
-            selectedValues: selected,
-            finalValues: selected,
-          }),
-        );
-      } else {
-        setStep("filter");
-        syncState(
-          buildState({
-            step: "filter",
-            selectedValues: selected,
-            finalValues: [],
-          }),
-        );
-      }
+  const pages = useMemo(() => seiten(order), [order]);
+  const lastPage = Math.max(pages.length - 1, 0);
+  const werteMap = useMemo(() => new Map((werte ?? []).map((w) => [w.name, w])), [werte]);
+  const suggestions = useMemo(
+    () => vorschlaege(selectedValues, werte ?? [], order),
+    // Computed once when the suggestions page opens, so the list does not jump while toggling.
+    [step === "suggestions", werte, order],
+  );
+
+  const goTo = useCallback(
+    (overrides: Parameters<typeof buildState>[0]) => {
+      if (overrides.step) setStep(overrides.step);
+      if (overrides.page !== undefined) setPage(overrides.page);
+      if (overrides.finalValues) setFinalValues(overrides.finalValues);
+      syncState(buildState(overrides));
+      window.scrollTo(0, 0);
     },
     [buildState, syncState],
   );
+
+  const handleToggle = useCallback(
+    (value: string) => {
+      const next = selectedValues.includes(value)
+        ? selectedValues.filter((v) => v !== value)
+        : [...selectedValues, value];
+      setSelectedValues(next);
+      syncState(buildState({ selectedValues: next }));
+    },
+    [selectedValues, buildState, syncState],
+  );
+
+  const continueToFilter = useCallback(() => {
+    if (selectedValues.length <= MAX_FINALE_WERTE) {
+      goTo({ step: "comparison-intro", finalValues: selectedValues });
+    } else {
+      goTo({ step: "filter-intro", finalValues: [] });
+    }
+  }, [selectedValues, goTo]);
+
+  const hasSuggestions = vorschlaege(selectedValues, werte ?? [], order).length > 0;
+
+  const handleSelectionNext = useCallback(() => {
+    if (page < lastPage) goTo({ page: page + 1 });
+    else if (hasSuggestions) goTo({ step: "suggestions" });
+    else continueToFilter();
+  }, [page, lastPage, hasSuggestions, goTo, continueToFilter]);
+
+  // Back from the filter steps leads to the suggestions if there are any, else to the last selection page.
+  const handleBackToSelection = useCallback(() => {
+    if (hasSuggestions) goTo({ step: "suggestions" });
+    else goTo({ step: "selection", page: lastPage });
+  }, [hasSuggestions, lastPage, goTo]);
 
   const handleFilterNext = useCallback(
-    (final: string[]) => {
-      setFinalValues(final);
-      setStep("comparison-intro");
-      syncState(buildState({ step: "comparison-intro", finalValues: final }));
-    },
-    [buildState, syncState],
+    (final: string[]) => goTo({ step: "comparison-intro", finalValues: final }),
+    [goTo],
   );
-
-  const handleFilterBack = useCallback(() => {
-    setStep("selection");
-  }, []);
 
   const handleVote = useCallback(
     (index: 0 | 1) => {
@@ -168,17 +207,64 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
     return <ResultsScreen testId={testId} kontext={kontext} results={tournament.results} />;
   }
 
+  if (werteError) {
+    return (
+      <ErrorScreen
+        title="Werte nicht geladen"
+        message="Werte konnten nicht geladen werden. Bitte versuche es später erneut."
+      />
+    );
+  }
+
+  if (brauchtWerte && !werte) {
+    return (
+      <div className="screen active step-loading">
+        <span className="spinner spinner-lg" />
+      </div>
+    );
+  }
+
   const tournamentWithWrappedVote = { ...tournament, vote: handleVote };
+  const currentPage = Math.min(page, lastPage);
 
   return (
     <>
       <SaveIndicator status={saveStatus} />
-      {step === "selection" && <SelectionStep kontext={kontext} onNext={handleSelectionNext} />}
+      {step === "selection" && (
+        <SelectionStep
+          seite={(pages[currentPage] ?? []).map((n) => werteMap.get(n)!)}
+          page={currentPage}
+          pageCount={pages.length}
+          selected={selectedValues}
+          canContinue={currentPage < lastPage || hasSuggestions || selectedValues.length >= 5}
+          onToggle={handleToggle}
+          onBack={() => goTo({ page: currentPage - 1 })}
+          onNext={handleSelectionNext}
+        />
+      )}
+      {step === "suggestions" && (
+        <SuggestionStep
+          vorschlaege={suggestions.map((n) => werteMap.get(n)!)}
+          selected={selectedValues}
+          onToggle={handleToggle}
+          onBack={() => goTo({ step: "selection", page: lastPage })}
+          onNext={continueToFilter}
+        />
+      )}
+      {step === "filter-intro" && (
+        <FilterIntroStep
+          kontext={kontext}
+          valueCount={selectedValues.length}
+          onBack={handleBackToSelection}
+          onNext={() => goTo({ step: "filter" })}
+        />
+      )}
       {step === "filter" && (
         <FilterStep
           values={selectedValues}
+          werte={werte ?? []}
           onNext={handleFilterNext}
-          onBack={handleFilterBack}
+          onBack={handleBackToSelection}
         />
       )}
       {step === "comparison-intro" && (

@@ -5,11 +5,12 @@ import type {
   Szenario,
   TestSession,
   TestState,
+  WertInfo,
 } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
-export async function fetchWerte(kontext: KontextId): Promise<string[]> {
+export async function fetchWerte(kontext: KontextId): Promise<WertInfo[]> {
   const res = await fetch(`${API_BASE_URL}/werte?kontext=${kontext}`);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();

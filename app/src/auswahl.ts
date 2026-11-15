@@ -2,6 +2,8 @@ import type { WertInfo } from "./types";
 
 export const SEITENGROESSE = 20;
 export const MAX_VORSCHLAEGE = 12;
+/** Most values the comparison runs on, as in the backend. */
+export const MAX_FINALE_WERTE = 10;
 
 /**
  * The order in which a test shows its values: the saved order without values that are no longer offered,

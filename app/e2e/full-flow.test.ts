@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 /**
  * Fixed values for deterministic test runs. Exactly 5 so the filter step
- * is skipped (selection → comparison-intro directly).
+ * is skipped (selection → suggestions → comparison-intro).
  */
 const FIXED_VALUES = [
   "Ehrlichkeit",
@@ -18,21 +18,35 @@ test("full integration flow", async ({ page }) => {
   await page.goto("/tests");
   await page.waitForURL(/\/tests\//, { timeout: 15_000 });
 
-  // ── 3. Selection step: select exactly the fixed values ────────────────────
+  // ── 3. Selection pages: select the fixed values wherever they appear ──────
 
   await expect(page.locator(".values-grid")).toBeVisible();
   // Wait until chips are rendered (values loaded from API)
   await expect(page.locator(".value-chip").first()).toBeVisible();
 
-  for (const value of FIXED_VALUES) {
-    await page.getByRole("button", { name: value, exact: true }).click();
+  const remaining = new Set(FIXED_VALUES);
+  while (await page.locator(".selection-progress").count()) {
+    for (const value of [...remaining]) {
+      const chip = page.getByRole("button", { name: value, exact: true });
+      if (await chip.count()) {
+        await chip.click();
+        remaining.delete(value);
+      }
+    }
+    const seite = await page.locator(".selection-progress span").first().innerText();
+    await page.getByRole("button", { name: "Weiter" }).click();
+    await expect(page.getByText(seite, { exact: true })).toHaveCount(0);
   }
+  expect([...remaining]).toEqual([]);
 
-  await expect(page.locator(".counter")).toContainText(
-    `${FIXED_VALUES.length} ausgewählt`,
-  );
+  // ── 3b. Suggestions page (shown when related values exist): select none ──
 
-  await page.getByRole("button", { name: "Weiter" }).click();
+  if (await page.getByRole("heading", { name: "Noch etwas vergessen?" }).count()) {
+    await expect(page.locator(".counter")).toContainText(
+      `${FIXED_VALUES.length} ausgewählt`,
+    );
+    await page.getByRole("button", { name: "Weiter" }).click();
+  }
 
   // ── 4. Comparison intro ───────────────────────────────────────────────────
 

@@ -83,7 +83,7 @@ resource "aws_cloudwatch_log_metric_filter" "zusammenfassung_generation_duration
 # ── Dashboard ─────────────────────────────────────────────────────────────────
 
 locals {
-  aws_region = data.aws_region.current.name
+  aws_region = data.aws_region.current.region
 }
 
 resource "aws_cloudwatch_dashboard" "scenarios" {

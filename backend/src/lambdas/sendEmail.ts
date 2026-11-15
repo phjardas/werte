@@ -1,5 +1,6 @@
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import { STANDARD_KONTEXT } from "../domain/kontext.js";
 import { isValidEmail, renderErgebnisEmail, type SendEmailFn } from "../domain/email.js";
 import type { TestRepository } from "../domain/test.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
@@ -38,6 +39,7 @@ export function createHandler(
     const content = renderErgebnisEmail({
       werte: session.results.slice(0, 5).map((r) => r.name),
       zusammenfassung: session.zusammenfassung,
+      kontext: session.kontext ?? STANDARD_KONTEXT,
       appUrl,
       testId,
     });

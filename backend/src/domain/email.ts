@@ -1,3 +1,5 @@
+import { KONTEXTE, type KontextId } from "./kontext.js";
+
 export interface EmailContent {
   subject: string;
   text: string;
@@ -7,6 +9,7 @@ export interface EmailContent {
 export interface ErgebnisEmailInput {
   werte: string[];
   zusammenfassung: string;
+  kontext: KontextId;
   /** Base URL of the app, e.g. https://werte.jardas.de */
   appUrl: string;
   testId: string;
@@ -55,14 +58,22 @@ const MEDALS = ["🥇", "🥈", "🥉"];
 
 const SIGNATUR = ["Ich hoffe, der Werte Kompass hat dir gefallen. Empfiehl ihn gerne weiter!", "Dein Philipp"];
 
-export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId }: ErgebnisEmailInput): EmailContent {
+export function renderErgebnisEmail({
+  werte,
+  zusammenfassung,
+  kontext,
+  appUrl,
+  testId,
+}: ErgebnisEmailInput): EmailContent {
+  const bereich = KONTEXTE[kontext].lebensbereich;
+  const titel = `Deine Top 5 Werte ${bereich}`;
   const link = `${appUrl}/tests/${encodeURIComponent(testId)}`;
   const absaetze = zusammenfassung.split("\n\n");
 
   const text = [
     "Hallo,",
     "",
-    "das sind deine Top 5 Werte:",
+    `das sind deine Top 5 Werte ${bereich}:`,
     "",
     ...werte.map((w, i) => `${i + 1}. ${w}`),
     "",
@@ -97,7 +108,7 @@ export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId }: 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light only">
-<title>Deine Top 5 Werte</title>
+<title>${escapeHtml(titel)}</title>
 </head>
 <body style="margin:0;padding:0;background:${COLORS.bg};">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.bg};">
@@ -109,8 +120,8 @@ export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId }: 
 </td></tr>
 <tr><td align="center" style="padding:0 0 32px;font-family:${SERIF};font-size:24px;color:${COLORS.primary};">Werte Kompass</td></tr>
 
-<tr><td align="center" style="padding:0 0 4px;font-family:${SERIF};font-size:32px;font-weight:600;color:${COLORS.primary};">Deine Top 5 Werte</td></tr>
-<tr><td align="center" style="padding:0 0 24px;font-family:${SANS};font-size:15px;color:${COLORS.muted};">Das sind die Werte, die dir am wichtigsten sind.</td></tr>
+<tr><td align="center" style="padding:0 0 4px;font-family:${SERIF};font-size:32px;font-weight:600;color:${COLORS.primary};">${escapeHtml(titel)}</td></tr>
+<tr><td align="center" style="padding:0 0 24px;font-family:${SANS};font-size:15px;color:${COLORS.muted};">Das sind die Werte, die dir ${escapeHtml(bereich)} am wichtigsten sind.</td></tr>
 
 ${werteRows}
 
@@ -139,5 +150,5 @@ Dein Ergebnis kannst du jederzeit unter diesem Link wieder aufrufen:<br>
 </body>
 </html>`;
 
-  return { subject: "Deine Top 5 Werte", text, html };
+  return { subject: titel, text, html };
 }

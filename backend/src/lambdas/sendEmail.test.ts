@@ -37,6 +37,16 @@ describe("sendEmail handler", () => {
     expect(content.text).not.toContain("6. F");
     expect(content.text).toContain("https://werte.example/tests/abc");
     expect(content.html).toContain("Zweiter &lt;Absatz&gt;.");
+    expect(content.subject).toBe("Deine Top 5 Werte im Berufsleben");
+  });
+
+  it("names the test's context", async () => {
+    repo.get.mockResolvedValue({ ...session, kontext: "partnerschaft" });
+    await call({ email: "a@b.de" });
+    const [, content] = send.mock.calls[0];
+    expect(content.subject).toBe("Deine Top 5 Werte in der Partnerschaft");
+    expect(content.text).toContain("das sind deine Top 5 Werte in der Partnerschaft:");
+    expect(content.html).toContain("die dir in der Partnerschaft am wichtigsten sind");
   });
 
   it("rejects invalid addresses", async () => {
@@ -76,6 +86,7 @@ describe("renderErgebnisEmail", () => {
     const { text, html } = renderErgebnisEmail({
       werte: ["Mut", "Ehrlichkeit"],
       zusammenfassung: "Mut und Ehrlichkeit, nicht Mutter.",
+      kontext: "beruf",
       appUrl: "https://werte.example",
       testId: "abc",
     });

@@ -1,8 +1,8 @@
 # Werte Kompass
 
-Werte Kompass is a free web app, in German, that helps people find out which personal values matter most to them at work. It runs at [werte.jardas.de](https://werte.jardas.de).
+Werte Kompass is a free web app, in German, that helps people find out which personal values matter most to them in an area of their life, currently work or private life. It runs at [werte.jardas.de](https://werte.jardas.de).
 
-The test takes a few minutes. You first pick the values that appeal to you from a list of 120. If you pick more than ten, you narrow them down to your top ten. The app then shows you pairs of values in short, everyday work situations and asks which way you would act. A Swiss-system tournament turns those choices into a ranking, and at the end you get your top five values together with a short personal summary. Both the scenarios and the summary are written by Claude through AWS Bedrock. Scenarios are cached, so most pairs load instantly.
+The test takes a few minutes. You first choose the area of life, then pick the values that appeal to you from a list of 120. If you pick more than ten, you narrow them down to your top ten. The app then shows you pairs of values in short, everyday situations from that area and asks which way you would act. A Swiss-system tournament turns those choices into a ranking, and at the end you get your top five values together with a short personal summary. Both the scenarios and the summary are written by Claude through AWS Bedrock. Scenarios are cached, so most pairs load instantly.
 
 ## Repository layout
 
@@ -12,7 +12,7 @@ The test takes a few minutes. You first pick the values that appeal to you from 
 | `backend/` | TypeScript Lambda functions with a small hexagonal domain layer (`src/domain/`) and AWS adapters (`src/infrastructure/`) |
 | `infra/` | OpenTofu configuration for API Gateway, Lambda, DynamoDB, Step Functions, S3 and CloudFront |
 
-The list of values with their descriptions lives in `backend/src/werte.json`. The prompts that generate scenarios and summaries are in `backend/src/domain/szenario.ts` and `backend/src/domain/zusammenfassung.ts`.
+The list of values with their descriptions lives in `backend/src/werte.json`. The prompt templates that generate scenarios and summaries are in `backend/src/domain/szenario.ts` and `backend/src/domain/zusammenfassung.ts`. What differs between the areas of life (target group, typical scenes, the worked example) lives in `backend/src/domain/kontext.ts`.
 
 ## Running locally
 

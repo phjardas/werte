@@ -46,17 +46,18 @@ cd backend && pnpm install && pnpm build
 
 ### Overview
 
-German values-discovery app for the business context. Users select values, compare them pairwise in a Swiss-system tournament, and see their top 5 values together with a personal summary. Claude Sonnet 4.6 on AWS Bedrock generates a workplace scenario for each value pair and the final summary.
+German values-discovery app. Users choose a context (area of life: Berufsleben or Privatleben), select values, compare them pairwise in a Swiss-system tournament, and see their top 5 values together with a personal summary. Claude Sonnet 4.6 on AWS Bedrock generates a workplace scenario for each value pair and the final summary.
 
 ### Frontend (`app/`)
 
 - React 19, Vite and TypeScript, deployed to S3 and CloudFront at `werte.jardas.de`.
 - TanStack Router v1, routes defined in `app/src/routes.tsx`:
   - `/` (`LandingPage`) explains the compass briefly and links to `/tests`.
-  - `/tests` (`FreePage`) creates a new test via `POST /tests` and redirects to `/tests/$testId`.
+  - `/tests` (`FreePage`) shows one card per context plus a link to the Eltern Werte Kompass. A click creates the test via `POST /tests` with the context and redirects to `/tests/$testId`.
   - `/tests/$testId` (`TestSessionPage`) loads the test. A completed test shows `ResultsScreen`, an active one resumes the flow.
-  - `/statistik` (`StatistikPage`) shows the number of completed tests and the top 10 values by points.
+  - `/statistik` (`StatistikPage`) shows the number of completed tests and the top 10 values by points, in total or per context.
   - `/impressum` (`ImpressumPage`).
+- The contexts the user can pick (id, title, description, icon) are listed in `app/src/kontexte.ts`. The test's context comes from `GET /tests/{testId}` and is passed to the scenario fetch, the comparison intro and the results screen.
 - Flow steps (`Step` in `app/src/types.ts`): `selection → filter → comparison-intro → comparison`, then the results screen. The filter step is skipped when 10 or fewer values are selected.
 - The test state is saved to the backend after every change (`useStateSync`, `PUT /tests/{testId}/state`), so a test can be resumed via its URL.
 - Tournament logic lives in `app/src/hooks/useTournament.ts`: Swiss system with Buchholz tiebreaking, `ceil(log2(n))` rounds.
@@ -74,21 +75,25 @@ TypeScript with a hexagonal architecture:
 
 Each Lambda handler instantiates its services at module scope (cold start) via the factory. Handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 
-`SzenarioService.getOrCreate` caches by the alphabetically sorted value pair. The cache key is `{wert1}_{wert2}`, the version is a hash of the system prompt and the user prompt, so changing a prompt or a value description invalidates the cached scenarios. `ZusammenfassungService` caches by the ordered top 5 values and a hash of its system prompt.
+The scenario and summary prompts are templates (`szenarioSystemPrompt`, `zusammenfassungSystemPrompt`) filled from `src/domain/kontext.ts`, which holds per context the target group, the typical scenes, the rule that keeps scenes inside the context, the worked example and the kind of tips. Both templates state that the test is for adults. Tests without a context (created before contexts existed) count as `STANDARD_KONTEXT` (`beruf`).
+
+`SzenarioService.getOrCreate` caches by the alphabetically sorted value pair. The cache key is `{wert1}_{wert2}`, the version is a hash of the rendered system prompt and the user prompt, so each context has its own scenarios for the same pair, and changing a prompt or a value description invalidates the cached scenarios. `ZusammenfassungService` caches by the ordered top 5 values and a hash of the rendered system prompt.
+
+The value descriptions in `werte.json` are written without reference to work, so that the context comes from the prompt alone. `src/domain/werte.test.ts` guards this.
 
 #### API
 
 | Route | Lambda | Purpose |
 |-------|--------|---------|
 | `GET /werte` | `getWerte` | list of all values |
-| `GET /szenarien/{wert1}/{wert2}` | `getSzenario` | scenario for a value pair (cached) |
+| `GET /szenarien/{wert1}/{wert2}?kontext=` | `getSzenario` | scenario for a value pair in a context (cached; default `beruf`, unknown context 400) |
 | `POST /szenarien/{wert1}/{wert2}/vote` | `voteSzenario` | up/down vote for a scenario version |
-| `POST /tests` | `createTest` | create a test session |
+| `POST /tests` | `createTest` | create a test session; body `{ kontext }` (default `beruf`, unknown context 400) |
 | `GET /tests/{testId}` | `getTest` | load a test; re-triggers summary generation if it is missing |
 | `PUT /tests/{testId}/state` | `updateTestState` | save the frontend state; at `comparison-intro` it asynchronously invokes `prewarmSzenarien` |
 | `POST /tests/{testId}/complete` | `completeTest` | store the results and start the `postTest` Step Function |
 | `POST /tests/{testId}/email` | `sendEmail` | send the top 5 and the summary to an address via SES, once per test |
-| `GET /statistik` | `getStatistik` | number of completed tests and the weighted ranking of values |
+| `GET /statistik?kontext=` | `getStatistik` | number of completed tests and the weighted ranking of values, for one context or, without the parameter, in total |
 
 All route keys in API Gateway carry the `/api` prefix (`GET /api/werte`), so CloudFront forwards paths unchanged. The table omits it.
 
@@ -96,9 +101,15 @@ Tests expire 12 months after creation (`AUFBEWAHRUNG_MONATE` in `src/domain/test
 
 `sendEmail` claims the test with a conditional write on `emailGesendetAm` before sending and removes the marker again if SES fails. The address is not stored. `getTest` exposes the marker as `emailGesendet`.
 
-`completeTest` accepts only distinct, known values and receives the full ranking (up to 10 values). It increments running counters in the `{project}-statistik` table: `tests` and one attribute `{rang}|{wert}` per ranked value. `getStatistik` applies the point scale `PUNKTE` in `src/domain/statistik.ts` when reading, so changing the scale re-scores all past tests. The counters are independent of the tests table and its TTL.
+`completeTest` accepts only distinct, known values and receives the full ranking (up to 10 values). It increments running counters in the `{project}-statistik` table, one item per context (`pk = "werte"` for `beruf`, which keeps the counts from before contexts existed, and `pk = "werte#{kontext}"` otherwise): `tests` and one attribute `{rang}|{wert}` per ranked value. The total adds up all context items when read. `getStatistik` applies the point scale `PUNKTE` in `src/domain/statistik.ts` when reading, so changing the scale re-scores all past tests. The counters are independent of the tests table and its TTL.
 
-`prewarmSzenarien` generates the scenarios for all pairs of the final values in parallel. Both it and `updateTestState` accept at most `MAX_FINALE_WERTE` (10) distinct values, so one request costs at most 45 scenarios. The `postTest` Step Function runs `generateTestZusammenfassung` with retries and sets `zusammenfassungStatus = failed` if it fails.
+`updateTestState` passes the test's stored context to `prewarmSzenarien`, which generates the scenarios for all pairs of the final values in that context in parallel. `completeTest` passes the context to the `postTest` Step Function. Both `prewarmSzenarien` and `updateTestState` accept at most `MAX_FINALE_WERTE` (10) distinct values, so one request costs at most 45 scenarios. The `postTest` Step Function runs `generateTestZusammenfassung` with retries and sets `zusammenfassungStatus = failed` if it fails.
+
+#### Adding a context
+
+1. Add the id to `KontextId` and an entry to `KONTEXTE` in `backend/src/domain/kontext.ts`.
+2. Add the same id with title, description and icon to `app/src/kontexte.ts`.
+3. Generate sample scenarios with `cd backend && AWS_PROFILE=phjardas pnpm beispielszenarien <kontext> 12` and check that they stay inside the context. The script calls Bedrock directly, without cache and without the daily budget.
 
 #### Bedrock costs
 
@@ -115,7 +126,7 @@ OpenTofu manages all AWS resources in `eu-central-1`:
 - **API Gateway v2 (HTTP API)** with CORS, routing to the Lambdas.
 - **Lambda** (Node.js, arm64). All functions share one zip, built by Terraform's `archive_file` data source from `backend/dist/`.
 - **Step Functions**: `{project}-postTest` for the summary.
-- **DynamoDB**: `{project}-szenarien` (scenario and summary cache, keys `pk` and `version`), `{project}-statistik` (statistics counters, one item with key `pk = "werte"`) and `{project}-tests` (test sessions, key `testId`, TTL on the `ttl` attribute).
+- **DynamoDB**: `{project}-szenarien` (scenario and summary cache, keys `pk` and `version`), `{project}-statistik` (statistics counters, one item per context) and `{project}-tests` (test sessions, key `testId`, TTL on the `ttl` attribute).
 - **S3, CloudFront, ACM, Route53** for the custom domain.
 - **SES** (`infra/ses.tf`): domain identity for `var.domain` with DKIM and the MAIL FROM domain `mail.{domain}` (SPF). Emails come from `Werte Kompass <noreply@{domain}>`.
 - **CloudWatch**: all Lambdas log to the single group `/aws/lambda/{project}` (30 days retention). Metric filters on that group and a dashboard cover cache hits, misses and generation errors.

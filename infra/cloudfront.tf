@@ -161,32 +161,3 @@ output "cloudfront_distribution_id" {
 output "s3_bucket_name" {
   value = aws_s3_bucket.static.bucket
 }
-
-# The CloudFront Functions and the CSP response headers policy were replaced for the free flat-rate
-# plan. OpenTofu deleted them in parallel with the distribution update that detaches them, which AWS
-# refuses while they are still in use. These blocks only drop them from the state; the leftovers
-# are deleted by hand once the distribution no longer uses them. Remove the blocks after production
-# has been deployed.
-removed {
-  from = aws_cloudfront_function.spa_router
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = aws_cloudfront_function.api_rewrite
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = aws_cloudfront_response_headers_policy.csp
-
-  lifecycle {
-    destroy = false
-  }
-}

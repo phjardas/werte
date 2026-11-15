@@ -137,7 +137,7 @@ resource "aws_cloudfront_distribution" "main" {
   custom_error_response {
     error_code         = 403
     response_code      = 200
-    response_page_path = "/index.html"
+    response_page_path = "/404.html"
   }
 
   # The free flat-rate plan (subscribed in the console, see README) attaches its own web ACL, which

@@ -4,11 +4,11 @@ import { WerteService } from "../domain/werte.js";
 import werteData from "../werte.json" with { type: "json" };
 import { nurUeberCloudFront, response } from "./response.js";
 
-export function createHandler(werteService: Pick<WerteService, "getNames">) {
+export function createHandler(werteService: Pick<WerteService, "getAngebot">) {
   return (event: Partial<APIGatewayProxyEventV2>) => {
     const kontext = parseKontext(event.queryStringParameters?.kontext);
     if (!kontext) return response(400, { error: "Unbekannter Kontext." });
-    return response(200, { werte: werteService.getNames(kontext) });
+    return response(200, { werte: werteService.getAngebot(kontext) });
   };
 }
 

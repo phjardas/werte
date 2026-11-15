@@ -4,13 +4,14 @@ import { createHandler } from "./getWerte.js";
 
 const handler = createHandler(
   new WerteService([
-    { name: "Ruhe", synonyme: [], definition: [], beschreibung: [] },
+    { name: "Ruhe", synonyme: [], definition: [], beschreibung: [], kurzbeschreibung: "Innere Stille.", verwandt: ["Sexualität"] },
     { name: "Sexualität", synonyme: [], definition: [], beschreibung: [], kontexte: ["privat", "partnerschaft"] },
   ]),
 );
 
-const werte = (kontext?: string) =>
+const angebot = (kontext?: string) =>
   JSON.parse(handler({ queryStringParameters: kontext ? { kontext } : {} }).body).werte;
+const werte = (kontext?: string) => angebot(kontext).map((w: { name: string }) => w.name);
 
 describe("getWerte handler", () => {
   it("offers a restricted value only in its contexts", () => {
@@ -20,6 +21,12 @@ describe("getWerte handler", () => {
 
   it("treats a missing context as the standard context", () => {
     expect(werte()).toEqual(["Ruhe"]);
+  });
+
+  it("returns the short description and only related values offered in the context", () => {
+    expect(angebot("beruf")).toEqual([{ name: "Ruhe", kurzbeschreibung: "Innere Stille.", verwandt: [] }]);
+    expect(angebot("privat")[0].verwandt).toEqual(["Sexualität"]);
+    expect(angebot("privat")[1]).toEqual({ name: "Sexualität", kurzbeschreibung: "", verwandt: [] });
   });
 
   it("rejects an unknown context", () => {

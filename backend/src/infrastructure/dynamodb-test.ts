@@ -31,7 +31,7 @@ export class DynamoDBTestRepository implements TestRepository {
 
   async updateState(testId: string, state: unknown): Promise<UpdateStateResult> {
     try {
-      await this.ddb.send(
+      const { Attributes } = await this.ddb.send(
         new UpdateCommand({
           TableName: this.tableName,
           Key: { testId },
@@ -39,9 +39,10 @@ export class DynamoDBTestRepository implements TestRepository {
           ConditionExpression: "attribute_exists(testId) AND #status = :active",
           ExpressionAttributeNames: { "#state": "state", "#status": "status" },
           ExpressionAttributeValues: { ":state": state, ":active": "active" },
+          ReturnValues: "ALL_NEW",
         }),
       );
-      return { found: true, active: true };
+      return { found: true, active: true, kontext: (Attributes as TestSession | undefined)?.kontext };
     } catch (err) {
       if ((err as { name: string }).name !== "ConditionalCheckFailedException") throw err;
       const item = await this.get(testId);

@@ -1,3 +1,5 @@
+import type { KontextId } from "./kontext.js";
+
 export interface TestResult {
   name: string;
   score: number;
@@ -6,6 +8,8 @@ export interface TestResult {
 export interface TestSession {
   testId: string;
   status: "active" | "completed";
+  /** Missing for tests created before contexts existed; those count as STANDARD_KONTEXT. */
+  kontext?: KontextId;
   state?: unknown;
   results?: TestResult[];
   zusammenfassung?: string;
@@ -39,6 +43,8 @@ export function istAbgelaufen(session: Pick<TestSession, "ttl">, now = Date.now(
 export interface UpdateStateResult {
   found: boolean;
   active: boolean;
+  /** The stored context of an active test, if it has one. */
+  kontext?: KontextId;
 }
 
 export interface CompleteResult {

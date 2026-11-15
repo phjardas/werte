@@ -1,10 +1,11 @@
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import { type KontextId, STANDARD_KONTEXT } from "../domain/kontext.js";
 import type { TestRepository, TestResult } from "../domain/test.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
 import { nurUeberCloudFront, response } from "./response.js";
 
-export type ZusammenfassungTriggerFn = (testId: string, werte: string[]) => Promise<void>;
+export type ZusammenfassungTriggerFn = (testId: string, werte: string[], kontext: KontextId) => Promise<void>;
 
 export function createHandler(
   testRepository: Pick<TestRepository, "get" | "updateZusammenfassungStatus">,
@@ -18,6 +19,7 @@ export function createHandler(
     const item = await testRepository.get(testId);
     if (!item) return response(404, { error: "not_found" });
 
+    const kontext = item.kontext ?? STANDARD_KONTEXT;
     let zusammenfassungStatus = item.zusammenfassungStatus ?? null;
 
     // Old sessions (pre-status-tracking) that completed but never got a summary
@@ -33,7 +35,7 @@ export function createHandler(
       const werte = (item.results as TestResult[]).slice(0, 5).map((r) => r.name);
       await testRepository.updateZusammenfassungStatus(testId, "generating");
       zusammenfassungStatus = "generating";
-      await triggerZusammenfassung!(testId, werte).catch((err) =>
+      await triggerZusammenfassung!(testId, werte, kontext).catch((err) =>
         console.error(JSON.stringify({ event: "zusammenfassung_recovery_error", testId, error: String(err) })),
       );
     }
@@ -41,6 +43,7 @@ export function createHandler(
     return response(200, {
       testId: item.testId,
       status: item.status,
+      kontext,
       state: item.state ?? null,
       results: item.results ?? null,
       zusammenfassung: item.zusammenfassung ?? null,
@@ -53,13 +56,13 @@ export function createHandler(
 
 function createZusammenfassungTrigger(functionName: string): ZusammenfassungTriggerFn {
   const lambda = new LambdaClient({});
-  return async (testId: string, werte: string[]) => {
+  return async (testId: string, werte: string[], kontext: KontextId) => {
     console.log(JSON.stringify({ event: "zusammenfassung_recovery_trigger", testId }));
     await lambda.send(
       new InvokeCommand({
         FunctionName: functionName,
         InvocationType: "Event",
-        Payload: Buffer.from(JSON.stringify({ testId, werte })),
+        Payload: Buffer.from(JSON.stringify({ testId, werte, kontext })),
       }),
     );
   };

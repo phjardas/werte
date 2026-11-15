@@ -75,6 +75,7 @@ describe("getTest handler", () => {
     expect(mockTrigger).toHaveBeenCalledWith(
       "old-test",
       ["Freiheit", "Liebe", "Mut", "Vertrauen", "Ehrlichkeit"],
+      "beruf",
     );
   });
 
@@ -105,5 +106,38 @@ describe("getTest handler", () => {
     const res = await handler({ pathParameters: { testId: "active-test" } });
     expect(res.statusCode).toBe(200);
     expect(mockTrigger).not.toHaveBeenCalled();
+  });
+
+  it("returns the stored context", async () => {
+    mockGet.mockResolvedValue({ testId: "abc", status: "active", kontext: "privat" });
+    const res = await handler({ pathParameters: { testId: "abc" } });
+    expect(JSON.parse(res.body).kontext).toBe("privat");
+  });
+
+  it("returns beruf for sessions without context", async () => {
+    mockGet.mockResolvedValue({ testId: "abc", status: "active" });
+    const res = await handler({ pathParameters: { testId: "abc" } });
+    expect(JSON.parse(res.body).kontext).toBe("beruf");
+  });
+
+  it("passes the context to the summary recovery", async () => {
+    mockGet.mockResolvedValue({
+      testId: "old-test",
+      status: "completed",
+      kontext: "privat",
+      results: [{ name: "A", score: 1 }, { name: "B", score: 0 }],
+    });
+    await handler({ pathParameters: { testId: "old-test" } });
+    expect(mockTrigger).toHaveBeenCalledWith("old-test", ["A", "B"], "privat");
+  });
+
+  it("recovers legacy summaries as beruf", async () => {
+    mockGet.mockResolvedValue({
+      testId: "old-test",
+      status: "completed",
+      results: [{ name: "A", score: 1 }],
+    });
+    await handler({ pathParameters: { testId: "old-test" } });
+    expect(mockTrigger).toHaveBeenCalledWith("old-test", ["A"], "beruf");
   });
 });

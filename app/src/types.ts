@@ -8,6 +8,12 @@ export interface Contestant {
   opponents: string[];
 }
 
+export interface WertInfo {
+  name: string;
+  kurzbeschreibung: string;
+  verwandt: string[];
+}
+
 export interface Szenario {
   werte: [string, string];
   szenario: string;
@@ -17,6 +23,8 @@ export interface Szenario {
 
 export type Step =
   | "selection"
+  | "suggestions"
+  | "filter-intro"
   | "filter"
   | "comparison-intro"
   | "comparison";
@@ -47,6 +55,10 @@ export interface TestState {
   step: Step;
   selectedValues: string[];
   finalValues: string[];
+  /** The shuffled order of the values in the selection pages. Missing in tests saved before paging. */
+  order?: string[];
+  /** The selection page (0-based) the test was left on. */
+  page?: number;
   tournament?: SerializedTournament;
 }
 

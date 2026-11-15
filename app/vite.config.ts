@@ -8,7 +8,7 @@ const gitSha = execSync("git rev-parse --short=7 HEAD").toString().trim();
 // headers policies. Build only: in dev, `connect-src 'self'` would block calls to the preview API.
 // style-src 'unsafe-inline': the dev pages use inline style attributes.
 const CSP =
-  "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'";
+  "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'";
 
 const csp: Plugin = {
   name: "csp",

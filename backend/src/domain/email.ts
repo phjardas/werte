@@ -98,7 +98,6 @@ export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId }: 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light only">
 <title>Deine Top 5 Werte</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Geist:wght@400..700&display=swap" rel="stylesheet">
 </head>
 <body style="margin:0;padding:0;background:${COLORS.bg};">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.bg};">

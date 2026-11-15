@@ -75,14 +75,6 @@ export function DatenschutzPage() {
           DSGVO.
         </p>
 
-        <h2>Schriftarten</h2>
-        <p>
-          Die Schriftarten werden von Google Fonts (Google Ireland Limited,
-          Dublin) geladen. Dabei erhält Google deine IP-Adresse. Rechtsgrundlage
-          ist unser berechtigtes Interesse an einer einheitlichen Darstellung
-          nach Art. 6 Abs. 1 lit. f DSGVO.
-        </p>
-
         <h2>Deine Rechte</h2>
         <p>
           Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung

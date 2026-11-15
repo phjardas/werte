@@ -75,7 +75,7 @@ TypeScript with a hexagonal architecture:
 
 Each Lambda handler instantiates its services at module scope (cold start) via the factory. Handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 
-The scenario and summary prompts are templates (`szenarioSystemPrompt`, `zusammenfassungSystemPrompt`) filled from `src/domain/kontext.ts`, which holds per context the target group, the typical scenes, the rule that keeps scenes inside the context, the worked example and the kind of tips. Both templates state that the test is for adults. Tests without a context (created before contexts existed) count as `STANDARD_KONTEXT` (`beruf`).
+The scenario and summary prompts are templates (`szenarioSystemPrompt`, `zusammenfassungSystemPrompt`) filled from `src/domain/kontext.ts`, which holds per context the target group, the typical scenes, the rule that keeps scenes inside the context, the worked example and the kind of tips. Both templates state that the test is for adults. A context can add its own rules to the scenario prompt (`zusatzregeln`) and to the summary prompt (`zusammenfassungsregeln`). Tests without a context (created before contexts existed) count as `STANDARD_KONTEXT` (`beruf`).
 
 `SzenarioService.getOrCreate` caches by the alphabetically sorted value pair. The cache key is `{wert1}_{wert2}`, the version is a hash of the rendered system prompt and the user prompt, so each context has its own scenarios for the same pair, and changing a prompt or a value description invalidates the cached scenarios. `ZusammenfassungService` caches by the ordered top 5 values and a hash of the rendered system prompt.
 

@@ -28,6 +28,52 @@
   --shadow-lg:
     0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
   --content-width: 640px;
+  --on-primary: oklch(100% 0 0);
+  --border: #e2e8f0;
+  --surface: oklch(100% 0 0);
+  --surface-translucent: oklch(100% 0 0 / 0.88);
+  --hover-bg: #eef2ff;
+  --teaser-bg: #fffbf9;
+  --teaser-text: #3d3d3d;
+  --teaser-title: #9c2c57;
+  --teaser-muted: #6b6b6b;
+  --hinweis-bg: oklch(from var(--gold) 97% 0.03 h);
+  --hinweis-title: oklch(from var(--bronze) 42% c h);
+  --error-bg: oklch(95% 0.04 25);
+  --error-text: oklch(40% 0.12 25);
+  color-scheme: light dark;
+}
+
+/* Dark mode follows the operating system setting. Primary and secondary get
+   lighter so they work as text on the dark background, which is why text on
+   primary fills switches to a dark --on-primary. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: oklch(75% 0.09 var(--primary-hue));
+    --primary-light: oklch(55% 0.08 var(--primary-hue));
+    --secondary: oklch(72% 0.1 var(--secondary-hue));
+    --secondary-light: oklch(55% 0.08 var(--secondary-hue));
+    --bg: oklch(18% 0.015 var(--primary-hue));
+    --card: oklch(24% 0.02 var(--primary-hue));
+    --text: oklch(100% 0 0 / 0.9);
+    --text-muted: oklch(100% 0 0 / 0.65);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-lg:
+      0 10px 25px rgba(0, 0, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.3);
+    --on-primary: oklch(18% 0.03 var(--primary-hue));
+    --border: oklch(35% 0.02 var(--primary-hue));
+    --surface: var(--card);
+    --surface-translucent: oklch(24% 0.02 var(--primary-hue) / 0.88);
+    --hover-bg: oklch(30% 0.04 var(--primary-hue));
+    --teaser-bg: var(--card);
+    --teaser-text: var(--text);
+    --teaser-title: #f07aa8;
+    --teaser-muted: var(--text-muted);
+    --hinweis-bg: oklch(from var(--gold) 26% 0.03 h);
+    --hinweis-title: oklch(from var(--bronze) 78% c h);
+    --error-bg: oklch(28% 0.06 25);
+    --error-text: oklch(85% 0.08 25);
+  }
 }
 
 body {
@@ -144,7 +190,7 @@ body {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border);
   background: var(--card);
   color: var(--text);
   transition: all 0.15s ease;
@@ -155,13 +201,13 @@ body {
 .value-chip.selected {
   background: var(--secondary);
   border-color: var(--secondary);
-  color: white;
+  color: var(--on-primary);
 }
 .value-chip.disabled {
   opacity: 0.4;
 }
 .value-chip.disabled:hover {
-  border-color: #e2e8f0;
+  border-color: var(--border);
 }
 .value-chip-name,
 .value-chip-info {
@@ -237,14 +283,14 @@ body {
 /* ── Filter step: a different task than collecting, so it looks different ── */
 .step-filter .header {
   background: var(--primary);
-  color: white;
+  color: var(--on-primary);
   padding: 2rem 1.5rem;
 }
 .step-filter .header h1 {
-  color: white;
+  color: var(--on-primary);
 }
 .step-filter .header p {
-  color: oklch(100% 0 0 / 0.85);
+  color: oklch(from var(--on-primary) l c h / 0.85);
 }
 .filter-slots {
   list-style: none;
@@ -273,7 +319,7 @@ body {
   padding: 0.4rem;
   background: none;
   border: none;
-  color: white;
+  color: var(--on-primary);
   font-family: inherit;
   font-size: 0.85rem;
   cursor: pointer;
@@ -314,7 +360,7 @@ body {
 }
 .btn-primary {
   background: var(--primary);
-  color: white;
+  color: var(--on-primary);
 }
 .btn-primary:hover {
   opacity: 0.9;
@@ -329,7 +375,7 @@ body {
   border: 2px solid var(--primary);
 }
 .btn-secondary:hover {
-  background: #eef2ff;
+  background: var(--hover-bg);
 }
 
 /* ── Comparison ── */
@@ -364,7 +410,7 @@ body {
 .progress-track {
   width: 100%;
   height: 6px;
-  background: white;
+  background: var(--surface);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -395,7 +441,7 @@ body {
 .comparison-card {
   flex: 1;
   background: var(--card);
-  border: 3px solid #e2e8f0;
+  border: 3px solid var(--border);
   border-radius: var(--radius);
   padding: 2rem 1.5rem;
   text-align: center;
@@ -449,7 +495,7 @@ body {
   display: inline-block;
   width: 1.25rem;
   height: 1.25rem;
-  border: 3px solid #e2e8f0;
+  border: 3px solid var(--border);
   border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
@@ -493,7 +539,7 @@ body {
 
 .szenario-vote-btn {
   background: none;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border);
   border-radius: var(--radius);
   padding: 0.3rem 0.75rem;
   font-size: 1.1rem;
@@ -555,7 +601,7 @@ body {
   padding: 1rem 1.25rem;
   margin-bottom: 0.75rem;
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 1);
+  background: var(--surface);
 }
 
 .result-rank {
@@ -695,7 +741,7 @@ body {
 }
 
 .chat-bubble {
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--surface-translucent);
   border-radius: 0 1.2rem 1.2rem 1.2rem;
   padding: 1.1rem 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -708,7 +754,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background: rgba(255, 255, 255, 0.88);
+  background: var(--surface-translucent);
   border-radius: 0 1.2rem 1.2rem 1.2rem;
   padding: 0.85rem 1.1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -969,7 +1015,7 @@ body {
 }
 
 .statistik-rest .statistik-eintrag + .statistik-eintrag {
-  border-top: 1px solid oklch(0 0 0 / 0.06);
+  border-top: 1px solid oklch(from var(--text) l c h / 0.06);
 }
 
 .statistik-rest .result-rank {
@@ -1013,7 +1059,7 @@ body {
 .statistik-balken {
   height: 8px;
   border-radius: 4px;
-  background: oklch(0 0 0 / 0.05);
+  background: oklch(from var(--text) l c h / 0.05);
   overflow: hidden;
 }
 
@@ -1067,10 +1113,10 @@ body {
   max-width: 600px;
   margin: 2rem auto 0;
   padding: 1.25rem;
-  background: #fffbf9;
+  background: var(--teaser-bg);
   border: 2px solid #ff7f00;
   border-radius: var(--radius);
-  color: #3d3d3d;
+  color: var(--teaser-text);
   text-decoration: none;
   transition: box-shadow 0.15s;
 }
@@ -1085,13 +1131,13 @@ body {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 600;
-  color: #9c2c57;
+  color: var(--teaser-title);
 }
 .eltern-teaser p {
   margin: 0.25rem 0;
 }
 .eltern-teaser small {
-  color: #6b6b6b;
+  color: var(--teaser-muted);
   font-style: italic;
 }
 
@@ -1197,11 +1243,11 @@ html {
   margin-top: 1rem;
   padding: 1.75rem 1.5rem;
   border-radius: var(--radius);
-  background: oklch(from var(--gold) 97% 0.03 h);
+  background: var(--hinweis-bg);
   border-left: 4px solid var(--bronze);
 }
 .landing-hinweis h3 {
-  color: oklch(from var(--bronze) 42% c h);
+  color: var(--hinweis-title);
 }
 .landing-hinweis p + p {
   margin-top: 0.75rem;
@@ -1232,7 +1278,7 @@ html {
   height: 2.75rem;
   border-radius: 50%;
   background: var(--primary);
-  color: white;
+  color: var(--on-primary);
   font-family: var(--font-serif);
   font-size: 1.25rem;
   font-weight: 600;
@@ -1329,7 +1375,7 @@ html {
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 50%;
-  background: oklch(94% 0.03 var(--primary-hue));
+  background: var(--hover-bg);
   font-size: 1.3rem;
 }
 
@@ -1343,17 +1389,17 @@ html {
 .kontext-extern {
   background: transparent;
   box-shadow: none;
-  border: 1px dashed oklch(0 0 0 / 0.2);
+  border: 1px dashed oklch(from var(--text) l c h / 0.2);
 }
 .kontext-extern .kontext-icon {
-  background: oklch(0 0 0 / 0.05);
+  background: oklch(from var(--text) l c h / 0.05);
 }
 
 .kontext-fehler {
   padding: 0.75rem 1rem;
   border-radius: var(--radius);
-  background: oklch(95% 0.04 25);
-  color: oklch(40% 0.12 25);
+  background: var(--error-bg);
+  color: var(--error-text);
 }
 
 /* ── Statistik: Lebensbereich ── */
@@ -1377,5 +1423,5 @@ html {
 .statistik-auswahl button[aria-pressed="true"] {
   background: var(--primary);
   border-color: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }

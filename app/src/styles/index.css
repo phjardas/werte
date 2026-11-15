@@ -424,6 +424,10 @@ body {
 .results-header p {
   font-size: 0.9rem;
 }
+.results-header .results-kontext {
+  margin-top: 0.25rem;
+  color: var(--text-muted);
+}
 
 .result-item {
   display: flex;

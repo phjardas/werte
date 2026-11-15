@@ -3,7 +3,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { sendEmail, type SendEmailResult } from "../api";
 import { useZusammenfassung } from "../hooks/useZusammenfassung";
 import type { Contestant } from "../types";
-import { ELTERN_KOMPASS_URL } from "../kontexte";
+import { ELTERN_KOMPASS_URL, kontextInfo, type KontextId } from "../kontexte";
 import { HeroLogo } from "./Logo";
 
 function highlightValues(text: string, values: string[]): ReactNode {
@@ -96,6 +96,7 @@ function EmailForm({
 
 interface ResultsScreenProps {
   testId?: string;
+  kontext: KontextId;
   results: Contestant[];
   emailGesendet?: boolean;
   ablaufAm?: string | null;
@@ -103,6 +104,7 @@ interface ResultsScreenProps {
 
 export function ResultsScreen({
   testId,
+  kontext,
   results,
   emailGesendet = false,
   ablaufAm,
@@ -116,6 +118,7 @@ export function ResultsScreen({
         <HeroLogo />
         <h1>Deine Top 5 Werte</h1>
         <p>Das sind die Werte, die dir am wichtigsten sind.</p>
+        <p className="results-kontext">Lebensbereich: {kontextInfo(kontext).titel}</p>
       </div>
       <div className="screen active step-results">
         <div className="results-container">

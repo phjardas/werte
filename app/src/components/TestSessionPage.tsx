@@ -4,6 +4,7 @@ import { completeTest } from "../api";
 import { useStateSync } from "../hooks/useStateSync";
 import { useTest } from "../hooks/useTest";
 import { useTournament } from "../hooks/useTournament";
+import type { KontextId } from "../kontexte";
 import type { SerializedTournament, Step, TestState } from "../types";
 import { ComparisonIntroStep } from "./ComparisonIntroStep";
 import { ComparisonStep } from "./ComparisonStep";
@@ -35,10 +36,14 @@ export function TestSessionPage() {
       />
     );
 
+  // A backend without contexts returns none; those tests are Berufsleben.
+  const kontext = session.kontext ?? "beruf";
+
   if (session.status === "completed" && session.results) {
     return (
       <ResultsScreen
         testId={testId}
+        kontext={kontext}
         results={session.results}
         emailGesendet={session.emailGesendet}
         ablaufAm={session.ablaufAm}
@@ -47,15 +52,16 @@ export function TestSessionPage() {
   }
 
   // status === "active"
-  return <ActiveTest testId={testId} initialState={session.state} />;
+  return <ActiveTest testId={testId} kontext={kontext} initialState={session.state} />;
 }
 
 interface ActiveTestProps {
   testId: string;
+  kontext: KontextId;
   initialState: TestState | null;
 }
 
-function ActiveTest({ testId, initialState }: ActiveTestProps) {
+function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   const [step, setStep] = useState<Step>(
     // Tests saved before the intro step was removed may still carry "intro".
     initialState?.step && (initialState.step as string) !== "intro"
@@ -159,7 +165,7 @@ function ActiveTest({ testId, initialState }: ActiveTestProps) {
   }, [buildState, syncState]);
 
   if (step === "comparison" && tournament.isComplete) {
-    return <ResultsScreen testId={testId} results={tournament.results} />;
+    return <ResultsScreen testId={testId} kontext={kontext} results={tournament.results} />;
   }
 
   const tournamentWithWrappedVote = { ...tournament, vote: handleVote };
@@ -177,12 +183,13 @@ function ActiveTest({ testId, initialState }: ActiveTestProps) {
       )}
       {step === "comparison-intro" && (
         <ComparisonIntroStep
+          kontext={kontext}
           valueCount={finalValues.length}
           onNext={handleStartComparison}
         />
       )}
       {step === "comparison" && (
-        <ComparisonStep tournament={tournamentWithWrappedVote} />
+        <ComparisonStep kontext={kontext} tournament={tournamentWithWrappedVote} />
       )}
     </>
   );

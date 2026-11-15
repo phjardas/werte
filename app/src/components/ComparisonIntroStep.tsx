@@ -1,11 +1,14 @@
+import { kontextInfo, type KontextId } from "../kontexte";
 import { HeroLogo } from "./Logo";
 
 interface ComparisonIntroStepProps {
+  kontext: KontextId;
   valueCount: number;
   onNext: () => void;
 }
 
 export function ComparisonIntroStep({
+  kontext,
   valueCount,
   onNext,
 }: ComparisonIntroStepProps) {
@@ -18,8 +21,8 @@ export function ComparisonIntroStep({
       <div className="intro-content">
         <p>
           Du hast <strong>{valueCount} Werte</strong> ausgewählt. Jetzt
-          vergleichen wir sie miteinander, um herauszufinden, welche dir in
-          deinem Berufsleben am wichtigsten sind.
+          vergleichen wir sie miteinander, um herauszufinden, welche dir{" "}
+          {kontextInfo(kontext).imLebensbereich} am wichtigsten sind.
         </p>
         <p>
           Du bekommst jeweils zwei Werte in einer konkreten Alltagssituation

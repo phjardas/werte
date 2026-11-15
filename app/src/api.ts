@@ -19,10 +19,11 @@ export async function fetchWerte(): Promise<string[]> {
 export async function fetchSzenario(
   wert1: string,
   wert2: string,
+  kontext: KontextId,
 ): Promise<Szenario | null> {
   try {
     const res = await fetch(
-      `${API_BASE_URL}/szenarien/${encodeURIComponent(wert1)}/${encodeURIComponent(wert2)}`,
+      `${API_BASE_URL}/szenarien/${encodeURIComponent(wert1)}/${encodeURIComponent(wert2)}?kontext=${kontext}`,
     );
     if (!res.ok) return null;
     return await res.json();

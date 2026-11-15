@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchSzenario, voteSzenario } from "../api";
 import type { UseTournamentResult } from "../hooks/useTournament";
+import type { KontextId } from "../kontexte";
 import type { Contestant, Szenario } from "../types";
 import { ProgressBar } from "./ProgressBar";
 
 interface ComparisonStepProps {
+  kontext: KontextId;
   tournament: UseTournamentResult;
 }
 
-export function ComparisonStep({ tournament }: ComparisonStepProps) {
+export function ComparisonStep({ kontext, tournament }: ComparisonStepProps) {
   const { currentMatch, progress, vote } = tournament;
   const [szenario, setSzenario] = useState<Szenario | null>(null);
   const [loading, setLoading] = useState(false);
@@ -22,11 +24,11 @@ export function ComparisonStep({ tournament }: ComparisonStepProps) {
     setSzenario(null);
     setVoted(null);
 
-    fetchSzenario(a.name, b.name).then((s) => {
+    fetchSzenario(a.name, b.name, kontext).then((s) => {
       setSzenario(s);
       setLoading(false);
     });
-  }, [currentMatch]);
+  }, [currentMatch, kontext]);
 
   if (!currentMatch) return null;
 

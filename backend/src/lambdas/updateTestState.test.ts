@@ -64,7 +64,7 @@ describe("updateTestState handler", () => {
         body: JSON.stringify(comparisonIntroState),
       });
       expect(res.statusCode).toBe(200);
-      expect(mockPrewarm).toHaveBeenCalledWith("abc", comparisonIntroState.finalValues);
+      expect(mockPrewarm).toHaveBeenCalledWith("abc", comparisonIntroState.finalValues, "beruf");
     });
 
     it("does not trigger prewarm for other steps", async () => {
@@ -111,7 +111,7 @@ describe("updateTestState handler", () => {
         pathParameters: { testId: "abc" },
         body: JSON.stringify({ step: "comparison-intro", finalValues: ["Mut", "Mut", "Liebe"] }),
       });
-      expect(mockPrewarm).toHaveBeenCalledWith("abc", ["Mut", "Liebe"]);
+      expect(mockPrewarm).toHaveBeenCalledWith("abc", ["Mut", "Liebe"], "beruf");
     });
 
     it("still returns 200 if prewarm fails", async () => {
@@ -123,5 +123,19 @@ describe("updateTestState handler", () => {
       });
       expect(res.statusCode).toBe(200);
     });
+  });
+
+  it("prewarms in the stored context", async () => {
+    mockUpdateState.mockResolvedValue({ found: true, active: true, kontext: "privat" });
+    const state = { step: "comparison-intro", finalValues: ["Mut", "Ruhe"] };
+    await handler({ pathParameters: { testId: "abc" }, body: JSON.stringify(state) });
+    expect(mockPrewarm).toHaveBeenCalledWith("abc", ["Mut", "Ruhe"], "privat");
+  });
+
+  it("prewarms legacy tests as beruf", async () => {
+    mockUpdateState.mockResolvedValue({ found: true, active: true });
+    const state = { step: "comparison-intro", finalValues: ["Mut", "Ruhe"] };
+    await handler({ pathParameters: { testId: "abc" }, body: JSON.stringify(state) });
+    expect(mockPrewarm).toHaveBeenCalledWith("abc", ["Mut", "Ruhe"], "beruf");
   });
 });

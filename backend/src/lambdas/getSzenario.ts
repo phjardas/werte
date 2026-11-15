@@ -1,4 +1,5 @@
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import { parseKontext } from "../domain/kontext.js";
 import type { SzenarioService } from "../domain/szenario.js";
 import { SzenarioService as SzenarioServiceImpl } from "../domain/szenario.js";
 import type { WerteService } from "../domain/werte.js";
@@ -25,7 +26,10 @@ export function createHandler(
       return response(400, { error: `Unbekannter Wert: "${unknown}".` });
     }
 
-    const result = await szenarioService.getOrCreate(wert1, wert2);
+    const kontext = parseKontext(event.queryStringParameters?.kontext);
+    if (!kontext) return response(400, { error: "Unbekannter Kontext." });
+
+    const result = await szenarioService.getOrCreate(wert1, wert2, kontext);
     if (!result)
       return response(500, {
         error: "Szenario konnte nicht generiert werden.",

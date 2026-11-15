@@ -1,4 +1,5 @@
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import { parseKontext, STANDARD_KONTEXT } from "../domain/kontext.js";
 import type { SzenarioService } from "../domain/szenario.js";
 import type { TestRepository } from "../domain/test.js";
 import { SzenarioService as SzenarioServiceImpl } from "../domain/szenario.js";
@@ -28,6 +29,9 @@ export function createHandler(
       });
     }
 
+    // The payload only comes from updateTestState, so a bad context has no one to report to.
+    const kontext = parseKontext(body.kontext) ?? STANDARD_KONTEXT;
+
     const pairs: [string, string][] = [];
     for (let i = 0; i < werte.length; i++) {
       for (let j = i + 1; j < werte.length; j++) {
@@ -36,11 +40,11 @@ export function createHandler(
     }
 
     console.log(
-      JSON.stringify({ event: "prewarm_start", count: pairs.length }),
+      JSON.stringify({ event: "prewarm_start", count: pairs.length, kontext }),
     );
 
     const results = await Promise.allSettled(
-      pairs.map(([a, b]) => szenarioService.getOrCreate(a, b)),
+      pairs.map(([a, b]) => szenarioService.getOrCreate(a, b, kontext)),
     );
 
     const generated = results.flatMap((r) =>

@@ -1,11 +1,12 @@
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import { type KontextId, STANDARD_KONTEXT } from "../domain/kontext.js";
 import type { TestRepository } from "../domain/test.js";
 import { MAX_FINALE_WERTE } from "../domain/werte.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
 import { nurUeberCloudFront, response } from "./response.js";
 
-export type PrewarmerFn = (testId: string, werte: string[]) => Promise<void>;
+export type PrewarmerFn = (testId: string, werte: string[], kontext: KontextId) => Promise<void>;
 
 function extractFinalValues(state: unknown): string[] | null {
   if (typeof state !== "object" || state === null) return null;
@@ -43,7 +44,7 @@ export function createHandler(
     const finalValues = extractFinalValues(state);
     if (finalValues && prewarm) {
       // Await the async invocation — it returns immediately (Event type), not when prewarming finishes
-      await prewarm(testId, finalValues).catch((err) =>
+      await prewarm(testId, finalValues, result.kontext ?? STANDARD_KONTEXT).catch((err) =>
         console.error(JSON.stringify({ event: "prewarm_trigger_error", error: String(err) })),
       );
     }
@@ -54,13 +55,13 @@ export function createHandler(
 
 function createPrewarmer(functionName: string): PrewarmerFn {
   const lambda = new LambdaClient({});
-  return async (testId: string, werte: string[]) => {
+  return async (testId: string, werte: string[], kontext: KontextId) => {
     console.log(JSON.stringify({ event: "prewarm_trigger", werte_count: werte.length }));
     await lambda.send(
       new InvokeCommand({
         FunctionName: functionName,
         InvocationType: "Event",
-        Payload: Buffer.from(JSON.stringify({ body: JSON.stringify({ testId, werte }) })),
+        Payload: Buffer.from(JSON.stringify({ body: JSON.stringify({ testId, werte, kontext }) })),
       }),
     );
   };

@@ -53,6 +53,24 @@ describe("getSzenario handler", () => {
   it("passes both werte to service", async () => {
     mockGetOrCreate.mockResolvedValue({ werte: ["Aktivität", "Ruhe"] as [string, string], szenario: "s", antworten: ["a", "b"] as [string, string], version: "v1" });
     await handler(makeEvent("Ruhe", "Aktivität"));
-    expect(mockGetOrCreate).toHaveBeenCalledWith("Ruhe", "Aktivität");
+    expect(mockGetOrCreate).toHaveBeenCalledWith("Ruhe", "Aktivität", "beruf");
+  });
+
+  it("passes the context from the query string", async () => {
+    mockGetOrCreate.mockResolvedValue({ werte: ["Aktivität", "Ruhe"], szenario: "s", antworten: ["a", "b"], version: "v" });
+    await handler({ ...makeEvent("Aktivität", "Ruhe"), queryStringParameters: { kontext: "privat" } });
+    expect(mockGetOrCreate).toHaveBeenCalledWith("Aktivität", "Ruhe", "privat");
+  });
+
+  it("defaults to beruf without query string", async () => {
+    mockGetOrCreate.mockResolvedValue({ werte: ["Aktivität", "Ruhe"], szenario: "s", antworten: ["a", "b"], version: "v" });
+    await handler(makeEvent("Aktivität", "Ruhe"));
+    expect(mockGetOrCreate).toHaveBeenCalledWith("Aktivität", "Ruhe", "beruf");
+  });
+
+  it("rejects an unknown context with 400", async () => {
+    const res = await handler({ ...makeEvent("Aktivität", "Ruhe"), queryStringParameters: { kontext: "x" } });
+    expect(res.statusCode).toBe(400);
+    expect(mockGetOrCreate).not.toHaveBeenCalled();
   });
 });

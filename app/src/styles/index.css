@@ -1160,3 +1160,75 @@ html {
     animation: none;
   }
 }
+
+/* ── Kontextauswahl ── */
+.kontext-auswahl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.kontext-karte {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1.25rem;
+  background: var(--card);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.kontext-karte:hover,
+.kontext-karte:focus-visible {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+}
+.kontext-karte strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+.kontext-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: oklch(94% 0.03 var(--primary-hue));
+  font-size: 1.3rem;
+}
+
+.kontext-beschreibung {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.kontext-extern {
+  background: transparent;
+  box-shadow: none;
+  border: 1px dashed oklch(0 0 0 / 0.2);
+}
+.kontext-extern .kontext-icon {
+  background: oklch(0 0 0 / 0.05);
+}
+
+.kontext-fehler {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: oklch(95% 0.04 25);
+  color: oklch(40% 0.12 25);
+}

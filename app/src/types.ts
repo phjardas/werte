@@ -1,3 +1,5 @@
+import type { KontextId } from "./kontexte";
+
 export interface Contestant {
   name: string;
   score: number;
@@ -53,6 +55,7 @@ export type TestStatus = "active" | "completed";
 export interface TestSession {
   testId: string;
   status: TestStatus;
+  kontext: KontextId;
   state: TestState | null;
   results: Contestant[] | null;
   zusammenfassung: string | null;

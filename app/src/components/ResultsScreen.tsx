@@ -3,6 +3,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { sendEmail, type SendEmailResult } from "../api";
 import { useZusammenfassung } from "../hooks/useZusammenfassung";
 import type { Contestant } from "../types";
+import { ELTERN_KOMPASS_URL } from "../kontexte";
 import { HeroLogo } from "./Logo";
 
 function highlightValues(text: string, values: string[]): ReactNode {
@@ -183,7 +184,7 @@ export function ResultsScreen({
           ) : null}
           <a
             className="eltern-teaser"
-            href="https://werte.jessica-kioschis.de/"
+            href={ELTERN_KOMPASS_URL}
             target="_blank"
             rel="noopener"
           >

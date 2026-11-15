@@ -1,3 +1,4 @@
+import type { KontextId } from "./kontexte";
 import type {
   Contestant,
   Statistik,
@@ -90,8 +91,12 @@ export async function voteSzenario(
   }
 }
 
-export async function createTest(): Promise<string> {
-  const res = await fetch(`${API_BASE_URL}/tests`, { method: "POST" });
+export async function createTest(kontext: KontextId): Promise<string> {
+  const res = await fetch(`${API_BASE_URL}/tests`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ kontext }),
+  });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
   return data.testId;

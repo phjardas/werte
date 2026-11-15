@@ -4,9 +4,10 @@ import { SzenarioService as SzenarioServiceImpl } from "../domain/szenario.js";
 import type { WerteService } from "../domain/werte.js";
 import { WerteService as WerteServiceImpl } from "../domain/werte.js";
 import { BedrockAIService } from "../infrastructure/bedrock.js";
+import { tagesbudgetAusUmgebung } from "../infrastructure/dynamodb-budget.js";
 import { DynamoDBCache } from "../infrastructure/dynamodb-cache.js";
 import werteData from "../werte.json" with { type: "json" };
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export function createHandler(
   szenarioService: Pick<SzenarioService, "getOrCreate">,
@@ -36,9 +37,9 @@ export function createHandler(
 
 const werteService = new WerteServiceImpl(werteData.werte);
 const szenarioService = new SzenarioServiceImpl(
-  new BedrockAIService(),
+  new BedrockAIService(tagesbudgetAusUmgebung()),
   new DynamoDBCache(process.env.DYNAMODB_TABLE!),
   werteService,
 );
 
-export const handler = createHandler(szenarioService, werteService);
+export const handler = nurUeberCloudFront(createHandler(szenarioService, werteService));

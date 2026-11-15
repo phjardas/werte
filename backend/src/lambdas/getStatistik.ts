@@ -1,6 +1,6 @@
 import { berechneStatistik, type StatistikRepository } from "../domain/statistik.js";
 import { DynamoDBStatistikRepository } from "../infrastructure/dynamodb-statistik.js";
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export function createHandler(statistik: Pick<StatistikRepository, "get">) {
   return async function handler() {
@@ -8,4 +8,4 @@ export function createHandler(statistik: Pick<StatistikRepository, "get">) {
   };
 }
 
-export const handler = createHandler(new DynamoDBStatistikRepository(process.env.STATISTIK_TABLE!));
+export const handler = nurUeberCloudFront(createHandler(new DynamoDBStatistikRepository(process.env.STATISTIK_TABLE!)));

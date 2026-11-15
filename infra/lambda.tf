@@ -110,6 +110,12 @@ resource "aws_lambda_function" "get_werte" {
     log_group  = aws_cloudwatch_log_group.lambda.name
     log_format = "Text"
   }
+
+  environment {
+    variables = {
+      ORIGIN_SECRET = random_password.origin_secret.result
+    }
+  }
 }
 
 # getSzenario
@@ -125,6 +131,9 @@ resource "aws_lambda_function" "get_szenario" {
   timeout          = 30
   memory_size      = 256
 
+  # Caps parallel Bedrock spend; see the daily budget in backend/src/infrastructure/dynamodb-budget.ts.
+  reserved_concurrent_executions = 10
+
   logging_config {
     log_group  = aws_cloudwatch_log_group.lambda.name
     log_format = "Text"
@@ -132,7 +141,10 @@ resource "aws_lambda_function" "get_szenario" {
 
   environment {
     variables = {
-      DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
+      ORIGIN_SECRET   = random_password.origin_secret.result
+      STATISTIK_TABLE = aws_dynamodb_table.statistik.name
+      TAGESBUDGET_USD = var.tagesbudget_usd
+      DYNAMODB_TABLE  = aws_dynamodb_table.szenarien.name
     }
   }
 
@@ -158,6 +170,7 @@ resource "aws_lambda_function" "create_test" {
 
   environment {
     variables = {
+      ORIGIN_SECRET  = random_password.origin_secret.result
       DYNAMODB_TABLE = aws_dynamodb_table.tests.name
     }
   }
@@ -183,6 +196,7 @@ resource "aws_lambda_function" "get_test" {
 
   environment {
     variables = {
+      ORIGIN_SECRET                          = random_password.origin_secret.result
       DYNAMODB_TABLE                         = aws_dynamodb_table.tests.name
       GENERATE_ZUSAMMENFASSUNG_FUNCTION_NAME = aws_lambda_function.generate_test_zusammenfassung.function_name
     }
@@ -209,6 +223,7 @@ resource "aws_lambda_function" "update_test_state" {
 
   environment {
     variables = {
+      ORIGIN_SECRET         = random_password.origin_secret.result
       DYNAMODB_TABLE        = aws_dynamodb_table.tests.name
       PREWARM_FUNCTION_NAME = aws_lambda_function.prewarm_szenarien.function_name
     }
@@ -254,6 +269,7 @@ resource "aws_lambda_function" "complete_test" {
 
   environment {
     variables = {
+      ORIGIN_SECRET     = random_password.origin_secret.result
       DYNAMODB_TABLE    = aws_dynamodb_table.tests.name
       STATISTIK_TABLE   = aws_dynamodb_table.statistik.name
       STEP_FUNCTION_ARN = aws_sfn_state_machine.post_test.arn
@@ -274,6 +290,9 @@ resource "aws_lambda_function" "generate_test_zusammenfassung" {
   timeout          = 120
   memory_size      = 256
 
+  # Caps parallel Bedrock spend; see the daily budget in backend/src/infrastructure/dynamodb-budget.ts.
+  reserved_concurrent_executions = 2
+
   logging_config {
     log_group  = aws_cloudwatch_log_group.lambda.name
     log_format = "Text"
@@ -281,8 +300,10 @@ resource "aws_lambda_function" "generate_test_zusammenfassung" {
 
   environment {
     variables = {
-      DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
-      TESTS_TABLE    = aws_dynamodb_table.tests.name
+      STATISTIK_TABLE = aws_dynamodb_table.statistik.name
+      TAGESBUDGET_USD = var.tagesbudget_usd
+      DYNAMODB_TABLE  = aws_dynamodb_table.szenarien.name
+      TESTS_TABLE     = aws_dynamodb_table.tests.name
     }
   }
 }
@@ -307,6 +328,7 @@ resource "aws_lambda_function" "vote_szenario" {
 
   environment {
     variables = {
+      ORIGIN_SECRET  = random_password.origin_secret.result
       DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
     }
   }
@@ -325,31 +347,8 @@ resource "aws_lambda_function" "prewarm_szenarien" {
   timeout          = 90
   memory_size      = 256
 
-  logging_config {
-    log_group  = aws_cloudwatch_log_group.lambda.name
-    log_format = "Text"
-  }
-
-  environment {
-    variables = {
-      DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
-      TESTS_TABLE    = aws_dynamodb_table.tests.name
-    }
-  }
-}
-
-# getZusammenfassung
-
-resource "aws_lambda_function" "get_zusammenfassung" {
-  function_name    = "${var.project}-getZusammenfassung"
-  role             = aws_iam_role.lambda.arn
-  handler          = "lambdas/getZusammenfassung.handler"
-  runtime          = "nodejs26.x"
-  architectures    = ["arm64"]
-  filename         = data.archive_file.functions.output_path
-  source_code_hash = data.archive_file.functions.output_base64sha256
-  timeout          = 30
-  memory_size      = 256
+  # Caps parallel Bedrock spend; see the daily budget in backend/src/infrastructure/dynamodb-budget.ts.
+  reserved_concurrent_executions = 2
 
   logging_config {
     log_group  = aws_cloudwatch_log_group.lambda.name
@@ -358,10 +357,12 @@ resource "aws_lambda_function" "get_zusammenfassung" {
 
   environment {
     variables = {
-      DYNAMODB_TABLE = aws_dynamodb_table.szenarien.name
+      STATISTIK_TABLE = aws_dynamodb_table.statistik.name
+      TAGESBUDGET_USD = var.tagesbudget_usd
+      DYNAMODB_TABLE  = aws_dynamodb_table.szenarien.name
+      TESTS_TABLE     = aws_dynamodb_table.tests.name
     }
   }
-
 }
 
 # sendEmail
@@ -384,6 +385,7 @@ resource "aws_lambda_function" "send_email" {
 
   environment {
     variables = {
+      ORIGIN_SECRET  = random_password.origin_secret.result
       DYNAMODB_TABLE = aws_dynamodb_table.tests.name
       EMAIL_FROM     = local.email_from
       APP_URL        = "https://${var.domain}"
@@ -411,6 +413,7 @@ resource "aws_lambda_function" "get_statistik" {
 
   environment {
     variables = {
+      ORIGIN_SECRET   = random_password.origin_secret.result
       STATISTIK_TABLE = aws_dynamodb_table.statistik.name
     }
   }

@@ -39,58 +39,17 @@ resource "aws_s3_bucket_policy" "static" {
   })
 }
 
-# Rewrites extensionless paths (client-side routes) to /index.html for SPA routing
-resource "aws_cloudfront_function" "spa_router" {
-  provider = aws.us_east_1
-  name     = "${var.project}-spa-router"
-  runtime  = "cloudfront-js-2.0"
-  publish  = true
-  code     = <<-EOT
-    function handler(event) {
-      var request = event.request;
-      var last = request.uri.split('/').pop();
-      if (last.indexOf('.') === -1) {
-        request.uri = '/index.html';
-      }
-      return request;
-    }
-  EOT
-}
-
-# Strips /api prefix before forwarding to API Gateway
-resource "aws_cloudfront_function" "api_rewrite" {
-  provider = aws.us_east_1
-  name     = "${var.project}-api-rewrite"
-  runtime  = "cloudfront-js-2.0"
-  publish  = true
-  code     = <<-EOT
-    function handler(event) {
-      var request = event.request;
-      request.uri = request.uri.replace(/^\/api/, '') || '/';
-      return request;
-    }
-  EOT
+# Shared secret CloudFront sends to API Gateway, so the Lambdas can reject requests that bypass
+# CloudFront and its WAF (see nurUeberCloudFront in backend/src/lambdas/response.ts).
+resource "random_password" "origin_secret" {
+  length  = 48
+  special = false
 }
 
 locals {
   s3_origin_id    = "s3-static"
   apigw_origin_id = "api-gateway"
   apigw_domain    = replace(aws_apigatewayv2_api.main.api_endpoint, "https://", "")
-}
-
-# CSP delivered as a CloudFront response header on all HTML responses
-resource "aws_cloudfront_response_headers_policy" "csp" {
-  provider = aws.us_east_1
-  name     = "${var.project}-csp"
-
-  security_headers_config {
-    content_security_policy {
-      # style-src 'unsafe-inline' — the dev pages use inline style attributes
-      # connect-src 'self' — API calls go through the same CloudFront origin at /api
-      content_security_policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'"
-      override                = true
-    }
-  }
 }
 
 resource "aws_cloudfront_distribution" "main" {
@@ -117,9 +76,15 @@ resource "aws_cloudfront_distribution" "main" {
       origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
+
+    custom_header {
+      name  = "x-origin-verify"
+      value = random_password.origin_secret.result
+    }
   }
 
-  # Default: React SPA, rewrites all extensionless paths to /index.html
+  # Default: React SPA. Client-side routes have no S3 object, S3 answers 403 (the bucket policy
+  # grants no s3:ListBucket) and the custom error response below serves /index.html instead.
   default_cache_behavior {
     target_origin_id       = local.s3_origin_id
     viewer_protocol_policy = "redirect-to-https"
@@ -127,13 +92,7 @@ resource "aws_cloudfront_distribution" "main" {
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD"]
     # CachingOptimized managed policy
-    cache_policy_id            = "658327ea-f89d-4fab-a63d-7e88639e58f6"
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.csp.id
-
-    function_association {
-      event_type   = "viewer-request"
-      function_arn = aws_cloudfront_function.spa_router.arn
-    }
+    cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
   }
 
   # /assets/* — Vite hashed bundles, long cache
@@ -148,7 +107,7 @@ resource "aws_cloudfront_distribution" "main" {
     cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
   }
 
-  # /api/* — API Gateway including webhooks, strips /api prefix
+  # /api/* — API Gateway. The routes carry the /api prefix themselves, so no rewrite is needed.
   ordered_cache_behavior {
     path_pattern           = "/api/*"
     target_origin_id       = local.apigw_origin_id
@@ -159,11 +118,6 @@ resource "aws_cloudfront_distribution" "main" {
     cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
     # AllViewerExceptHostHeader — don't forward Host to API GW
     origin_request_policy_id = "b689b0a8-53d0-40ab-baf2-68738e2966ac"
-
-    function_association {
-      event_type   = "viewer-request"
-      function_arn = aws_cloudfront_function.api_rewrite.arn
-    }
   }
 
   restrictions {
@@ -178,16 +132,19 @@ resource "aws_cloudfront_distribution" "main" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
+  # Error responses apply to every origin. The API therefore must never answer 403 to a request that
+  # came through CloudFront, and there is deliberately no rule for 404, which the API uses for unknown tests.
   custom_error_response {
     error_code         = 403
     response_code      = 200
     response_page_path = "/index.html"
   }
 
-  custom_error_response {
-    error_code         = 404
-    response_code      = 200
-    response_page_path = "/index.html"
+  # The free flat-rate plan (subscribed in the console, see README) attaches its own web ACL, which
+  # must not be removed while the plan is active, and drops the price class. Free and Pro also allow
+  # only AWS managed response headers policies, so the CSP is a meta tag (app/vite.config.ts).
+  lifecycle {
+    ignore_changes = [web_acl_id, price_class]
   }
 
   depends_on = [aws_acm_certificate_validation.main]

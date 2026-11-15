@@ -6,7 +6,7 @@ import { WerteService } from "../domain/werte.js";
 import { DynamoDBStatistikRepository } from "../infrastructure/dynamodb-statistik.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
 import werteData from "../werte.json" with { type: "json" };
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export type StartPostTestFn = (input: Record<string, unknown>) => Promise<void>;
 
@@ -57,13 +57,15 @@ export function createHandler(
 
 const sfn = new SFNClient({ region: "eu-central-1" });
 
-export const handler = createHandler(
-  new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
-  new DynamoDBStatistikRepository(process.env.STATISTIK_TABLE!),
-  new WerteService(werteData.werte),
-  async (input) => {
-    await sfn.send(
-      new StartExecutionCommand({ stateMachineArn: process.env.STEP_FUNCTION_ARN, input: JSON.stringify(input) }),
-    );
-  },
+export const handler = nurUeberCloudFront(
+  createHandler(
+    new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
+    new DynamoDBStatistikRepository(process.env.STATISTIK_TABLE!),
+    new WerteService(werteData.werte),
+    async (input) => {
+      await sfn.send(
+        new StartExecutionCommand({ stateMachineArn: process.env.STEP_FUNCTION_ARN, input: JSON.stringify(input) }),
+      );
+    },
+  ),
 );

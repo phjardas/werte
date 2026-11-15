@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { TestRepository } from "../domain/test.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export function createHandler(testRepository: Pick<TestRepository, "create">) {
   return async function handler() {
@@ -11,4 +11,4 @@ export function createHandler(testRepository: Pick<TestRepository, "create">) {
   };
 }
 
-export const handler = createHandler(new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!));
+export const handler = nurUeberCloudFront(createHandler(new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!)));

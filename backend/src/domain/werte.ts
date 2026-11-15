@@ -5,6 +5,9 @@ export interface Wert {
   beschreibung: string[];
 }
 
+/** The comparison runs on at most this many values, see the filter step in the app. */
+export const MAX_FINALE_WERTE = 10;
+
 export class WerteService {
   private readonly werteMap: ReadonlyMap<string, Wert>;
 

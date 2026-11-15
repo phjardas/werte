@@ -3,7 +3,7 @@ import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { isValidEmail, renderErgebnisEmail, type SendEmailFn } from "../domain/email.js";
 import type { TestRepository } from "../domain/test.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export function createHandler(
   testRepository: Pick<TestRepository, "get" | "markEmailSent" | "clearEmailSent">,
@@ -73,8 +73,10 @@ function createSesSender(from: string): SendEmailFn {
   };
 }
 
-export const handler = createHandler(
-  new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
-  createSesSender(process.env.EMAIL_FROM!),
-  process.env.APP_URL!,
+export const handler = nurUeberCloudFront(
+  createHandler(
+    new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
+    createSesSender(process.env.EMAIL_FROM!),
+    process.env.APP_URL!,
+  ),
 );

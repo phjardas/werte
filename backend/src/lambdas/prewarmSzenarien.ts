@@ -3,8 +3,9 @@ import type { SzenarioService } from "../domain/szenario.js";
 import type { TestRepository } from "../domain/test.js";
 import { SzenarioService as SzenarioServiceImpl } from "../domain/szenario.js";
 import type { WerteService } from "../domain/werte.js";
-import { WerteService as WerteServiceImpl } from "../domain/werte.js";
+import { MAX_FINALE_WERTE, WerteService as WerteServiceImpl } from "../domain/werte.js";
 import { BedrockAIService } from "../infrastructure/bedrock.js";
+import { tagesbudgetAusUmgebung } from "../infrastructure/dynamodb-budget.js";
 import { DynamoDBCache } from "../infrastructure/dynamodb-cache.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
 import werteData from "../werte.json" with { type: "json" };
@@ -18,12 +19,12 @@ export function createHandler(
   return async function handler(event: Partial<APIGatewayProxyEventV2>) {
     const body = JSON.parse(event.body ?? "{}");
     const werte = Array.isArray(body.werte)
-      ? (body.werte as string[]).filter((w) => werteService.has(w))
+      ? [...new Set((body.werte as string[]).filter((w) => werteService.has(w)))]
       : [];
 
-    if (werte.length < 2) {
+    if (werte.length < 2 || werte.length > MAX_FINALE_WERTE) {
       return response(400, {
-        error: "Mindestens 2 gültige Werte erforderlich.",
+        error: `Zwischen 2 und ${MAX_FINALE_WERTE} gültige Werte erforderlich.`,
       });
     }
 
@@ -70,7 +71,7 @@ export function createHandler(
 
 const werteService = new WerteServiceImpl(werteData.werte);
 const szenarioService = new SzenarioServiceImpl(
-  new BedrockAIService(),
+  new BedrockAIService(tagesbudgetAusUmgebung()),
   new DynamoDBCache(process.env.DYNAMODB_TABLE!),
   werteService,
 );

@@ -3,6 +3,7 @@ import { WerteService } from "../domain/werte.js";
 import type { ZusammenfassungService } from "../domain/zusammenfassung.js";
 import { ZusammenfassungService as ZusammenfassungServiceImpl } from "../domain/zusammenfassung.js";
 import { BedrockAIService } from "../infrastructure/bedrock.js";
+import { tagesbudgetAusUmgebung } from "../infrastructure/dynamodb-budget.js";
 import { DynamoDBCache } from "../infrastructure/dynamodb-cache.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
 import werteData from "../werte.json" with { type: "json" };
@@ -33,7 +34,7 @@ export function createHandler(
 
 const werteService = new WerteService(werteData.werte);
 const zusammenfassungService = new ZusammenfassungServiceImpl(
-  new BedrockAIService(),
+  new BedrockAIService(tagesbudgetAusUmgebung()),
   new DynamoDBCache(process.env.DYNAMODB_TABLE!),
   werteService,
 );

@@ -57,6 +57,17 @@ Set `E2E_BASE_URL` to run the test against a deployed environment instead of `lo
 
 Every push to `main` deploys to the preview environment, and every published GitHub release deploys to production. The workflow in `.github/workflows/deploy.yml` tests and builds the backend, builds the app, applies the OpenTofu configuration and uploads the app to S3. Deploying your own copy needs an AWS account with Bedrock access to Claude and a Route 53 hosted zone. See `infra/` and the workflow for the required variables.
 
+## Abuse protection
+
+Every scenario or summary that is not cached costs a Bedrock call, so the public API is protected against request floods that aim at the bill. The backend sums the Bedrock cost per UTC day and refuses further calls above `tagesbudget_usd` (default 10 USD). The Bedrock Lambdas have reserved concurrency, API Gateway throttles all routes, and the Lambdas reject requests that bypass CloudFront by checking a secret origin header. An optional AWS Budgets alert is created when the GitHub variable `BUDGET_EMAIL` is set.
+
+Per-IP rate limiting comes from the WAF of the free CloudFront flat-rate plan. OpenTofu cannot manage the plan yet, so each environment is subscribed once by hand after the first deployment of this setup:
+
+1. In the CloudFront console, open the distribution and choose the Free plan under pricing plans.
+2. In the web ACL the plan creates, add a rate-based rule for `/api/` (for example 300 requests per 5 minutes per IP) with the action Block.
+
+The distribution ignores changes to `web_acl_id`, so `tofu apply` leaves the plan's web ACL alone. The Free and Pro plans allow neither CloudFront Functions nor custom response headers policies. SPA routing therefore uses the 403 error response, the API routes carry the `/api` prefix themselves, and the CSP is a `<meta>` tag added at build time.
+
 ## Contributing
 
 Contributions are welcome, whether that is a bug report, an idea, a better scenario prompt, a fix for a value description or a pull request. If you find a scenario that doesn't make sense, please open an issue with the two values involved and the text you saw. That kind of feedback is the most useful input for improving the prompts.

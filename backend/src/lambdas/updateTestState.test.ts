@@ -94,6 +94,26 @@ describe("updateTestState handler", () => {
       expect(mockPrewarm).not.toHaveBeenCalled();
     });
 
+    it("does not trigger prewarm for more than 10 distinct finalValues", async () => {
+      mockUpdateState.mockResolvedValue(successState);
+      const finalValues = Array.from({ length: 11 }, (_, i) => `Wert ${i}`);
+      const res = await handler({
+        pathParameters: { testId: "abc" },
+        body: JSON.stringify({ step: "comparison-intro", finalValues }),
+      });
+      expect(res.statusCode).toBe(200);
+      expect(mockPrewarm).not.toHaveBeenCalled();
+    });
+
+    it("removes duplicate finalValues before prewarming", async () => {
+      mockUpdateState.mockResolvedValue(successState);
+      await handler({
+        pathParameters: { testId: "abc" },
+        body: JSON.stringify({ step: "comparison-intro", finalValues: ["Mut", "Mut", "Liebe"] }),
+      });
+      expect(mockPrewarm).toHaveBeenCalledWith("abc", ["Mut", "Liebe"]);
+    });
+
     it("still returns 200 if prewarm fails", async () => {
       mockUpdateState.mockResolvedValue(successState);
       mockPrewarm.mockRejectedValue(new Error("Lambda error"));

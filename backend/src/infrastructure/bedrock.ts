@@ -13,10 +13,22 @@ export function bruttoKosten(usage: { input_tokens?: number; output_tokens?: num
   return netto * UST;
 }
 
+/** Caps the Bedrock spend per day, see `DynamoDBTagesbudget`. */
+export interface Tagesbudget {
+  /** Throws when today's budget is used up. */
+  pruefen(): Promise<void>;
+  buchen(kosten: number): Promise<void>;
+}
+
 export class BedrockAIService implements AIService {
-  private readonly client = new BedrockRuntimeClient();
+  constructor(
+    private readonly budget?: Tagesbudget,
+    private readonly client: Pick<BedrockRuntimeClient, "send"> = new BedrockRuntimeClient(),
+  ) {}
 
   private async invokeRaw(systemPrompt: string, userPrompt: string, maxTokens: number): Promise<AIResponse<string>> {
+    await this.budget?.pruefen();
+
     const command = new InvokeModelCommand({
       modelId: MODEL_ID,
       contentType: "application/json",
@@ -31,10 +43,14 @@ export class BedrockAIService implements AIService {
 
     const res = await this.client.send(command);
     const body = JSON.parse(new TextDecoder().decode(res.body));
+    const kosten = bruttoKosten(body.usage);
+    // ponytail: parallel calls all pass pruefen() before any of them books, so a day can overshoot by
+    // (reserved concurrency × max cost per call). Fine at a few cents per call.
+    await this.budget?.buchen(kosten);
     const text = body.content?.[0]?.text;
 
     if (!text) throw new Error("null response from model");
-    return { result: text, kosten: bruttoKosten(body.usage) };
+    return { result: text, kosten };
   }
 
   async invoke(systemPrompt: string, userPrompt: string, maxTokens: number): Promise<AIResponse<unknown>> {

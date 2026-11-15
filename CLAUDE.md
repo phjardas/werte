@@ -88,8 +88,9 @@ Each Lambda handler instantiates its services at module scope (cold start) via t
 | `PUT /tests/{testId}/state` | `updateTestState` | save the frontend state; at `comparison-intro` it asynchronously invokes `prewarmSzenarien` |
 | `POST /tests/{testId}/complete` | `completeTest` | store the results and start the `postTest` Step Function |
 | `POST /tests/{testId}/email` | `sendEmail` | send the top 5 and the summary to an address via SES, once per test |
-| `POST /zusammenfassung` | `getZusammenfassung` | summary for 5 values without a test |
 | `GET /statistik` | `getStatistik` | number of completed tests and the weighted ranking of values |
+
+All route keys in API Gateway carry the `/api` prefix (`GET /api/werte`), so CloudFront forwards paths unchanged. The table omits it.
 
 Tests expire 12 months after creation (`AUFBEWAHRUNG_MONATE` in `src/domain/test.ts`). `DynamoDBTestRepository.create` sets `ttl`, and `get` treats an expired test as missing because DynamoDB deletes expired items only after a delay of up to a few days. `getTest` exposes the expiry as `ablaufAm`, which the results screen shows. Tests created before this change have no `ttl` and never expire.
 
@@ -97,11 +98,15 @@ Tests expire 12 months after creation (`AUFBEWAHRUNG_MONATE` in `src/domain/test
 
 `completeTest` accepts only distinct, known values and receives the full ranking (up to 10 values). It increments running counters in the `{project}-statistik` table: `tests` and one attribute `{rang}|{wert}` per ranked value. `getStatistik` applies the point scale `PUNKTE` in `src/domain/statistik.ts` when reading, so changing the scale re-scores all past tests. The counters are independent of the tests table and its TTL.
 
-`prewarmSzenarien` generates the scenarios for all pairs of the final values in parallel. The `postTest` Step Function runs `generateTestZusammenfassung` with retries and sets `zusammenfassungStatus = failed` if it fails.
+`prewarmSzenarien` generates the scenarios for all pairs of the final values in parallel. Both it and `updateTestState` accept at most `MAX_FINALE_WERTE` (10) distinct values, so one request costs at most 45 scenarios. The `postTest` Step Function runs `generateTestZusammenfassung` with retries and sets `zusammenfassungStatus = failed` if it fails.
 
 #### Bedrock costs
 
 `BedrockAIService` computes the gross cost of every call from the token usage (Sonnet 4.6: $3 per 1M input tokens, $15 per 1M output tokens, plus 19 % VAT, in USD) and returns it together with the result. Scenarios and summaries store their cost in the cache, and a cache hit reports the stored cost again. The test session holds `szenarienKosten` (set by `prewarmSzenarien` as the sum over all pairs) and `zusammenfassungKosten`. Costs of cached scenarios are therefore counted once per test. The costs are not shown anywhere yet.
+
+#### Abuse protection
+
+`BedrockAIService` checks a daily budget before every call and books the cost afterwards (`DynamoDBTagesbudget`, item `pk = "budget#{date}"` in the statistics table, limit `TAGESBUDGET_USD`). Above the limit the call throws, so scenarios fail and summaries end up `failed` until midnight UTC. The Bedrock Lambdas have reserved concurrency, and the API Gateway stage throttles all routes with tighter limits for creating, completing and emailing tests. Every API Lambda is wrapped in `nurUeberCloudFront`, which rejects requests without the `x-origin-verify` header that CloudFront adds (`ORIGIN_SECRET`). Per-IP rate limiting comes from the WAF of the free CloudFront flat-rate plan, which is subscribed by hand (see README).
 
 ### Infrastructure (`infra/`)
 
@@ -123,12 +128,12 @@ OpenTofu manages all AWS resources in `eu-central-1`:
 | Path | Destination | Notes |
 |------|-------------|-------|
 | `/assets/*` | S3 | Vite hashed bundles (long cache) |
-| `/api/*` | API Gateway | the `api_rewrite` function strips the `/api` prefix before forwarding |
-| everything else | S3 | React SPA and public files; the `spa_router` CloudFront function rewrites every path without a file extension to `/index.html` |
+| `/api/*` | API Gateway | forwarded unchanged, with the `x-origin-verify` header |
+| everything else | S3 | React SPA and public files; S3 answers 403 for client-side routes and the custom error response serves `/index.html` |
 
 ### Adding frontend routes
 
-New routes in `app/src/routes.tsx` need no CloudFront changes, because `spa_router` already rewrites every extensionless path to `/index.html`.
+New routes in `app/src/routes.tsx` need no CloudFront changes, because the 403 error response serves `/index.html` for every path without an S3 object. The distribution cannot use CloudFront Functions or custom response headers policies, because the free flat-rate plan does not allow them. The CSP is therefore a `<meta>` tag that `app/vite.config.ts` injects at build time (not in dev, where it would block calls to the preview API). Error responses apply to the API as well, so the API must never return 403 through CloudFront.
 
 ### CI/CD (`.github/workflows/deploy.yml`)
 

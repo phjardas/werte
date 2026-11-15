@@ -190,7 +190,7 @@ resource "aws_cloudwatch_dashboard" "scenarios" {
           region  = local.aws_region
           metrics = [
             ["AWS/Lambda", "Errors", "FunctionName", aws_lambda_function.get_szenario.function_name, { label = "getSzenario" }],
-            ["AWS/Lambda", "Errors", "FunctionName", aws_lambda_function.get_zusammenfassung.function_name, { label = "getZusammenfassung" }],
+            ["AWS/Lambda", "Errors", "FunctionName", aws_lambda_function.generate_test_zusammenfassung.function_name, { label = "generateTestZusammenfassung" }],
           ]
           period = 300
           stat   = "Sum"
@@ -210,7 +210,7 @@ resource "aws_cloudwatch_dashboard" "scenarios" {
           region  = local.aws_region
           metrics = [
             ["AWS/Lambda", "Duration", "FunctionName", aws_lambda_function.get_szenario.function_name, { label = "getSzenario", stat = "p95" }],
-            ["AWS/Lambda", "Duration", "FunctionName", aws_lambda_function.get_zusammenfassung.function_name, { label = "getZusammenfassung", stat = "p95" }],
+            ["AWS/Lambda", "Duration", "FunctionName", aws_lambda_function.generate_test_zusammenfassung.function_name, { label = "generateTestZusammenfassung", stat = "p95" }],
           ]
           period = 300
           stat   = "p95"
@@ -219,4 +219,33 @@ resource "aws_cloudwatch_dashboard" "scenarios" {
       },
     ]
   })
+}
+
+# ── Budget ────────────────────────────────────────────────────────────────────
+
+# Covers the whole account, Bedrock included. AWS evaluates budgets a few times per day, so this
+# alert lags; the daily budget in the backend is the actual cap.
+resource "aws_budgets_budget" "monat" {
+  count        = var.budget_email == "" ? 0 : 1
+  name         = "${var.project}-monatsbudget"
+  budget_type  = "COST"
+  limit_amount = tostring(var.monatsbudget_usd)
+  limit_unit   = "USD"
+  time_unit    = "MONTHLY"
+
+  notification {
+    comparison_operator        = "GREATER_THAN"
+    threshold                  = 80
+    threshold_type             = "PERCENTAGE"
+    notification_type          = "FORECASTED"
+    subscriber_email_addresses = [var.budget_email]
+  }
+
+  notification {
+    comparison_operator        = "GREATER_THAN"
+    threshold                  = 100
+    threshold_type             = "PERCENTAGE"
+    notification_type          = "ACTUAL"
+    subscriber_email_addresses = [var.budget_email]
+  }
 }

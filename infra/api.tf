@@ -10,10 +10,31 @@ resource "aws_apigatewayv2_api" "main" {
   }
 }
 
+# Throttling applies to all clients together, not per IP. It caps request bursts; the hard cap on
+# Bedrock spend is the daily budget in the backend, per-IP limits come from the CloudFront plan's WAF.
 resource "aws_apigatewayv2_stage" "default" {
   api_id      = aws_apigatewayv2_api.main.id
   name        = "$default"
   auto_deploy = true
+
+  default_route_settings {
+    throttling_rate_limit  = 20
+    throttling_burst_limit = 50
+  }
+
+  # Each new test can lead to a summary and an email, so these routes get tighter limits.
+  dynamic "route_settings" {
+    for_each = {
+      (aws_apigatewayv2_route.create_test.route_key)   = { rate = 2, burst = 5 }
+      (aws_apigatewayv2_route.complete_test.route_key) = { rate = 2, burst = 5 }
+      (aws_apigatewayv2_route.send_email.route_key)    = { rate = 1, burst = 2 }
+    }
+    content {
+      route_key              = route_settings.key
+      throttling_rate_limit  = route_settings.value.rate
+      throttling_burst_limit = route_settings.value.burst
+    }
+  }
 }
 
 # getWerte integration + route
@@ -27,7 +48,7 @@ resource "aws_apigatewayv2_integration" "get_werte" {
 
 resource "aws_apigatewayv2_route" "get_werte" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "GET /werte"
+  route_key = "GET /api/werte"
   target    = "integrations/${aws_apigatewayv2_integration.get_werte.id}"
 }
 
@@ -49,7 +70,7 @@ resource "aws_apigatewayv2_integration" "get_szenario" {
 
 resource "aws_apigatewayv2_route" "get_szenario" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "GET /szenarien/{wert1}/{wert2}"
+  route_key = "GET /api/szenarien/{wert1}/{wert2}"
   target    = "integrations/${aws_apigatewayv2_integration.get_szenario.id}"
 }
 
@@ -71,7 +92,7 @@ resource "aws_apigatewayv2_integration" "vote_szenario" {
 
 resource "aws_apigatewayv2_route" "vote_szenario" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "POST /szenarien/{wert1}/{wert2}/vote"
+  route_key = "POST /api/szenarien/{wert1}/{wert2}/vote"
   target    = "integrations/${aws_apigatewayv2_integration.vote_szenario.id}"
 }
 
@@ -94,7 +115,7 @@ resource "aws_apigatewayv2_integration" "create_test" {
 
 resource "aws_apigatewayv2_route" "create_test" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "POST /tests"
+  route_key = "POST /api/tests"
   target    = "integrations/${aws_apigatewayv2_integration.create_test.id}"
 }
 
@@ -116,7 +137,7 @@ resource "aws_apigatewayv2_integration" "get_test" {
 
 resource "aws_apigatewayv2_route" "get_test" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "GET /tests/{testId}"
+  route_key = "GET /api/tests/{testId}"
   target    = "integrations/${aws_apigatewayv2_integration.get_test.id}"
 }
 
@@ -138,7 +159,7 @@ resource "aws_apigatewayv2_integration" "update_test_state" {
 
 resource "aws_apigatewayv2_route" "update_test_state" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "PUT /tests/{testId}/state"
+  route_key = "PUT /api/tests/{testId}/state"
   target    = "integrations/${aws_apigatewayv2_integration.update_test_state.id}"
 }
 
@@ -160,34 +181,12 @@ resource "aws_apigatewayv2_integration" "complete_test" {
 
 resource "aws_apigatewayv2_route" "complete_test" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "POST /tests/{testId}/complete"
+  route_key = "POST /api/tests/{testId}/complete"
   target    = "integrations/${aws_apigatewayv2_integration.complete_test.id}"
 }
 
 resource "aws_lambda_permission" "complete_test" {
   function_name = aws_lambda_function.complete_test.function_name
-  action        = "lambda:InvokeFunction"
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.main.execution_arn}/*/*"
-}
-
-# getZusammenfassung integration + route
-
-resource "aws_apigatewayv2_integration" "get_zusammenfassung" {
-  api_id                 = aws_apigatewayv2_api.main.id
-  integration_type       = "AWS_PROXY"
-  integration_uri        = aws_lambda_function.get_zusammenfassung.invoke_arn
-  payload_format_version = "2.0"
-}
-
-resource "aws_apigatewayv2_route" "get_zusammenfassung" {
-  api_id    = aws_apigatewayv2_api.main.id
-  route_key = "POST /zusammenfassung"
-  target    = "integrations/${aws_apigatewayv2_integration.get_zusammenfassung.id}"
-}
-
-resource "aws_lambda_permission" "get_zusammenfassung" {
-  function_name = aws_lambda_function.get_zusammenfassung.function_name
   action        = "lambda:InvokeFunction"
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.main.execution_arn}/*/*"
@@ -204,7 +203,7 @@ resource "aws_apigatewayv2_integration" "send_email" {
 
 resource "aws_apigatewayv2_route" "send_email" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "POST /tests/{testId}/email"
+  route_key = "POST /api/tests/{testId}/email"
   target    = "integrations/${aws_apigatewayv2_integration.send_email.id}"
 }
 
@@ -226,7 +225,7 @@ resource "aws_apigatewayv2_integration" "get_statistik" {
 
 resource "aws_apigatewayv2_route" "get_statistik" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "GET /statistik"
+  route_key = "GET /api/statistik"
   target    = "integrations/${aws_apigatewayv2_integration.get_statistik.id}"
 }
 

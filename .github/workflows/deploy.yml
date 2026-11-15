@@ -75,6 +75,8 @@ jobs:
           TF_VAR_project: ${{ github.event_name == 'release' && 'werte' || 'werte-preview' }}
           TF_VAR_domain: ${{ vars.DOMAIN }}
           TF_VAR_zone_id: ${{ vars.ZONE_ID }}
+          # Set only in the production environment, AWS Budgets are per account.
+          TF_VAR_budget_email: ${{ vars.BUDGET_EMAIL }}
 
       - name: Deploy static assets to S3
         working-directory: infra

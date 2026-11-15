@@ -1,8 +1,9 @@
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import type { TestRepository } from "../domain/test.js";
+import { MAX_FINALE_WERTE } from "../domain/werte.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export type PrewarmerFn = (testId: string, werte: string[]) => Promise<void>;
 
@@ -11,8 +12,9 @@ function extractFinalValues(state: unknown): string[] | null {
   const s = state as Record<string, unknown>;
   if (s.step !== "comparison-intro") return null;
   if (!Array.isArray(s.finalValues) || s.finalValues.length < 2) return null;
-  const values = s.finalValues.filter((v): v is string => typeof v === "string");
-  return values.length >= 2 ? values : null;
+  const values = [...new Set(s.finalValues.filter((v): v is string => typeof v === "string"))];
+  // Every pair costs a Bedrock call, so oversized lists are saved but never prewarmed.
+  return values.length >= 2 && values.length <= MAX_FINALE_WERTE ? values : null;
 }
 
 export function createHandler(
@@ -68,7 +70,9 @@ const prewarm = process.env.PREWARM_FUNCTION_NAME
   ? createPrewarmer(process.env.PREWARM_FUNCTION_NAME)
   : undefined;
 
-export const handler = createHandler(
-  new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
-  prewarm,
+export const handler = nurUeberCloudFront(
+  createHandler(
+    new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
+    prewarm,
+  ),
 );

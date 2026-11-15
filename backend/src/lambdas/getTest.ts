@@ -2,7 +2,7 @@ import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import type { TestRepository, TestResult } from "../domain/test.js";
 import { DynamoDBTestRepository } from "../infrastructure/dynamodb-test.js";
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export type ZusammenfassungTriggerFn = (testId: string, werte: string[]) => Promise<void>;
 
@@ -69,7 +69,9 @@ const triggerZusammenfassung = process.env.GENERATE_ZUSAMMENFASSUNG_FUNCTION_NAM
   ? createZusammenfassungTrigger(process.env.GENERATE_ZUSAMMENFASSUNG_FUNCTION_NAME)
   : undefined;
 
-export const handler = createHandler(
-  new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
-  triggerZusammenfassung,
+export const handler = nurUeberCloudFront(
+  createHandler(
+    new DynamoDBTestRepository(process.env.DYNAMODB_TABLE!),
+    triggerZusammenfassung,
+  ),
 );

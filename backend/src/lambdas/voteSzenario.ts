@@ -6,7 +6,7 @@ import { WerteService as WerteServiceImpl } from "../domain/werte.js";
 import { BedrockAIService } from "../infrastructure/bedrock.js";
 import { DynamoDBCache } from "../infrastructure/dynamodb-cache.js";
 import werteData from "../werte.json" with { type: "json" };
-import { response } from "./response.js";
+import { nurUeberCloudFront, response } from "./response.js";
 
 export function createHandler(
   szenarioService: Pick<SzenarioService, "recordVote">,
@@ -59,4 +59,4 @@ const szenarioService = new SzenarioServiceImpl(
   werteService,
 );
 
-export const handler = createHandler(szenarioService, werteService);
+export const handler = nurUeberCloudFront(createHandler(szenarioService, werteService));

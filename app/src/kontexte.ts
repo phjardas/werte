@@ -1,5 +1,5 @@
 /** Must match KontextId in backend/src/domain/kontext.ts. */
-export type KontextId = "beruf" | "privat" | "fuehrung";
+export type KontextId = "beruf" | "privat" | "fuehrung" | "ehrenamt";
 
 export interface KontextInfo {
   id: KontextId;
@@ -31,6 +31,13 @@ export const KONTEXTE: KontextInfo[] = [
     beschreibung: "Was dir als Führungskraft wichtig ist: bei Entscheidungen, im Feedback und im Umgang mit deinem Team.",
     icon: "👥",
     imLebensbereich: "in deiner Rolle als Führungskraft",
+  },
+  {
+    id: "ehrenamt",
+    titel: "Ehrenamt und Verein",
+    beschreibung: "Was dir in deinem Engagement wichtig ist: im Verein, in der Initiative und mit anderen Freiwilligen.",
+    icon: "🤝",
+    imLebensbereich: "in deinem Ehrenamt",
   },
 ];
 

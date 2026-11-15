@@ -2,7 +2,7 @@
  * The area of life a test is about. The context only changes the prompts for scenarios
  * and summaries; the values are the same in every context.
  */
-export type KontextId = "beruf" | "privat" | "fuehrung";
+export type KontextId = "beruf" | "privat" | "fuehrung" | "ehrenamt";
 
 /** Tests created before contexts existed have none and count as this one. */
 export const STANDARD_KONTEXT: KontextId = "beruf";
@@ -99,6 +99,33 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
       "Beide Antworten sind Handlungen, die du selbst als Führungskraft wählst und die spürbare Folgen für andere haben. Die Frage ist nicht, wie du selbst arbeitest, sondern wie du führst.",
       "Wähle das Thema der Szene passend zum Wertepaar und greife nicht immer auf ein Gespräch mit einem einzelnen Teammitglied zurück. Ebenso gut passen Arbeitsverteilung, Einstellungen, Prioritäten, Veränderungen, Entscheidungen mit unsicherer Lage oder das Auftreten gegenüber der Geschäftsleitung.",
       "Werte, die vor allem das eigene Leben betreffen (z.B. Wohlstand, Familie, Gesundheit), dürfen dein eigenes Interesse meinen, solange die Entscheidung in deiner Führungsrolle fällt und andere betrifft, etwa dein Bonus, deine Erreichbarkeit oder deine Belastung im Vergleich zu der des Teams.",
+    ],
+  },
+  ehrenamt: {
+    id: "ehrenamt",
+    zielgruppe: "Menschen, die sich ehrenamtlich engagieren",
+    person: "eine ehrenamtlich engagierte Person",
+    alltag: "Alltag im Ehrenamt",
+    lebensbereich: "im Ehrenamt",
+    szenenort:
+      "z.B. im Sportverein, im Musikverein, bei der Freiwilligen Feuerwehr, in der Kirchengemeinde, bei der Tafel, in der Flüchtlingshilfe, in einer Naturschutzgruppe, in einer Bürgerinitiative oder im Förderverein einer Schule; beim Training, bei Einsätzen, bei Festen und Veranstaltungen, beim Spendensammeln, bei der Suche nach neuen Freiwilligen, in Mitgliederversammlungen oder Vorstandssitzungen; mit anderen Ehrenamtlichen, Mitgliedern, Hauptamtlichen oder den Menschen, für die du dich einsetzt",
+    abgrenzung:
+      "Die Szene muss im ehrenamtlichen Engagement spielen – nicht in einer bezahlten Arbeit, nicht im rein privaten Leben mit Freunden und nicht in der Rolle als Mutter oder Vater. Sie soll für ganz unterschiedliche Arten von Engagement nachvollziehbar sein, von der gelegentlichen Helferin bis zum Vorstandsmitglied; setze kein bestimmtes Amt voraus und vermeide Vereinsjargon.",
+    beispiel: {
+      gedanke:
+        "Aktivität bedeutet aktives Handeln und Bewegung (verwechselbar mit Fleiß). Ruhe bedeutet bewusstes Innehalten und Stille (verwechselbar mit Gelassenheit). Der Kernunterschied: Aktivität drängt zur Bewegung, Ruhe zum Verweilen. Wer nach dem großen Sommerfest des Vereins ein freies Wochenende hat, muss zwischen Anpacken und Durchatmen wählen – das passt nur zu Aktivität vs. Ruhe. Antwort 1 (nächste Aktion planen) ist ausschließlich Aktivität, Antwort 2 (Pause einlegen) ist ausschließlich Ruhe.",
+      szenario:
+        "Das Sommerfest, bei dem du wochenlang mitgeholfen hast, ist vorbei, und bis zur nächsten Aktion ist noch Zeit. Würdest du eher gleich mit der Planung der nächsten Aktion beginnen, oder dir erst einmal eine ruhige Pause vom Engagement gönnen?",
+      antworten: ["Nächste Aktion gleich planen", "Erst einmal Pause einlegen"],
+    },
+    zusammenfassungsbereich:
+      "im Ehrenamt zeigen könnten, etwa in der Zusammenarbeit mit anderen Engagierten, bei Entscheidungen im Verein oder in der Gruppe, im Umgang mit begrenzter Zeit und Kraft oder in Konflikten",
+    tippbeispiele:
+      "z.B. Gesprächsimpulse in der Gruppe oder im Vorstand, Prioritäten bei der Frage, wofür du dich einsetzt, kleine Gewohnheiten, um nicht auszubrennen",
+    zusatzregeln: [
+      "Das Engagement ist freiwillig und unbezahlt. Konflikte entstehen aus begrenzter Zeit und Kraft, aus unterschiedlichen Vorstellungen der Beteiligten oder aus dem Zweck des Engagements – nicht aus Gehalt, Karriere oder Weisungen von Vorgesetzten.",
+      "Nenne konkret, wo die Szene spielt (z.B. \"im Sportverein\", \"bei der Tafel\"), statt nur von \"der Gruppe\" zu sprechen. Wähle eine Situation, die man auch aus anderen Arten von Engagement kennt.",
+      "Sprich die Person auch bei der Gruppe als Einzelne an: \"dein Verein\", \"deine Gruppe\", \"die anderen\" – nicht \"ihr\", \"euer\" oder \"Ihr\".",
     ],
   },
 };

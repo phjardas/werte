@@ -1236,3 +1236,27 @@ html {
   background: oklch(95% 0.04 25);
   color: oklch(40% 0.12 25);
 }
+
+/* ── Statistik: Lebensbereich ── */
+.statistik-auswahl {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.statistik-auswahl button {
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--primary-light);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--primary);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.statistik-auswahl button[aria-pressed="true"] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}

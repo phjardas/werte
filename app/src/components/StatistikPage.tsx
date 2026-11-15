@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { type CSSProperties, useEffect, useState } from "react";
 import { fetchStatistik } from "../api";
+import { KONTEXTE, type KontextId } from "../kontexte";
 import type { Statistik } from "../types";
 import { HeroLogo } from "./Logo";
 
@@ -49,12 +50,23 @@ function Zeile({ e, rang, max }: { e: Eintrag; rang: number; max: number }) {
 }
 
 export function StatistikPage() {
+  const [auswahl, setAuswahl] = useState<KontextId | "gesamt">("gesamt");
   const [statistik, setStatistik] = useState<Statistik>();
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetchStatistik().then(setStatistik, () => setError(true));
-  }, []);
+    // Drops the answer of an earlier choice that arrives after a later one.
+    let aktuell = true;
+    setStatistik(undefined);
+    setError(false);
+    fetchStatistik(auswahl === "gesamt" ? undefined : auswahl).then(
+      (s) => aktuell && setStatistik(s),
+      () => aktuell && setError(true),
+    );
+    return () => {
+      aktuell = false;
+    };
+  }, [auswahl]);
 
   const rangliste = statistik?.rangliste.slice(0, RANGLISTE_LAENGE) ?? [];
   const max = rangliste[0]?.punkte ?? 1;
@@ -74,6 +86,18 @@ export function StatistikPage() {
         )}
       </div>
       <div className="statistik-container">
+        <div className="statistik-auswahl" role="group" aria-label="Lebensbereich">
+          {[{ id: "gesamt" as const, titel: "Gesamt" }, ...KONTEXTE].map((k) => (
+            <button
+              key={k.id}
+              type="button"
+              aria-pressed={auswahl === k.id}
+              onClick={() => setAuswahl(k.id)}
+            >
+              {k.titel}
+            </button>
+          ))}
+        </div>
         {error ? (
           <p className="statistik-hinweis">
             Die Statistik konnte nicht geladen werden.
@@ -103,7 +127,11 @@ export function StatistikPage() {
               .
             </p>
           </>
-        ) : null}
+        ) : (
+          <p className="statistik-hinweis">
+            In diesem Lebensbereich wurde noch kein Test abgeschlossen.
+          </p>
+        )}
         <div className="intro-footer">
           <Link to="/" className="btn btn-primary">
             Zur Startseite

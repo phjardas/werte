@@ -128,8 +128,10 @@ export async function sendEmail(
   }
 }
 
-export async function fetchStatistik(): Promise<Statistik> {
-  const res = await fetch(`${API_BASE_URL}/statistik`);
+/** Without a context, the statistic covers all contexts. */
+export async function fetchStatistik(kontext?: KontextId): Promise<Statistik> {
+  const query = kontext ? `?kontext=${kontext}` : "";
+  const res = await fetch(`${API_BASE_URL}/statistik${query}`);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }

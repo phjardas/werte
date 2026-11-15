@@ -29,7 +29,7 @@ export function LandingPage() {
         <p className="landing-lead">
           In wenigen Minuten entdeckst du deine persönlichen Werte und bringst
           sie in eine klare Reihenfolge, ob im Beruf, im Privatleben oder in
-          deiner Partnerschaft. Kostenlos und ohne Anmeldung.
+          deiner Partnerschaft. Der Wertetest ist kostenlos und ohne Anmeldung.
         </p>
         <div className="landing-aktionen">
           <Link to="/tests" className="btn btn-primary">

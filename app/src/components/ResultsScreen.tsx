@@ -181,6 +181,25 @@ export function ResultsScreen({
               wird der Test gelöscht.
             </p>
           ) : null}
+          <a
+            className="eltern-teaser"
+            href="https://werte.jessica-kioschis.de/"
+            target="_blank"
+            rel="noopener"
+          >
+            <img src="/eltern-werte-kompass.webp" alt="" width={96} height={96} />
+            <div>
+              <strong>Eltern Werte Kompass</strong>
+              <p>
+                Du möchtest deine Werte als Mutter oder Vater entdecken? Probier den
+                speziell dafür entwickelten Eltern Werte Kompass aus.
+              </p>
+              <small>
+                Disclaimer: Den Eltern Werte Kompass betreibt
+                meine Frau. 😉
+              </small>
+            </div>
+          </a>
           <div className="intro-footer">
             <Link to="/tests" className="btn btn-primary">
               Neuen Test starten

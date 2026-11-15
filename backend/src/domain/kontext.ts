@@ -2,7 +2,7 @@
  * The area of life a test is about. The context only changes the prompts for scenarios
  * and summaries; the values are the same in every context.
  */
-export type KontextId = "beruf" | "privat" | "fuehrung" | "ehrenamt";
+export type KontextId = "beruf" | "privat" | "fuehrung" | "ehrenamt" | "partnerschaft";
 
 /** Tests created before contexts existed have none and count as this one. */
 export const STANDARD_KONTEXT: KontextId = "beruf";
@@ -126,6 +126,33 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
       "Das Engagement ist freiwillig und unbezahlt. Konflikte entstehen aus begrenzter Zeit und Kraft, aus unterschiedlichen Vorstellungen der Beteiligten oder aus dem Zweck des Engagements – nicht aus Gehalt, Karriere oder Weisungen von Vorgesetzten.",
       "Nenne konkret, wo die Szene spielt (z.B. \"im Sportverein\", \"bei der Tafel\"), statt nur von \"der Gruppe\" zu sprechen. Wähle eine Situation, die man auch aus anderen Arten von Engagement kennt.",
       "Sprich die Person auch bei der Gruppe als Einzelne an: \"dein Verein\", \"deine Gruppe\", \"die anderen\" – nicht \"ihr\", \"euer\" oder \"Ihr\".",
+    ],
+  },
+  partnerschaft: {
+    id: "partnerschaft",
+    zielgruppe: "Erwachsene in einer Partnerschaft",
+    person: "eine Person in einer Partnerschaft",
+    alltag: "partnerschaftlichen Alltag",
+    lebensbereich: "in der Partnerschaft",
+    szenenort:
+      "z.B. beim Planen gemeinsamer Zeit, von Wochenenden und Urlauben, bei Entscheidungen über Geld oder Wohnen, im Umgang mit Freundinnen und Freunden oder den Herkunftsfamilien, bei Gesprächen über Wünsche und Pläne oder im ganz normalen Alltag zu zweit",
+    abgrenzung:
+      "Die Szene muss in einer Liebesbeziehung zwischen zwei Erwachsenen spielen, und beide Antworten beschreiben, was du selbst gegenüber deiner Partnerin oder deinem Partner tust – nicht am Arbeitsplatz, nicht bei beruflichen Aufgaben und nicht in der Rolle als Mutter oder Vater. Kinder kommen in der Szene nicht vor. Sie soll für ganz unterschiedliche Paare nachvollziehbar sein; setze weder Ehe noch eine gemeinsame Wohnung, ein bestimmtes Geschlecht, eine bestimmte Konstellation oder besonderen Wohlstand voraus.",
+    beispiel: {
+      gedanke:
+        "Aktivität bedeutet aktives Handeln und Bewegung (verwechselbar mit Fleiß). Ruhe bedeutet bewusstes Innehalten und Stille (verwechselbar mit Gelassenheit). Der Kernunterschied: Aktivität drängt zur Bewegung, Ruhe zum Verweilen. Wer nach einer vollen Woche einen freien Samstag mit dem Partner oder der Partnerin hat, muss zwischen Unternehmungslust und Erholung wählen – das passt nur zu Aktivität vs. Ruhe. Antwort 1 (Ausflug vorschlagen) ist ausschließlich Aktivität, Antwort 2 (ruhigen Tag vorschlagen) ist ausschließlich Ruhe.",
+      szenario:
+        "Nach einer vollen Woche habt ihr beide einen Samstag ganz ohne Termine. Würdest du eher einen gemeinsamen Ausflug vorschlagen, oder einen ruhigen Tag zu zweit ohne Programm?",
+      antworten: ["Einen Ausflug vorschlagen", "Einen ruhigen Tag vorschlagen"],
+    },
+    zusammenfassungsbereich:
+      "in der Partnerschaft zeigen könnten, etwa im gemeinsamen Alltag, bei Entscheidungen als Paar, im Umgang mit unterschiedlichen Bedürfnissen oder bei Meinungsverschiedenheiten",
+    tippbeispiele:
+      "z.B. Gesprächsimpulse für euch als Paar, Prioritäten bei gemeinsamer Zeit, kleine Rituale im Alltag zu zweit",
+    zusatzregeln: [
+      "Lege das Geschlecht der Partnerin oder des Partners nicht fest. Schreibe \"deine Partnerin oder dein Partner\" höchstens einmal pro Szenario und verwende danach keine Pronomen für diese Person (also weder \"er oder sie\" noch \"sie oder ihn\" noch \"ihr oder ihm\"); baue den Satz stattdessen um oder formuliere mit \"ihr beide\", \"zu zweit\", \"gemeinsam\" oder \"euer\". Die Person, die den Test macht, sprichst du trotzdem mit \"du\" an.",
+      "Die Szene muss auch für Paare passen, die getrennt wohnen: keine gemeinsame Wohnung, kein gemeinsamer Haushalt, kein Umzug zusammen und kein \"bei euch zu Hause\".",
+      "Die Szenen bleiben respektvoll und alltäglich: keine Gewalt, keine Untreue, keine Eifersuchtsdramen und keine Trennungsdrohungen.",
     ],
   },
 };

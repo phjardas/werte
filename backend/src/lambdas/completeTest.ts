@@ -44,13 +44,15 @@ export function createHandler(
     if (!result.found) return response(404, { error: "not_found" });
     if (!result.active) return response(409, { error: "test_not_active" });
 
+    const kontext = result.session?.kontext ?? STANDARD_KONTEXT;
+
     // ponytail: a failed counter update loses this test for the statistics, the test itself is unaffected
-    await statistik.recordTest(results.map((r) => r.name)).catch((err) => console.error("recordTest failed:", err));
+    await statistik.recordTest(kontext, results.map((r) => r.name)).catch((err) => console.error("recordTest failed:", err));
 
     await startPostTest({
       testId,
       werte: results.slice(0, 5).map((r) => r.name),
-      kontext: result.session?.kontext ?? STANDARD_KONTEXT,
+      kontext,
     });
 
     return response(200, { ok: true });

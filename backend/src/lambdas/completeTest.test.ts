@@ -25,7 +25,7 @@ describe("completeTest handler", () => {
   it("records the ranked values and starts the post-test workflow", async () => {
     const res = await call([{ name: "Mut", score: 3 }, { name: "Freiheit", score: 2 }]);
     expect(res.statusCode).toBe(200);
-    expect(recordTest).toHaveBeenCalledWith(["Mut", "Freiheit"]);
+    expect(recordTest).toHaveBeenCalledWith("beruf", ["Mut", "Freiheit"]);
     expect(startPostTest).toHaveBeenCalledWith(expect.objectContaining({ testId: "abc", werte: ["Mut", "Freiheit"] }));
   });
 
@@ -64,5 +64,11 @@ describe("completeTest handler", () => {
   it("starts legacy tests as beruf", async () => {
     await call([{ name: "Mut", score: 1 }]);
     expect(startPostTest).toHaveBeenCalledWith(expect.objectContaining({ kontext: "beruf" }));
+  });
+
+  it("records the statistic in the test's context", async () => {
+    complete.mockResolvedValue({ found: true, active: true, session: { kontext: "privat" } });
+    await call([{ name: "Mut", score: 1 }]);
+    expect(recordTest).toHaveBeenCalledWith("privat", ["Mut"]);
   });
 });

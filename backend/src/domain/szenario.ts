@@ -29,6 +29,7 @@ Maximal 3 Sätze insgesamt. Keine Einleitung, keine Erklärung, keine Moral, kei
 
 ## Regeln
 
+- Die Fragen richten sich an Erwachsene. Szenen, Rollen und Entscheidungen müssen zum Leben erwachsener Menschen passen.
 - ${k.abgrenzung}
 - Beide Optionen müssen vernünftig und vertretbar sein. Keine Option darf offensichtlich falsch, unverantwortlich oder realitätsfern wirken. ${person} muss beide Optionen ernsthaft in Betracht ziehen können.
 - Die beiden Antworten müssen sich in der **Handlung** klar unterscheiden – nicht nur in der Nuance oder Formulierung. Wenn beide Antworten im Kern dasselbe tun, fehlt der echte Konflikt.

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AIService } from "./ai.js";
 import type { Cache } from "./cache.js";
+import { KONTEXT_IDS } from "./kontext.js";
 import { ZusammenfassungService, zusammenfassungSystemPrompt } from "./zusammenfassung.js";
 import { WerteService } from "./werte.js";
 
@@ -66,6 +67,10 @@ describe("ZusammenfassungService", () => {
     expect(beruf[1]).not.toBe(privat[1]);
     expect(vi.mocked(mockAI.invokeText).mock.calls[0][0]).toBe(zusammenfassungSystemPrompt("beruf"));
     expect(vi.mocked(mockAI.invokeText).mock.calls[1][0]).toBe(zusammenfassungSystemPrompt("privat"));
+  });
+
+  it("addresses an adult in every context", () => {
+    for (const id of KONTEXT_IDS) expect(zusammenfassungSystemPrompt(id)).toContain("Die Person ist erwachsen.");
   });
 
   it("asks for the summary in the context's area of life", async () => {

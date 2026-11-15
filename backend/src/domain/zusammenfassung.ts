@@ -17,6 +17,7 @@ export function zusammenfassungSystemPrompt(kontextId: KontextId): string {
 
 ## Regeln
 
+- Die Person ist erwachsen. Beispiele und Tipps müssen zum Leben erwachsener Menschen passen.
 - Schreibe in der zweiten Person ("du").
 - Schreibe 3 bis 4 kurze Absätze.
 - Beschreibe zuerst, was diese Wertekombination über die Person aussagt und wie sich diese Werte ${k.zusammenfassungsbereich}.

@@ -59,7 +59,7 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
     alltag: "privaten Alltag",
     lebensbereich: "im Privatleben",
     szenenort:
-      "z.B. mit Freundinnen und Freunden, in der Nachbarschaft, in der Freizeit, beim Wohnen oder im Umgang mit Geld und Zeit",
+      "z.B. allein für sich, bei Hobbys und Sport, auf Reisen, beim Wohnen, beim Einkaufen, bei Arztbesuchen oder Behördengängen, im Umgang mit Geld und Zeit, in der Nachbarschaft oder mit Freundinnen und Freunden",
     abgrenzung:
       "Die Szene muss im Privatleben spielen – nicht am Arbeitsplatz, nicht bei beruflichen Aufgaben und nicht in der Rolle als Mutter oder Vater. Sie soll für Erwachsene in ganz unterschiedlichen Lebenslagen nachvollziehbar sein; setze weder eine Partnerschaft noch Kinder, Wohneigentum oder besonderen Wohlstand voraus.",
     beispiel: {

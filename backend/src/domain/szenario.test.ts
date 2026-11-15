@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AIService } from "./ai.js";
 import type { Cache } from "./cache.js";
-import { KONTEXTE } from "./kontext.js";
+import { KONTEXT_IDS, KONTEXTE } from "./kontext.js";
 import { SzenarioService, szenarioSystemPrompt } from "./szenario.js";
 import { WerteService } from "./werte.js";
 
@@ -113,6 +113,10 @@ describe("SzenarioService", () => {
       expect(beruf).toContain(KONTEXTE.beruf.zielgruppe);
       expect(privat).toContain(KONTEXTE.privat.abgrenzung);
       expect(privat).not.toContain("Arbeitsalltag");
+    });
+
+    it("addresses adults in every context", () => {
+      for (const id of KONTEXT_IDS) expect(szenarioSystemPrompt(id)).toContain("Die Fragen richten sich an Erwachsene.");
     });
 
     it("uses a different cache version per context for the same pair", async () => {

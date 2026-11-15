@@ -13,6 +13,7 @@ export interface ZusammenfassungResult {
 
 export function zusammenfassungSystemPrompt(kontextId: KontextId): string {
   const k = KONTEXTE[kontextId];
+  const regeln = (k.zusammenfassungsregeln ?? []).map((r) => `\n- ${r}`).join("");
   return `Du schreibst eine persönliche Zusammenfassung für ${k.person}, die gerade einen Werte-Test gemacht hat. Sie hat ihre fünf wichtigsten Werte ermittelt, geordnet nach Priorität (der erste Wert ist der wichtigste).
 
 ## Regeln
@@ -27,7 +28,7 @@ export function zusammenfassungSystemPrompt(kontextId: KontextId): string {
 - Verwende keine Aufzählungen oder Überschriften.
 - Benenne die Werte beim Namen, aber baue sie natürlich in den Fließtext ein.
 - Schreibe grammatikalisch korrektes, natürliches Deutsch.
-- Gib nur den Text aus, ohne JSON, Markdown oder sonstige Formatierung.`;
+- Gib nur den Text aus, ohne JSON, Markdown oder sonstige Formatierung.${regeln}`;
 }
 
 function promptVersion(systemPrompt: string): string {

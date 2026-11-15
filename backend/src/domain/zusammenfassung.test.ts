@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AIService } from "./ai.js";
 import type { Cache } from "./cache.js";
-import { KONTEXT_IDS } from "./kontext.js";
+import { KONTEXT_IDS, KONTEXTE } from "./kontext.js";
 import { ZusammenfassungService, zusammenfassungSystemPrompt } from "./zusammenfassung.js";
 import { WerteService } from "./werte.js";
 
@@ -79,5 +79,18 @@ describe("ZusammenfassungService", () => {
 
     await service.getOrCreate(FIVE_WERTE, "privat");
     expect(vi.mocked(mockAI.invokeText).mock.calls[0][1]).not.toContain("Berufsleben");
+  });
+
+  it("includes the context's summary rules", () => {
+    for (const id of KONTEXT_IDS) {
+      for (const regel of KONTEXTE[id].zusammenfassungsregeln ?? []) {
+        expect(zusammenfassungSystemPrompt(id)).toContain(`- ${regel}`);
+      }
+    }
+  });
+
+  it("keeps the partner's gender open in partnership summaries", () => {
+    expect(KONTEXTE.partnerschaft.zusammenfassungsregeln?.join(" ")).toContain("Geschlecht");
+    expect(zusammenfassungSystemPrompt("partnerschaft")).toContain("Geschlecht");
   });
 });

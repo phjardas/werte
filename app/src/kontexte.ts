@@ -35,7 +35,7 @@ export const KONTEXTE: KontextInfo[] = [
   {
     id: "ehrenamt",
     titel: "Ehrenamt und Verein",
-    beschreibung: "Was dir in deinem Engagement wichtig ist: im Verein, in der Initiative und mit anderen Freiwilligen.",
+    beschreibung: "Was dir in deinem Engagement wichtig ist: bei Feuerwehr, THW und Hilfsorganisationen, im Verein und mit anderen Freiwilligen.",
     icon: "🤝",
     imLebensbereich: "in deinem Ehrenamt",
   },

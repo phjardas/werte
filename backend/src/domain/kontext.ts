@@ -27,8 +27,10 @@ export interface Kontext {
   zusammenfassungsbereich: string;
   /** Examples for the tips, in parentheses. */
   tippbeispiele: string;
-  /** Extra rules for this context only, one per line. */
+  /** Extra rules for the scenarios of this context only, one per line. */
   zusatzregeln?: string[];
+  /** Extra rules for the summary of this context only, one per line. */
+  zusammenfassungsregeln?: string[];
 }
 
 export const KONTEXTE: Record<KontextId, Kontext> = {
@@ -108,14 +110,14 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
     alltag: "Alltag im Ehrenamt",
     lebensbereich: "im Ehrenamt",
     szenenort:
-      "z.B. im Sportverein, im Musikverein, bei der Freiwilligen Feuerwehr, in der Kirchengemeinde, bei der Tafel, in der Flüchtlingshilfe, in einer Naturschutzgruppe, in einer Bürgerinitiative oder im Förderverein einer Schule; beim Training, bei Einsätzen, bei Festen und Veranstaltungen, beim Spendensammeln, bei der Suche nach neuen Freiwilligen, in Mitgliederversammlungen oder Vorstandssitzungen; mit anderen Ehrenamtlichen, Mitgliedern, Hauptamtlichen oder den Menschen, für die du dich einsetzt",
+      "z.B. bei der Freiwilligen Feuerwehr, beim THW, in einer Hilfsorganisation wie dem Roten Kreuz, den Johannitern, den Maltesern, dem ASB oder der DLRG, im Sportverein, im Musikverein, in der Kirchengemeinde, bei der Tafel, in der Flüchtlingshilfe, in einer Naturschutzgruppe oder in einem Förderverein; bei Übungen, Ausbildung und Dienstplänen, bei Einsätzen, beim Training, bei Festen und Veranstaltungen, beim Spendensammeln, bei der Suche nach neuen Freiwilligen, in Mitgliederversammlungen oder Vorstandssitzungen; mit anderen Ehrenamtlichen, Mitgliedern, Hauptamtlichen oder den Menschen, für die du dich einsetzt",
     abgrenzung:
       "Die Szene muss im ehrenamtlichen Engagement spielen – nicht in einer bezahlten Arbeit, nicht im rein privaten Leben mit Freunden und nicht in der Rolle als Mutter oder Vater. Sie soll für ganz unterschiedliche Arten von Engagement nachvollziehbar sein, von der gelegentlichen Helferin bis zum Vorstandsmitglied; setze kein bestimmtes Amt voraus und vermeide Vereinsjargon.",
     beispiel: {
       gedanke:
-        "Aktivität bedeutet aktives Handeln und Bewegung (verwechselbar mit Fleiß). Ruhe bedeutet bewusstes Innehalten und Stille (verwechselbar mit Gelassenheit). Der Kernunterschied: Aktivität drängt zur Bewegung, Ruhe zum Verweilen. Wer nach dem großen Sommerfest des Vereins ein freies Wochenende hat, muss zwischen Anpacken und Durchatmen wählen – das passt nur zu Aktivität vs. Ruhe. Antwort 1 (nächste Aktion planen) ist ausschließlich Aktivität, Antwort 2 (Pause einlegen) ist ausschließlich Ruhe.",
+        "Aktivität bedeutet aktives Handeln und Bewegung (verwechselbar mit Fleiß). Ruhe bedeutet bewusstes Innehalten und Stille (verwechselbar mit Gelassenheit). Der Kernunterschied: Aktivität drängt zur Bewegung, Ruhe zum Verweilen. Wer nach dem großen Sommerfest der Feuerwehr ein freies Wochenende hat, muss zwischen Anpacken und Durchatmen wählen – das passt nur zu Aktivität vs. Ruhe. Antwort 1 (nächste Aktion planen) ist ausschließlich Aktivität, Antwort 2 (Pause einlegen) ist ausschließlich Ruhe.",
       szenario:
-        "Das Sommerfest, bei dem du wochenlang mitgeholfen hast, ist vorbei, und bis zur nächsten Aktion ist noch Zeit. Würdest du eher gleich mit der Planung der nächsten Aktion beginnen, oder dir erst einmal eine ruhige Pause vom Engagement gönnen?",
+        "Das Sommerfest deiner Freiwilligen Feuerwehr, bei dem du wochenlang mitgeholfen hast, ist vorbei, und bis zur nächsten Aktion ist noch Zeit. Würdest du eher gleich mit der Planung der nächsten Aktion beginnen, oder dir erst einmal eine ruhige Pause vom Engagement gönnen?",
       antworten: ["Nächste Aktion gleich planen", "Erst einmal Pause einlegen"],
     },
     zusammenfassungsbereich:
@@ -123,6 +125,7 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
     tippbeispiele:
       "z.B. Gesprächsimpulse in der Gruppe oder im Vorstand, Prioritäten bei der Frage, wofür du dich einsetzt, kleine Gewohnheiten, um nicht auszubrennen",
     zusatzregeln: [
+      "Etwa die Hälfte der Szenen spielt bei der Freiwilligen Feuerwehr, beim THW oder in einer Hilfsorganisation wie dem Roten Kreuz, die andere Hälfte in anderen Vereinen und Initiativen. Innerhalb dieser Hälfte kommt die Freiwillige Feuerwehr etwas häufiger vor als THW und Hilfsorganisationen. Greife bei den anderen Vereinen nicht immer zum Förderverein. Bei Feuerwehr, THW und Hilfsorganisationen geht es um Übungen, Ausbildung, Dienstpläne, Kameradschaft, Nachwuchs, Ausrüstung oder die Organisation rund um Einsätze – nicht um Entscheidungen über Leben und Tod im Einsatz. Sicherheitsvorschriften und Schutzausrüstung stehen nie zur Wahl, keine Antwort darf sie umgehen.",
       "Das Engagement ist freiwillig und unbezahlt. Konflikte entstehen aus begrenzter Zeit und Kraft, aus unterschiedlichen Vorstellungen der Beteiligten oder aus dem Zweck des Engagements – nicht aus Gehalt, Karriere oder Weisungen von Vorgesetzten.",
       "Nenne konkret, wo die Szene spielt (z.B. \"im Sportverein\", \"bei der Tafel\"), statt nur von \"der Gruppe\" zu sprechen. Wähle eine Situation, die man auch aus anderen Arten von Engagement kennt.",
       "Sprich die Person auch bei der Gruppe als Einzelne an: \"dein Verein\", \"deine Gruppe\", \"die anderen\" – nicht \"ihr\", \"euer\" oder \"Ihr\".",
@@ -149,6 +152,10 @@ export const KONTEXTE: Record<KontextId, Kontext> = {
       "in der Partnerschaft zeigen könnten, etwa im gemeinsamen Alltag, bei Entscheidungen als Paar, im Umgang mit unterschiedlichen Bedürfnissen oder bei Meinungsverschiedenheiten",
     tippbeispiele:
       "z.B. Gesprächsimpulse für euch als Paar, Prioritäten bei gemeinsamer Zeit, kleine Rituale im Alltag zu zweit",
+    zusammenfassungsregeln: [
+      "Lege das Geschlecht der Partnerin oder des Partners nicht fest. Schreibe \"deine Partnerin oder dein Partner\" höchstens einmal und verwende keine geschlechtsbestimmten Wörter wie \"Lebensgefährte\" oder \"Freundin\"; sprich danach von \"euch\", \"euch beiden\" oder \"deinem Gegenüber\".",
+      "Setze weder Ehe, eine gemeinsame Wohnung noch Kinder voraus.",
+    ],
     zusatzregeln: [
       "Lege das Geschlecht der Partnerin oder des Partners nicht fest. Schreibe \"deine Partnerin oder dein Partner\" höchstens einmal pro Szenario und verwende danach keine Pronomen für diese Person (also weder \"er oder sie\" noch \"sie oder ihn\" noch \"ihr oder ihm\"); baue den Satz stattdessen um oder formuliere mit \"ihr beide\", \"zu zweit\", \"gemeinsam\" oder \"euer\". Die Person, die den Test macht, sprichst du trotzdem mit \"du\" an.",
       "Die Szene muss auch für Paare passen, die getrennt wohnen: keine gemeinsame Wohnung, kein gemeinsamer Haushalt, kein Umzug zusammen und kein \"bei euch zu Hause\".",

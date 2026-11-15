@@ -194,6 +194,8 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   useEffect(() => {
     if (step === "comparison" && tournament.isComplete && !completed) {
       setCompleted(true);
+      // The results replace the last comparison without a navigation, so scroll up by hand.
+      window.scrollTo(0, 0);
       completeTest(testId, tournament.results).catch(console.error);
     }
   }, [step, tournament.isComplete, tournament.results, testId, completed]);
@@ -201,6 +203,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   const handleStartComparison = useCallback(() => {
     setStep("comparison");
     syncState(buildState({ step: "comparison" }));
+    window.scrollTo(0, 0);
   }, [buildState, syncState]);
 
   if (step === "comparison" && tournament.isComplete) {

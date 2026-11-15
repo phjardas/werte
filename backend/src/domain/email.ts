@@ -53,7 +53,7 @@ const SERIF = "Fraunces, Georgia, 'Times New Roman', serif";
 const SANS = "Geist, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 const MEDALS = ["🥇", "🥈", "🥉"];
 
-const SIGNATUR = ["Ich hoffe, der Werte-Kompass hat dir gefallen. Empfiehl ihn gerne weiter!", "Dein Philipp"];
+const SIGNATUR = ["Ich hoffe, der Werte Kompass hat dir gefallen. Empfiehl ihn gerne weiter!", "Dein Philipp"];
 
 export function renderErgebnisEmail({ werte, zusammenfassung, appUrl, testId }: ErgebnisEmailInput): EmailContent {
   const link = `${appUrl}/tests/${encodeURIComponent(testId)}`;

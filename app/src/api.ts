@@ -9,8 +9,8 @@ import type {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
-export async function fetchWerte(): Promise<string[]> {
-  const res = await fetch(`${API_BASE_URL}/werte`);
+export async function fetchWerte(kontext: KontextId): Promise<string[]> {
+  const res = await fetch(`${API_BASE_URL}/werte?kontext=${kontext}`);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
   return data.werte;

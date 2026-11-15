@@ -693,6 +693,47 @@
       ]
     },
     {
+      "name": "Gastfreundschaft",
+      "synonyme": [
+        "Gastlichkeit, Offenheit, Großzügigkeit, Herzlichkeit, offenes Haus",
+        "Englisch: hospitality"
+      ],
+      "definition": [
+        "Bereitschaft, andere Menschen bei sich willkommen zu heißen und gut zu bewirten"
+      ],
+      "beschreibung": [
+        "Gastfreundschaft bedeutet, Menschen die Tür zu öffnen und ihnen das Gefühl zu geben, willkommen zu sein.",
+        "Menschen, denen Gastfreundschaft wichtig ist, laden gerne ein, teilen, was sie haben, und kümmern sich darum, dass sich Gäste wohlfühlen, auch wenn es Mühe macht.",
+        "In vielen Kulturen gilt Gastfreundschaft als hohe Tugend, die auch Fremden gegenüber gilt."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft",
+        "ehrenamt"
+      ]
+    },
+    {
+      "name": "Geborgenheit",
+      "synonyme": [
+        "Sicherheit, Schutz, Wärme, Behaglichkeit, Vertrautheit, Zuflucht",
+        "Ähnlich: Heimat, Nestwärme",
+        "Englisch: security, feeling of safety"
+      ],
+      "definition": [
+        "Gefühl, bei anderen Menschen oder an einem Ort sicher, angenommen und gut aufgehoben zu sein"
+      ],
+      "beschreibung": [
+        "Geborgenheit beschreibt das Gefühl, sich fallen lassen zu können, weil man sich angenommen und beschützt fühlt.",
+        "Anders als Sicherheit, die auch materiell oder planbar sein kann, ist Geborgenheit vor allem emotional und entsteht in vertrauten Beziehungen und Umgebungen.",
+        "Menschen, denen Geborgenheit wichtig ist, suchen verlässliche Nähe, vertraute Rituale und ein Zuhause, in das sie gerne zurückkehren.",
+        "Wer Geborgenheit erlebt, kann Belastungen oft leichter tragen und sich Neuem mutiger zuwenden."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
+      ]
+    },
+    {
       "name": "Geduld",
       "synonyme": [
         "Langmut, Nachsicht, Beständigkeit, Kondition, Zähigkeit, Durchhaltevermögen, Beharrlichkeit",
@@ -731,6 +772,86 @@
         "Philosophie und Theologie",
         "Der Theologe und Philosoph Meister Eckhart (1260 bis 1328) führe den Begriff “Bildung” in die deutsche Sprache ein. Er beschrieb es, als das “Erlernen von Gelassenheit“, mit dem Ziel, der Mensch soll Gott ähnlich werden.",
         "Die Epikureer und Pyrrhoneer beschrieben mit der Ataraxie (griechisch “ataraxía” = “Unerschütterlichkeit“) als das Ideal der Seelenruhe. Es sei der seelische Zustand der Affektlosigkeit und die emotionale Gelassenheit gegenüber Schicksalsschlägen und anderen Einwirkungen von außen. Oberstes Ziel sei das “Glück des Weisen” (Eudaimonie)."
+      ]
+    },
+    {
+      "name": "Gemeinschaft",
+      "synonyme": [
+        "Gemeinsamkeit, Zusammengehörigkeit, Miteinander, Geselligkeit, Zusammenhalt",
+        "Ähnlich: Zugehörigkeit, Kameradschaft",
+        "Englisch: community"
+      ],
+      "definition": [
+        "Wunsch, Teil einer Gruppe zu sein, die etwas gemeinsam erlebt und gestaltet"
+      ],
+      "beschreibung": [
+        "Gemeinschaft bedeutet, das Leben nicht allein, sondern mit anderen zu gestalten: in einem Verein, einer Nachbarschaft, einem Freundeskreis oder einer Gruppe mit gemeinsamen Interessen.",
+        "Während Zugehörigkeit das Gefühl beschreibt, dazuzugehören, betont Gemeinschaft das aktive Miteinander: gemeinsame Feste, Projekte und Traditionen.",
+        "Menschen, denen Gemeinschaft wichtig ist, bringen sich ein, auch wenn es Zeit kostet, und erleben gemeinsame Erfolge als stärker als eigene."
+      ],
+      "kontexte": [
+        "privat",
+        "ehrenamt"
+      ]
+    },
+    {
+      "name": "Gemeinwohl",
+      "synonyme": [
+        "Allgemeinwohl, öffentliches Wohl, Bürgersinn, Gemeinsinn",
+        "Ähnlich: Solidarität, Verantwortung",
+        "Englisch: common good"
+      ],
+      "definition": [
+        "Ausrichtung des eigenen Handelns auf das Wohl der Gemeinschaft statt nur auf den eigenen Vorteil"
+      ],
+      "beschreibung": [
+        "Gemeinwohl als Wert bedeutet, sich für Dinge einzusetzen, die allen zugutekommen, auch wenn man selbst nichts davon hat.",
+        "Menschen, denen das Gemeinwohl wichtig ist, übernehmen Aufgaben für ihren Ort oder ihre Mitmenschen, halten sich an gemeinsame Regeln und fragen bei Entscheidungen, was sie für andere bedeuten.",
+        "Das Gemeinwohl steht manchmal in Spannung zu persönlicher Freiheit und eigenen Interessen."
+      ],
+      "kontexte": [
+        "privat",
+        "ehrenamt"
+      ]
+    },
+    {
+      "name": "Gemütlichkeit",
+      "synonyme": [
+        "Behaglichkeit, Gemächlichkeit, Wohnlichkeit, Wärme, Zwanglosigkeit",
+        "Ähnlich: Geborgenheit, Ruhe",
+        "Englisch: coziness, hygge"
+      ],
+      "definition": [
+        "Behagliche, entspannte Atmosphäre, in der man sich wohlfühlt und nichts leisten muss"
+      ],
+      "beschreibung": [
+        "Gemütlichkeit beschreibt eine Stimmung von Wärme und Zwanglosigkeit, etwa in einer warmen Wohnung, bei einem langen Essen oder einem Abend mit vertrauten Menschen.",
+        "Menschen, denen Gemütlichkeit wichtig ist, gestalten ihre Umgebung so, dass man sich darin wohlfühlt, und schätzen Zeiten ohne Programm und Zeitdruck.",
+        "Das Wort gilt als typisch deutsch und lässt sich kaum übersetzen; am nächsten kommt ihm das dänische „hygge“."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
+      ]
+    },
+    {
+      "name": "Genuss",
+      "synonyme": [
+        "Freude, Vergnügen, Wohlgefallen, Behagen, Lebensfreude, Sinnesfreude",
+        "Ähnlich: Hedonismus, Lebenskunst",
+        "Englisch: enjoyment, pleasure"
+      ],
+      "definition": [
+        "Fähigkeit und Bereitschaft, schöne Dinge bewusst und mit allen Sinnen zu erleben"
+      ],
+      "beschreibung": [
+        "Genuss bedeutet, sich Zeit für das Schöne zu nehmen: gutes Essen, Musik, Natur, Gespräche oder einfach einen ruhigen Moment.",
+        "Menschen, denen Genuss wichtig ist, gönnen sich Dinge bewusst, statt sie nebenbei zu konsumieren, und verzichten ungern ganz darauf.",
+        "Genuss steht in Spannung zu Sparsamkeit, Disziplin und Effizienz, kann aber auch helfen, mit wenig zufrieden zu sein, wenn das Wenige bewusst erlebt wird."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
       ]
     },
     {
@@ -864,6 +985,26 @@
       ]
     },
     {
+      "name": "Heimat",
+      "synonyme": [
+        "Zuhause, Herkunft, Verwurzelung, Ortsverbundenheit, Vertrautheit",
+        "Ähnlich: Zugehörigkeit, Tradition",
+        "Englisch: home, homeland"
+      ],
+      "definition": [
+        "Gefühl der Verbundenheit mit einem Ort, seinen Menschen und seiner Kultur"
+      ],
+      "beschreibung": [
+        "Heimat beschreibt die Verbundenheit mit einem Ort, an dem man sich zugehörig fühlt, sei es der Ort der Herkunft oder ein selbst gewählter.",
+        "Menschen, denen Heimat wichtig ist, pflegen Beziehungen zu ihrem Ort, kennen seine Geschichte und Menschen und setzen sich für ihn ein.",
+        "Heimat kann Halt geben, aber auch die Bereitschaft verringern, wegzuziehen oder Neues zu wagen."
+      ],
+      "kontexte": [
+        "privat",
+        "ehrenamt"
+      ]
+    },
+    {
       "name": "Hilfsbereitschaft",
       "synonyme": [
         "Gutmütigkeit, Bereitwilligkeit, Gefälligkeit, Nächstenliebe, Humanität, Zuvorkommenheit, Entgegenkommen, Verständnis, Wohltätigkeit, Wohlwollen, Menschenfreundlichkeit, Menschenliebe, Menschlichkeit, Uneigennützigkeit, Mildtätigkeit, Herzlichkeit, Ritterlichkeit, Gnade, Kulanz, Selbstlosigkeit, Aufmerksamkeit, Zuneigung, Milde, Anteilnahme",
@@ -994,6 +1135,11 @@
         "HeuristikSynektikBrainstromingThink TanksOptionenbaumMorphologischer KastenMuster zerstörenZufall (der konstruktiv aufgegriffen wird)",
         "Voraussetzungen für Innovation",
         "die Fähigkeit kreativ zu denkenoffener, vorausschauender Fokus in die ZukunftBereitschaft für VeränderungLust auf Veränderungtolerantes Umfeldinspirierende UmgebungWillenskraft"
+      ],
+      "kontexte": [
+        "beruf",
+        "fuehrung",
+        "ehrenamt"
       ]
     },
     {
@@ -1035,6 +1181,27 @@
       ]
     },
     {
+      "name": "Intimität",
+      "synonyme": [
+        "Vertrautheit, Nähe, Innigkeit, Verbundenheit, Geborgenheit",
+        "Ähnlich: Offenheit, Vertrauen",
+        "Englisch: intimacy"
+      ],
+      "definition": [
+        "Tiefe seelische und körperliche Nähe zu einem Menschen, in der man sich ohne Fassade zeigen kann"
+      ],
+      "beschreibung": [
+        "Intimität bedeutet, einem anderen Menschen das eigene Innere anzuvertrauen: Gedanken, Ängste, Wünsche und Verletzlichkeit.",
+        "Sie umfasst seelische Nähe ebenso wie körperliche, und sie entsteht erst, wenn beide Seiten sich sicher fühlen.",
+        "Menschen, denen Intimität wichtig ist, suchen eher wenige, dafür tiefe Beziehungen und vermissen etwas, wenn Gespräche an der Oberfläche bleiben.",
+        "Intimität braucht Zeit, Ungestörtheit und gegenseitiges Vertrauen."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
+      ]
+    },
+    {
       "name": "Intuition",
       "synonyme": [
         "Eingebung, Erkenntnis, Funke, Geistesblitz, Gespür, Inspiration, Einfall, Instinkt, Spürsinn, Riecher, Bauchgefühl, Gedankenblitz, gefühltes Wissen, sechster Sinn, Anwandlung, innere Stimme",
@@ -1059,6 +1226,25 @@
         "Die Intuition spielt bei der Wertearbeit eine große Rolle. Wie im „KOHEBA-Wertemodell“ beschrieben, besitzt der Mensch sogenannte „Kopfwerte, Herzwerte und Bauchwerte“, welche oft sehr unterschiedlich sind und symmetrisch als persönliches Wertesystem aufgestellt werden sollten.Die „Bauchwerte“ symbolisieren jene Wertvorstellungen, welche rein intuitiv aktiviert (intrinsisch motiviert) werden und oft unbewusst gegen die dominierenden und präsenteren „Kopfwerte“ protestieren.",
         "Hinweis: Die Ermittlung der persönlichen KOHEBA-Werte* kann beispielsweise mit dem Coaching-Tool „3×2-Wertematrix“ durchgeführt werden.",
         "* KOHEBA = Akronym für „Kopf, Herz, Bauch“"
+      ]
+    },
+    {
+      "name": "Kameradschaft",
+      "synonyme": [
+        "Zusammenhalt, Verbundenheit, Gemeinschaftsgeist, Füreinander-Einstehen",
+        "Ähnlich: Teamgeist, Loyalität, Solidarität",
+        "Englisch: camaraderie"
+      ],
+      "definition": [
+        "Enge Verbundenheit von Menschen, die gemeinsam Aufgaben bewältigen und sich aufeinander verlassen"
+      ],
+      "beschreibung": [
+        "Kameradschaft bedeutet, füreinander einzustehen, gerade in schwierigen oder gefährlichen Lagen.",
+        "Sie wächst aus gemeinsam Erlebtem, etwa bei Einsätzen, Übungen oder in langen Jahren in derselben Gruppe, und geht oft über die eigentliche Aufgabe hinaus.",
+        "Menschen, denen Kameradschaft wichtig ist, lassen niemanden im Stich, pflegen die Gemeinschaft auch nach dem Einsatz und erwarten dasselbe von den anderen."
+      ],
+      "kontexte": [
+        "ehrenamt"
       ]
     },
     {
@@ -1114,6 +1300,11 @@
         "Menschen, denen Kompetenz wichtig ist, wollen verstehen, was sie tun, und investieren in ihr Wissen und ihre Fähigkeiten.",
         "Sie schätzen es, wenn Entscheidungen auf Sachverstand beruhen, und umgeben sich gern mit Menschen, die ihr Handwerk beherrschen.",
         "Die Selbstbestimmungstheorie der Motivation zählt das Erleben eigener Kompetenz zu den psychologischen Grundbedürfnissen."
+      ],
+      "kontexte": [
+        "beruf",
+        "fuehrung",
+        "ehrenamt"
       ]
     },
     {
@@ -1223,6 +1414,33 @@
         "Menschen, denen Leistung wichtig ist, messen sich gern an Zielen und Maßstäben und schätzen ein Umfeld, in dem gute Ergebnisse erkannt und gewürdigt werden.",
         "Während Fleiß den Einsatz beschreibt, richtet sich Leistung stärker auf das Ergebnis dieses Einsatzes.",
         "Ein starker Leistungsanspruch kann antreiben, aber auch zu Überlastung führen, wenn Erholung und andere Lebensbereiche dahinter zurücktreten."
+      ],
+      "kontexte": [
+        "beruf",
+        "fuehrung",
+        "ehrenamt",
+        "privat"
+      ]
+    },
+    {
+      "name": "Liebe",
+      "synonyme": [
+        "Zuneigung, Hingabe, Herzlichkeit, Innigkeit, Verbundenheit, Zärtlichkeit",
+        "Ähnlich: Treue, Geborgenheit",
+        "Englisch: love"
+      ],
+      "definition": [
+        "Starkes Gefühl der Verbundenheit mit einem anderen Menschen, verbunden mit dem Wunsch, für ihn da zu sein"
+      ],
+      "beschreibung": [
+        "Liebe als Wert bedeutet, tiefe Verbundenheit mit anderen Menschen zum Mittelpunkt des eigenen Lebens zu machen.",
+        "Anders als Zuneigung, die auch flüchtig sein kann, steht Liebe für eine dauerhafte Bindung, die auch schwierige Zeiten trägt.",
+        "Menschen, denen Liebe wichtig ist, richten Entscheidungen danach aus, was die Beziehung zu den geliebten Menschen stärkt, und zeigen ihre Gefühle in Worten und Taten.",
+        "Liebe verlangt Offenheit und die Bereitschaft, sich verletzlich zu zeigen."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
       ]
     },
     {
@@ -1257,6 +1475,11 @@
         "Menschen, denen Macht wichtig ist, streben nach Positionen, in denen sie gestalten und Verantwortung übernehmen können, und scheuen sich nicht, Entscheidungen durchzusetzen.",
         "Macht kann auf formaler Stellung, Fachwissen, Beziehungen oder Ressourcen beruhen.",
         "Macht ist an sich weder gut noch schlecht: Sie ermöglicht es, viel zu bewegen, birgt aber die Gefahr des Missbrauchs, wenn sie nicht an Verantwortung und Werte gebunden ist."
+      ],
+      "kontexte": [
+        "beruf",
+        "fuehrung",
+        "ehrenamt"
       ]
     },
     {
@@ -1316,6 +1539,26 @@
         "Nachhaltigkeit bezieht sich also auf eine langfristige Perspektive, die über die eigenen Bedürfnisse hinausgeht und auch die Bedürfnisse künftiger Generationen berücksichtigt.",
         "Nachhaltigkeit wird oft als ein wichtiger Wert betrachtet, da sie dazu beitragen kann, dass die natürlichen Ressourcen der Erde geschont werden und dadurch die Lebensqualität zukünftiger Generationen gewahrt bleiben kann.",
         "Das Wort Nachhaltigkeit stand 1915 erstmals im Rechtschreibduden."
+      ]
+    },
+    {
+      "name": "Naturverbundenheit",
+      "synonyme": [
+        "Naturnähe, Naturliebe, Draußensein, Verbundenheit mit der Umwelt",
+        "Ähnlich: Nachhaltigkeit, Einfachheit",
+        "Englisch: connection with nature"
+      ],
+      "definition": [
+        "Gefühl der Zugehörigkeit zur Natur und Bedürfnis, Zeit in ihr zu verbringen"
+      ],
+      "beschreibung": [
+        "Naturverbundenheit bedeutet, die Natur als Quelle von Kraft, Ruhe und Freude zu erleben und sie zu suchen.",
+        "Menschen, denen Naturverbundenheit wichtig ist, verbringen ihre freie Zeit gerne draußen, beim Wandern, im Garten oder am Wasser, und fühlen sich eingeengt, wenn das lange nicht möglich ist.",
+        "Anders als Nachhaltigkeit, die auf verantwortliches Handeln für die Zukunft zielt, beschreibt Naturverbundenheit vor allem die persönliche, gefühlte Beziehung zur Natur."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
       ]
     },
     {
@@ -1496,6 +1739,11 @@
         "Professionalität wird durch bestimmte Charaktereigenschaften und Wertvorstellungen hergestellt – so z. B. Verlässlichkeit, Redlichkeit, Zielstrebigkeit, Loyalität, Integrität und/oder Pflichtgefühl.",
         "Das zugesprochene Attribut „professionell“ gilt auch als Kompliment (Lob, Wertschätzung) für eine entsprechende Haltung oder ein Handeln, welche(s) sich an besonders hohe Maßstäben messen kann.",
         "Ebenso wird das Adjektiv “professionell” dazu verwendet, um einem Produkt bestimmte Attribute von Professionalität (Eignung für anspruchsvollen Einsatz) zu verleihen; z. B. professionelle Maschine (Profi-Gerät, Profi-Ausführung), professionelle Software (Profi-Version) etc."
+      ],
+      "kontexte": [
+        "beruf",
+        "fuehrung",
+        "ehrenamt"
       ]
     },
     {
@@ -1591,6 +1839,27 @@
       ]
     },
     {
+      "name": "Romantik",
+      "synonyme": [
+        "Schwärmerei, Gefühlsbetontheit, Zauber, Stimmung, Verliebtheit",
+        "Ausdruck: Überraschung, Kerzenschein, Liebesbrief",
+        "Englisch: romance"
+      ],
+      "definition": [
+        "Sinn für gefühlvolle, besondere Momente, die eine Beziehung über den Alltag hinausheben"
+      ],
+      "beschreibung": [
+        "Romantik bedeutet, Gefühle bewusst zu feiern und besondere Momente zu schaffen, die sich vom gewöhnlichen Alltag abheben.",
+        "Menschen, denen Romantik wichtig ist, legen Wert auf Gesten, Überraschungen, schöne Orte und gemeinsame Rituale, die Zuneigung sichtbar machen.",
+        "Romantik kann auch kleine Dinge umfassen: eine liebevolle Nachricht, ein Spaziergang bei Sonnenuntergang oder ein Erinnerungsstück.",
+        "Wer Romantik schätzt, empfindet eine Beziehung ohne solche Momente schnell als nüchtern oder selbstverständlich."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
+      ]
+    },
+    {
       "name": "Rücksichtnahme",
       "synonyme": [
         "Rücksicht, Takt, Feingefühl, Schonung, Achtsamkeit, Aufmerksamkeit, Entgegenkommen",
@@ -1622,6 +1891,27 @@
         "Menschen, denen Ruhe wichtig ist, meiden ständige Erreichbarkeit und Reizüberflutung und brauchen Rückzug, um Kraft zu schöpfen und bei sich zu bleiben.",
         "Ruhe kann äußerlich sein, etwa ein stiller Ort, oder innerlich, als Zustand der Gelassenheit trotz äußerer Anforderungen.",
         "In einer schnellen und lauten Welt gilt Ruhe zunehmend als Voraussetzung für Konzentration, Kreativität und Gesundheit."
+      ]
+    },
+    {
+      "name": "Selbstfürsorge",
+      "synonyme": [
+        "Achtsamkeit mit sich selbst, Selbstpflege, Selbstachtung, Sich-etwas-Gönnen",
+        "Ähnlich: Gesundheit, Balance",
+        "Englisch: self-care"
+      ],
+      "definition": [
+        "Bewusster, liebevoller Umgang mit den eigenen Bedürfnissen, Kräften und Grenzen"
+      ],
+      "beschreibung": [
+        "Selbstfürsorge bedeutet, für sich selbst so gut zu sorgen, wie man es für einen nahestehenden Menschen tun würde.",
+        "Menschen, denen Selbstfürsorge wichtig ist, nehmen Erschöpfung ernst, sagen Nein, wenn es zu viel wird, und schaffen sich Zeit für Erholung und das, was ihnen guttut.",
+        "Selbstfürsorge ist kein Egoismus: Wer auf sich achtet, hat oft mehr Kraft, um für andere da zu sein.",
+        "Sie steht in Spannung zu Pflichtgefühl, Hilfsbereitschaft und Ehrgeiz, wenn diese dazu verleiten, die eigenen Grenzen zu übergehen."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
       ]
     },
     {
@@ -1673,6 +1963,27 @@
         "Menschen, denen Selbstverwirklichung wichtig ist, suchen nach Tätigkeiten, in denen sie ihre Talente einbringen und sich selbst wiedererkennen können.",
         "In der Bedürfnispyramide nach Abraham Maslow steht Selbstverwirklichung an der Spitze, als Bedürfnis, das erst nach der Erfüllung grundlegender Bedürfnisse in den Vordergrund tritt.",
         "Selbstverwirklichung kann mit Pflichten gegenüber anderen oder mit Sicherheitsbedürfnissen in Konflikt geraten."
+      ]
+    },
+    {
+      "name": "Sexualität",
+      "synonyme": [
+        "Erotik, Begehren, Lust, Leidenschaft, Sinnlichkeit, körperliche Liebe",
+        "Ähnlich: Intimität, Zärtlichkeit",
+        "Englisch: sexuality"
+      ],
+      "definition": [
+        "Bedeutung, die körperliches Begehren und gelebte Sexualität für das eigene Leben und Wohlbefinden haben"
+      ],
+      "beschreibung": [
+        "Sexualität als Wert bedeutet, das eigene Begehren als wichtigen Teil des Lebens anzuerkennen und ihm Raum zu geben.",
+        "Menschen, denen Sexualität wichtig ist, achten darauf, dass Lust, Zärtlichkeit und körperliche Nähe nicht hinter Pflichten und Gewohnheiten verschwinden.",
+        "Dazu gehört, über eigene Wünsche und Grenzen offen sprechen zu können und die Wünsche und Grenzen anderer zu respektieren.",
+        "Wie Sexualität gelebt wird, ist sehr individuell; als Wert steht sie für die Haltung, dass ein erfülltes Sexualleben zu einem guten Leben gehört."
+      ],
+      "kontexte": [
+        "privat",
+        "partnerschaft"
       ]
     },
     {
@@ -2281,6 +2592,25 @@
         "Zuversicht kann ausgelöst werden bzw. entstehen durch",
         "ein Umfeld, das optimistische oder positive Gedanken auslöst,eigene Erfahrungen (Erinnerungen), die zur Erkenntnis führen, dass auch schwierige Situationen gemeistert werden können,einem hohen Selbstvertrauen und Selbstwertgefühl.",
         "Ähnlich des Placeboeffektes kann Zuversicht dazu führen, dass die positiven Ereignisse durch bewusste oder unbewusste Entscheidungen und/oder Handlungen herbeigeführt werden."
+      ]
+    },
+    {
+      "name": "Zweisamkeit",
+      "synonyme": [
+        "Gemeinsamkeit, Paarzeit, ungestörte Zeit zu zweit, Nähe",
+        "Gegenteil: Einsamkeit, Trubel",
+        "Englisch: togetherness"
+      ],
+      "definition": [
+        "Wunsch nach ungestörter, gemeinsam verbrachter Zeit zu zweit"
+      ],
+      "beschreibung": [
+        "Zweisamkeit bedeutet, der Zeit zu zweit einen festen Platz einzuräumen, ohne Ablenkung durch andere Menschen oder Verpflichtungen.",
+        "Menschen, denen Zweisamkeit wichtig ist, schützen gemeinsame Abende, Wochenenden oder Rituale und vermissen sie, wenn der Alltag sie verdrängt.",
+        "Zweisamkeit steht in Spannung zu Freiheit, Geselligkeit und eigenen Interessen; wie viel davon eine Beziehung braucht, empfinden Menschen sehr unterschiedlich."
+      ],
+      "kontexte": [
+        "partnerschaft"
       ]
     }
   ]

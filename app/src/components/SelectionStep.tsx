@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchWerte } from "../api";
+import type { KontextId } from "../kontexte";
 import { HeroLogo } from "./Logo";
 import { shuffle } from "../utils";
 import { ValueChip } from "./ValueChip";
 
 interface SelectionStepProps {
+  kontext: KontextId;
   onNext: (selected: string[]) => void;
 }
 
-export function SelectionStep({ onNext }: SelectionStepProps) {
+export function SelectionStep({ kontext, onNext }: SelectionStepProps) {
   const [allValues, setAllValues] = useState<string[]>([]);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [error, setError] = useState<string | null>(null);
@@ -16,14 +18,14 @@ export function SelectionStep({ onNext }: SelectionStepProps) {
   const shuffledValues = useMemo(() => shuffle(allValues), [allValues]);
 
   useEffect(() => {
-    fetchWerte()
+    fetchWerte(kontext)
       .then(setAllValues)
       .catch(() =>
         setError(
           "Werte konnten nicht geladen werden. Bitte versuche es später erneut.",
         ),
       );
-  }, []);
+  }, [kontext]);
 
   const toggle = useCallback((value: string) => {
     setSelected((prev) => {

@@ -1,6 +1,6 @@
 /**
- * The area of life a test is about. The context only changes the prompts for scenarios
- * and summaries; the values are the same in every context.
+ * The area of life a test is about. The context changes the prompts for scenarios and
+ * summaries and, through `kontexte` in werte.json, which values are offered.
  */
 export type KontextId = "beruf" | "privat" | "fuehrung" | "ehrenamt" | "partnerschaft";
 

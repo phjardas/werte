@@ -173,7 +173,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   return (
     <>
       <SaveIndicator status={saveStatus} />
-      {step === "selection" && <SelectionStep onNext={handleSelectionNext} />}
+      {step === "selection" && <SelectionStep kontext={kontext} onNext={handleSelectionNext} />}
       {step === "filter" && (
         <FilterStep
           values={selectedValues}

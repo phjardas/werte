@@ -71,7 +71,7 @@ TypeScript with a hexagonal architecture:
 - **`src/domain/`** holds the pure domain services without AWS dependencies (`WerteService`, `SzenarioService`, `ZusammenfassungService`) and the ports (`AIService`, `Cache`, `TestRepository`).
 - **`src/infrastructure/`** holds the AWS implementations: `BedrockAIService`, `DynamoDBCache`, `DynamoDBTestRepository`.
 - **`src/lambdas/`** holds thin Lambda entry points. Each exports `handler` and a `createHandler(deps)` factory for testing.
-- **`src/werte.json`** contains 120 German values and is copied to `dist/` at build time.
+- **`src/werte.json`** contains 135 German values and is copied to `dist/` at build time. A value with `kontexte` is offered only in those contexts (e.g. Sexualität only in `privat` and `partnerschaft`), a value without it in every context. The other routes accept every known value regardless of context.
 
 Each Lambda handler instantiates its services at module scope (cold start) via the factory. Handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 
@@ -85,7 +85,7 @@ The value descriptions in `werte.json` are written without reference to work, so
 
 | Route | Lambda | Purpose |
 |-------|--------|---------|
-| `GET /werte` | `getWerte` | list of all values |
+| `GET /werte?kontext=` | `getWerte` | values offered in a context (default `beruf`, unknown context 400) |
 | `GET /szenarien/{wert1}/{wert2}?kontext=` | `getSzenario` | scenario for a value pair in a context (cached; default `beruf`, unknown context 400) |
 | `POST /szenarien/{wert1}/{wert2}/vote` | `voteSzenario` | up/down vote for a scenario version |
 | `POST /tests` | `createTest` | create a test session; body `{ kontext }` (default `beruf`, unknown context 400) |
@@ -109,7 +109,8 @@ Tests expire 12 months after creation (`AUFBEWAHRUNG_MONATE` in `src/domain/test
 
 1. Add the id to `KontextId` and an entry to `KONTEXTE` in `backend/src/domain/kontext.ts`.
 2. Add the same id with title, description and icon to `app/src/kontexte.ts`.
-3. Generate sample scenarios with `cd backend && AWS_PROFILE=phjardas pnpm beispielszenarien <kontext> 12` and check that they stay inside the context. The script calls Bedrock directly, without cache and without the daily budget.
+3. Check the `kontexte` lists in `backend/src/werte.json`: restricted values are not offered in a new context unless it is added there.
+4. Generate sample scenarios with `cd backend && AWS_PROFILE=phjardas pnpm beispielszenarien <kontext> 12` and check that they stay inside the context. The script calls Bedrock directly, without cache and without the daily budget.
 
 #### Bedrock costs
 

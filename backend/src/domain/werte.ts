@@ -1,8 +1,12 @@
+import type { KontextId } from "./kontext.js";
+
 export interface Wert {
   name: string;
   synonyme: string[];
   definition: string[];
   beschreibung: string[];
+  /** The contexts this value is offered in. Missing means every context. */
+  kontexte?: string[];
 }
 
 /** The comparison runs on at most this many values, see the filter step in the app. */
@@ -19,8 +23,9 @@ export class WerteService {
     return this.werte;
   }
 
-  getNames(): string[] {
-    return this.werte.map((w) => w.name);
+  /** Names of the values offered in a context, or of all values without one. */
+  getNames(kontext?: KontextId): string[] {
+    return this.werte.filter((w) => !kontext || !w.kontexte || w.kontexte.includes(kontext)).map((w) => w.name);
   }
 
   get(name: string): Wert | undefined {

@@ -740,6 +740,12 @@ body {
   text-align: center;
   font-size: 0.85rem;
   color: var(--text-muted);
+  line-height: 1.8;
+}
+.site-footer-version {
+  font-size: 0.75rem;
+  font-family: ui-monospace, monospace;
+  opacity: 0.7;
 }
 
 .site-footer a,

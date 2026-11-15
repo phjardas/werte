@@ -2,7 +2,7 @@ import { execSync } from "node:child_process";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
-const gitSha = execSync("git rev-parse --short HEAD").toString().trim();
+const gitSha = execSync("git rev-parse --short=7 HEAD").toString().trim();
 
 // The CSP lives in the HTML because the free CloudFront plan does not allow custom response
 // headers policies. Build only: in dev, `connect-src 'self'` would block calls to the preview API.

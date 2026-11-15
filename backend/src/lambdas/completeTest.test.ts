@@ -54,4 +54,15 @@ describe("completeTest handler", () => {
     expect(res.statusCode).toBe(200);
     expect(startPostTest).toHaveBeenCalled();
   });
+
+  it("starts the summary in the test's context", async () => {
+    complete.mockResolvedValue({ found: true, active: true, session: { kontext: "privat" } });
+    await call([{ name: "Mut", score: 1 }]);
+    expect(startPostTest).toHaveBeenCalledWith(expect.objectContaining({ kontext: "privat" }));
+  });
+
+  it("starts legacy tests as beruf", async () => {
+    await call([{ name: "Mut", score: 1 }]);
+    expect(startPostTest).toHaveBeenCalledWith(expect.objectContaining({ kontext: "beruf" }));
+  });
 });

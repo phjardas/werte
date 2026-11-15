@@ -1,5 +1,6 @@
 import { SFNClient, StartExecutionCommand } from "@aws-sdk/client-sfn";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
+import { STANDARD_KONTEXT } from "../domain/kontext.js";
 import type { StatistikRepository } from "../domain/statistik.js";
 import type { TestRepository, TestResult } from "../domain/test.js";
 import { WerteService } from "../domain/werte.js";
@@ -49,6 +50,7 @@ export function createHandler(
     await startPostTest({
       testId,
       werte: results.slice(0, 5).map((r) => r.name),
+      kontext: result.session?.kontext ?? STANDARD_KONTEXT,
     });
 
     return response(200, { ok: true });

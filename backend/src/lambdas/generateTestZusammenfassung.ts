@@ -1,3 +1,4 @@
+import { parseKontext, STANDARD_KONTEXT } from "../domain/kontext.js";
 import type { TestRepository } from "../domain/test.js";
 import { WerteService } from "../domain/werte.js";
 import type { ZusammenfassungService } from "../domain/zusammenfassung.js";
@@ -11,6 +12,8 @@ import werteData from "../werte.json" with { type: "json" };
 interface StepFunctionEvent {
   testId: string;
   werte: string[];
+  /** Missing in executions started before contexts existed. */
+  kontext?: string;
 }
 
 export function createHandler(
@@ -19,8 +22,9 @@ export function createHandler(
 ) {
   return async function handler(event: StepFunctionEvent) {
     const { testId, werte } = event;
+    const kontext = parseKontext(event.kontext) ?? STANDARD_KONTEXT;
 
-    const result = await zusammenfassungService.getOrCreate(werte);
+    const result = await zusammenfassungService.getOrCreate(werte, kontext);
 
     if (!result) {
       throw new Error(`Failed to generate Zusammenfassung for testId=${testId}`);

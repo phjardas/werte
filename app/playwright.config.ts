@@ -15,7 +15,9 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      // CI uses the Google Chrome preinstalled on the GitHub runner, which saves
+      // downloading a browser on every run.
+      use: { ...devices["Desktop Chrome"], channel: process.env.CI ? "chrome" : undefined },
     },
   ],
 });

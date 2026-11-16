@@ -101,12 +101,8 @@ jobs:
           echo "invalidation_id=$INVALIDATION_ID" >> "$GITHUB_OUTPUT"
 
       # The end-to-end test creates tests and scenarios, so it runs only against
-      # the preview environment to keep the production data clean.
-      - name: Install Playwright browser
-        if: github.event_name != 'release'
-        working-directory: app
-        run: pnpm exec playwright install --with-deps chromium
-
+      # the preview environment to keep the production data clean. It uses the
+      # Google Chrome preinstalled on the runner (see app/playwright.config.ts).
       - name: Wait for CloudFront invalidation
         if: github.event_name != 'release'
         run: aws cloudfront wait invalidation-completed --distribution-id "${{ steps.invalidate.outputs.dist_id }}" --id "${{ steps.invalidate.outputs.invalidation_id }}"

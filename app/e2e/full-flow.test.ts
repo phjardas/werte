@@ -13,10 +13,11 @@ const FIXED_VALUES = [
 ];
 
 test("full integration flow", async ({ page }) => {
-  // ── 1. Start page creates a test session and redirects ────────────────────
+  // ── 1. Picking a context creates a test session and redirects ────────────
 
   await page.goto("/tests");
-  await page.waitForURL(/\/tests\//, { timeout: 15_000 });
+  await page.getByRole("button", { name: /^Berufsleben/ }).click();
+  await page.waitForURL(/\/tests\/[^/]+$/, { timeout: 15_000 });
 
   // ── 3. Selection pages: select the fixed values wherever they appear ──────
 

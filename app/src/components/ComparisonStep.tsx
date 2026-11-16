@@ -1,17 +1,19 @@
+import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { fetchSzenario, voteSzenario } from "../api";
 import type { UseTournamentResult } from "../hooks/useTournament";
 import type { KontextId } from "../kontexte";
 import type { Contestant, Szenario } from "../types";
-import { ProgressBar } from "./ProgressBar";
 
 interface ComparisonStepProps {
+  /** The progress bar, shown below the heading. */
+  fortschritt: ReactNode;
   kontext: KontextId;
   tournament: UseTournamentResult;
 }
 
-export function ComparisonStep({ kontext, tournament }: ComparisonStepProps) {
-  const { currentMatch, progress, vote } = tournament;
+export function ComparisonStep({ kontext, tournament, fortschritt }: ComparisonStepProps) {
+  const { currentMatch, vote } = tournament;
   const [szenario, setSzenario] = useState<Szenario | null>(null);
   const [loading, setLoading] = useState(false);
   const [voted, setVoted] = useState<"up" | "down" | null>(null);
@@ -46,7 +48,7 @@ export function ComparisonStep({ kontext, tournament }: ComparisonStepProps) {
   return (
     <div className="screen active step-comparison">
       <h1>Wertevergleich</h1>
-      <ProgressBar progress={progress} />
+      {fortschritt}
       <div className="comparison-prompt">
         {loading ? (
           <>

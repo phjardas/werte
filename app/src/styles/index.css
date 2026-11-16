@@ -101,16 +101,22 @@ body {
   flex-direction: column;
 }
 
-/* ── Hero Logo ── */
-.hero-logo {
+/* ── App bar ── */
+.app-bar {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.app-bar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   color: var(--primary);
+  text-decoration: none;
 }
 
 /* ── Header ── */
@@ -267,10 +273,16 @@ body {
   margin-top: 0.25rem;
 }
 
-.selection-progress {
-  margin: 0 auto;
+.test-progress {
+  margin: 0 auto 1.5rem;
   padding: 0 1.5rem;
   box-sizing: border-box;
+}
+.step-filter .test-progress {
+  margin-top: 1.5rem;
+}
+.test-progress .progress-info {
+  min-height: 1lh;
 }
 
 .bottom-bar-buttons {
@@ -936,10 +948,6 @@ body {
   }
   .header h1 {
     font-size: 1.5rem;
-  }
-  .hero-logo img {
-    width: 64px;
-    height: 64px;
   }
 }
 

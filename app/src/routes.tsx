@@ -8,6 +8,7 @@ import { DatenschutzPage } from "./components/DatenschutzPage";
 import { Footer } from "./components/Footer";
 import { FreePage } from "./components/FreePage";
 import { ImpressumPage } from "./components/ImpressumPage";
+import { AppBar } from "./components/Logo";
 import { LandingPage } from "./components/LandingPage";
 import { StatistikPage } from "./components/StatistikPage";
 import { TestSessionPage } from "./components/TestSessionPage";
@@ -21,6 +22,7 @@ declare module "@tanstack/react-router" {
 const rootRoute = createRootRoute({
   component: () => (
     <>
+      <AppBar />
       <Outlet />
       <Footer />
     </>

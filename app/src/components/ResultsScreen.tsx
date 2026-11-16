@@ -4,7 +4,6 @@ import { sendEmail, type SendEmailResult } from "../api";
 import { useZusammenfassung } from "../hooks/useZusammenfassung";
 import type { Contestant } from "../types";
 import { ELTERN_KOMPASS_URL, kontextInfo, type KontextId } from "../kontexte";
-import { HeroLogo } from "./Logo";
 
 function highlightValues(text: string, values: string[]): ReactNode {
   if (values.length === 0) return text;
@@ -115,7 +114,6 @@ export function ResultsScreen({
   return (
     <>
       <div className="results-header">
-        <HeroLogo />
         <h1>Deine Top 5 Werte</h1>
         <p>Das sind die Werte, die dir am wichtigsten sind.</p>
         <p className="results-kontext">Lebensbereich: {kontextInfo(kontext).titel}</p>

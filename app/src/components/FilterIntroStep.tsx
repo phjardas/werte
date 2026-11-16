@@ -1,20 +1,22 @@
+import type { ReactNode } from "react";
 import { kontextInfo, type KontextId } from "../kontexte";
-import { HeroLogo } from "./Logo";
 
 interface FilterIntroStepProps {
+  /** The progress bar, shown below the heading. */
+  fortschritt: ReactNode;
   kontext: KontextId;
   valueCount: number;
   onBack: () => void;
   onNext: () => void;
 }
 
-export function FilterIntroStep({ kontext, valueCount, onBack, onNext }: FilterIntroStepProps) {
+export function FilterIntroStep({ kontext, valueCount, onBack, onNext, fortschritt }: FilterIntroStepProps) {
   return (
     <div className="screen active step-intro">
       <header className="header">
-        <HeroLogo />
         <h1>Jetzt wird es eng</h1>
       </header>
+      {fortschritt}
       <div className="intro-content">
         <p>
           Du hast <strong>{valueCount} Werte</strong> gesammelt. Bisher ging es darum, nichts zu übersehen. Ab jetzt

@@ -1,23 +1,23 @@
-import type { TournamentProgress } from "../hooks/useTournament";
+import type { ReactNode } from "react";
 
 interface ProgressBarProps {
-  progress: TournamentProgress;
+  percent: number;
+  children?: ReactNode;
 }
 
-export function ProgressBar({ progress }: ProgressBarProps) {
-  const percent =
-    progress.totalMatches > 0
-      ? (progress.matchCount / progress.totalMatches) * 100
-      : 0;
-
+export function ProgressBar({ percent, children }: ProgressBarProps) {
   return (
-    <div className="progress-bar-container">
-      <div className="progress-info">
-        <span>
-          Vergleich {progress.matchCount} von {progress.totalMatches}
-        </span>
-      </div>
-      <div className="progress-track">
+    <div className="progress-bar-container test-progress">
+      {/* Always rendered so the bar does not jump between steps with and without a label. */}
+      <div className="progress-info">{children}</div>
+      <div
+        className="progress-track"
+        role="progressbar"
+        aria-label="Fortschritt"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(percent)}
+      >
         <div className="progress-fill" style={{ width: `${percent}%` }} />
       </div>
     </div>

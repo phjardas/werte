@@ -1,8 +1,10 @@
+import type { ReactNode } from "react";
 import type { WertInfo } from "../types";
-import { HeroLogo } from "./Logo";
 import { ValueChip } from "./ValueChip";
 
 interface SuggestionStepProps {
+  /** The progress bar, shown below the heading. */
+  fortschritt: ReactNode;
   vorschlaege: WertInfo[];
   selected: string[];
   onToggle: (value: string) => void;
@@ -10,17 +12,17 @@ interface SuggestionStepProps {
   onNext: () => void;
 }
 
-export function SuggestionStep({ vorschlaege, selected, onToggle, onBack, onNext }: SuggestionStepProps) {
+export function SuggestionStep({ vorschlaege, selected, onToggle, onBack, onNext, fortschritt }: SuggestionStepProps) {
   return (
     <div className="screen active">
       <header className="header">
-        <HeroLogo />
         <h1>Noch etwas vergessen?</h1>
         <p>
           Diese Werte passen gut zu deiner bisherigen Auswahl. Vielleicht ist beim ersten Durchgehen einer
           untergegangen, der dir auch wichtig ist.
         </p>
       </header>
+      {fortschritt}
       <div className="values-grid">
         {vorschlaege.map((w) => (
           <ValueChip

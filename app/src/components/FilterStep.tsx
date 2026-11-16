@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useCallback, useMemo, useState } from "react";
 import { MAX_FINALE_WERTE } from "../auswahl";
 import type { WertInfo } from "../types";
@@ -5,13 +6,15 @@ import { shuffle } from "../utils";
 import { ValueChip } from "./ValueChip";
 
 interface FilterStepProps {
+  /** The progress bar, shown below the heading. */
+  fortschritt: ReactNode;
   values: string[];
   werte: WertInfo[];
   onNext: (finalSelected: string[]) => void;
   onBack: () => void;
 }
 
-export function FilterStep({ values, werte, onNext, onBack }: FilterStepProps) {
+export function FilterStep({ values, werte, onNext, onBack, fortschritt }: FilterStepProps) {
   const [selected, setSelected] = useState<string[]>([]);
   const shuffledValues = useMemo(() => shuffle(values), [values]);
   const beschreibung = useCallback((name: string) => werte.find((w) => w.name === name)?.kurzbeschreibung, [werte]);
@@ -32,6 +35,7 @@ export function FilterStep({ values, werte, onNext, onBack }: FilterStepProps) {
           Die Reihenfolge spielt dabei keine Rolle, die findest du im nächsten Schritt heraus.
         </p>
       </header>
+      {fortschritt}
       <ol className="filter-slots" aria-label="Deine Auswahl">
         {Array.from({ length: MAX_FINALE_WERTE }, (_, i) => {
           const wert = selected[i];

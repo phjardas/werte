@@ -2,7 +2,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { createTest } from "../api";
 import { ELTERN_KOMPASS_URL, KONTEXTE, type KontextId } from "../kontexte";
-import { HeroLogo } from "./Logo";
 
 export function FreePage() {
   const navigate = useNavigate();
@@ -30,7 +29,6 @@ export function FreePage() {
     return (
       <div className="screen active step-pending">
         <div className="pending-container">
-          <HeroLogo />
           <span className="spinner spinner-lg" />
           <p className="pending-message">Dein persönlicher Test wird vorbereitet…</p>
         </div>
@@ -41,7 +39,6 @@ export function FreePage() {
   return (
     <div className="screen active step-intro">
       <header className="header">
-        <HeroLogo />
         <h1>Worum soll es gehen?</h1>
         <p>Die Szenarien und deine Auswertung passen sich an.</p>
       </header>

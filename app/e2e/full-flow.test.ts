@@ -25,7 +25,8 @@ test("full integration flow", async ({ page }) => {
   await expect(page.locator(".value-chip").first()).toBeVisible();
 
   const remaining = new Set(FIXED_VALUES);
-  while (await page.locator(".selection-progress").count()) {
+  const seitenInfo = page.locator(".test-progress span").filter({ hasText: /^Seite \d+ von \d+$/ });
+  while (await seitenInfo.count()) {
     for (const value of [...remaining]) {
       const chip = page.getByRole("button", { name: value, exact: true });
       if (await chip.count()) {
@@ -33,7 +34,7 @@ test("full integration flow", async ({ page }) => {
         remaining.delete(value);
       }
     }
-    const seite = await page.locator(".selection-progress span").first().innerText();
+    const seite = await seitenInfo.innerText();
     await page.getByRole("button", { name: "Weiter" }).click();
     await expect(page.getByText(seite, { exact: true })).toHaveCount(0);
   }

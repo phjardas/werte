@@ -2,6 +2,7 @@ import { useParams } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { completeTest, fetchWerte } from "../api";
 import { MAX_FINALE_WERTE, ordne, seiten, vorschlaege } from "../auswahl";
+import { fortschritt } from "../fortschritt";
 import { useStateSync } from "../hooks/useStateSync";
 import { useTest } from "../hooks/useTest";
 import { useTournament } from "../hooks/useTournament";
@@ -13,6 +14,7 @@ import { ComparisonStep } from "./ComparisonStep";
 import { ErrorScreen } from "./ErrorScreen";
 import { FilterIntroStep } from "./FilterIntroStep";
 import { FilterStep } from "./FilterStep";
+import { ProgressBar } from "./ProgressBar";
 import { ResultsScreen } from "./ResultsScreen";
 import { SelectionStep } from "./SelectionStep";
 import { SuggestionStep } from "./SuggestionStep";
@@ -229,15 +231,33 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
 
   const tournamentWithWrappedVote = { ...tournament, vote: handleVote };
   const currentPage = Math.min(page, lastPage);
+  const { matchCount, totalMatches } = tournament.progress;
+  const fortschrittsbalken = (
+    <ProgressBar percent={fortschritt(step, currentPage, pages.length, matchCount, totalMatches)}>
+      {step === "selection" && (
+        <>
+          <span>
+            Seite {currentPage + 1} von {pages.length}
+          </span>
+          <span>{selectedValues.length} ausgewählt</span>
+        </>
+      )}
+      {step === "comparison" && totalMatches > 0 && (
+        <span>
+          Szenario {matchCount} von {totalMatches}
+        </span>
+      )}
+    </ProgressBar>
+  );
 
   return (
     <>
       <SaveIndicator status={saveStatus} />
       {step === "selection" && (
         <SelectionStep
+          fortschritt={fortschrittsbalken}
           seite={(pages[currentPage] ?? []).map((n) => werteMap.get(n)!)}
           page={currentPage}
-          pageCount={pages.length}
           selected={selectedValues}
           canContinue={currentPage < lastPage || hasSuggestions || selectedValues.length >= 5}
           onToggle={handleToggle}
@@ -247,6 +267,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
       )}
       {step === "suggestions" && (
         <SuggestionStep
+          fortschritt={fortschrittsbalken}
           vorschlaege={suggestions.map((n) => werteMap.get(n)!)}
           selected={selectedValues}
           onToggle={handleToggle}
@@ -256,6 +277,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
       )}
       {step === "filter-intro" && (
         <FilterIntroStep
+          fortschritt={fortschrittsbalken}
           kontext={kontext}
           valueCount={selectedValues.length}
           onBack={handleBackToSelection}
@@ -264,6 +286,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
       )}
       {step === "filter" && (
         <FilterStep
+          fortschritt={fortschrittsbalken}
           values={selectedValues}
           werte={werte ?? []}
           onNext={handleFilterNext}
@@ -272,13 +295,14 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
       )}
       {step === "comparison-intro" && (
         <ComparisonIntroStep
+          fortschritt={fortschrittsbalken}
           kontext={kontext}
           valueCount={finalValues.length}
           onNext={handleStartComparison}
         />
       )}
       {step === "comparison" && (
-        <ComparisonStep kontext={kontext} tournament={tournamentWithWrappedVote} />
+        <ComparisonStep fortschritt={fortschrittsbalken} kontext={kontext} tournament={tournamentWithWrappedVote} />
       )}
     </>
   );

@@ -1,7 +1,9 @@
+import type { ReactNode } from "react";
 import { kontextInfo, type KontextId } from "../kontexte";
-import { HeroLogo } from "./Logo";
 
 interface ComparisonIntroStepProps {
+  /** The progress bar, shown below the heading. */
+  fortschritt: ReactNode;
   kontext: KontextId;
   valueCount: number;
   onNext: () => void;
@@ -11,13 +13,14 @@ export function ComparisonIntroStep({
   kontext,
   valueCount,
   onNext,
+  fortschritt,
 }: ComparisonIntroStepProps) {
   return (
     <div className="screen active step-intro">
       <header className="header">
-        <HeroLogo />
         <h1>Jetzt wird's spannend!</h1>
       </header>
+      {fortschritt}
       <div className="intro-content">
         <p>
           Du hast <strong>{valueCount} Werte</strong> ausgewählt. Jetzt

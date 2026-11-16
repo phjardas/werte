@@ -3,7 +3,6 @@ import { type CSSProperties, useEffect, useState } from "react";
 import { fetchStatistik } from "../api";
 import { KONTEXTE, type KontextId } from "../kontexte";
 import type { Statistik } from "../types";
-import { HeroLogo } from "./Logo";
 
 const RANGLISTE_LAENGE = 10;
 const MEDAILLEN = ["🥇", "🥈", "🥉"];
@@ -74,7 +73,6 @@ export function StatistikPage() {
   return (
     <div className="screen active step-results">
       <div className="results-header">
-        <HeroLogo />
         <h1>Statistik</h1>
         {statistik && (
           <p className="statistik-tests">

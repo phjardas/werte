@@ -1,11 +1,12 @@
+import type { ReactNode } from "react";
 import type { WertInfo } from "../types";
-import { HeroLogo } from "./Logo";
 import { ValueChip } from "./ValueChip";
 
 interface SelectionStepProps {
+  /** The progress bar, shown below the heading. */
+  fortschritt: ReactNode;
   seite: WertInfo[];
   page: number;
-  pageCount: number;
   selected: string[];
   /** False on the last page while too few values are selected and there is nothing to suggest. */
   canContinue: boolean;
@@ -17,36 +18,23 @@ interface SelectionStepProps {
 export function SelectionStep({
   seite,
   page,
-  pageCount,
   selected,
   canContinue,
   onToggle,
   onBack,
   onNext,
+  fortschritt,
 }: SelectionStepProps) {
-  const percent = ((page + 1) / pageCount) * 100;
-
   return (
     <div className="screen active">
       <header className="header">
-        <HeroLogo />
         <h1>Entdecke deine Werte</h1>
         <p>
           Wähle die Werte aus, die dich ansprechen. Denk nicht lange nach, entscheide einfach aus dem Bauch heraus. Es
           gibt keine Obergrenze. Bei einem unbekannten Begriff hilft dir das kleine i.
         </p>
       </header>
-      <div className="progress-bar-container selection-progress">
-        <div className="progress-info">
-          <span>
-            Seite {page + 1} von {pageCount}
-          </span>
-          <span>{selected.length} ausgewählt</span>
-        </div>
-        <div className="progress-track">
-          <div className="progress-fill" style={{ width: `${percent}%` }} />
-        </div>
-      </div>
+      {fortschritt}
       <div className="values-grid">
         {seite.map((w) => (
           <ValueChip

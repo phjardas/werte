@@ -1,11 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { HeroLogo } from "./Logo";
 
 export function ImpressumPage() {
   return (
     <div className="screen active step-intro">
       <header className="header">
-        <HeroLogo />
         <h1>Impressum</h1>
       </header>
       <div className="intro-content">

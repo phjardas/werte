@@ -92,7 +92,38 @@ jobs:
           aws s3 sync ../app/dist/ s3://$BUCKET/ --delete
 
       - name: Invalidate CloudFront cache
+        id: invalidate
         working-directory: infra
         run: |
           DIST_ID=$(tofu output -raw cloudfront_distribution_id)
-          aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
+          INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*" --query Invalidation.Id --output text)
+          echo "dist_id=$DIST_ID" >> "$GITHUB_OUTPUT"
+          echo "invalidation_id=$INVALIDATION_ID" >> "$GITHUB_OUTPUT"
+
+      # The end-to-end test creates tests and scenarios, so it runs only against
+      # the preview environment to keep the production data clean.
+      - name: Install Playwright browser
+        if: github.event_name != 'release'
+        working-directory: app
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Wait for CloudFront invalidation
+        if: github.event_name != 'release'
+        run: aws cloudfront wait invalidation-completed --distribution-id "${{ steps.invalidate.outputs.dist_id }}" --id "${{ steps.invalidate.outputs.invalidation_id }}"
+
+      - name: Run end-to-end test
+        if: github.event_name != 'release'
+        working-directory: app
+        run: pnpm test:e2e
+        env:
+          E2E_BASE_URL: https://${{ vars.DOMAIN }}
+
+      - name: Upload Playwright report
+        if: failure() && github.event_name != 'release'
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            app/playwright-report/
+            app/test-results/
+          retention-days: 14

@@ -154,4 +154,4 @@ New routes in `app/src/routes.tsx` need no CloudFront changes, because the 403 e
 
 ### CI/CD (`.github/workflows/deploy.yml`)
 
-A single `deploy` job runs on every push to `main` (preview environment) and on every published release (production). It tests and builds the backend, tests and builds the React app, runs `tofu apply`, syncs `app/dist/` to the S3 bucket and invalidates CloudFront. The Playwright test does not run in CI.
+A single `deploy` job runs on every push to `main` (preview environment) and on every published release (production). It tests and builds the backend, tests and builds the React app, runs `tofu apply`, syncs `app/dist/` to the S3 bucket and invalidates CloudFront. On pushes to `main` it then waits for the invalidation and runs the Playwright test against the preview environment. Releases skip it, so the test leaves no data in production.

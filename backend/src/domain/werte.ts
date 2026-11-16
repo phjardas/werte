@@ -1,5 +1,9 @@
 import type { KontextId } from "./kontext.js";
 
+/** The colour of a value in the four-colour model (red: results, yellow: inspiration, green: relationships, blue: accuracy). */
+export type Farbe = "rot" | "gelb" | "gruen" | "blau";
+export const FARBEN: readonly Farbe[] = ["rot", "gelb", "gruen", "blau"];
+
 export interface Wert {
   name: string;
   synonyme: string[];
@@ -11,6 +15,7 @@ export interface Wert {
   kurzbeschreibung?: string;
   /** Related values, used by the app to suggest values that fit the selection. */
   verwandt?: string[];
+  farbe?: string;
 }
 
 /** What the app gets for a value offered in a context. */
@@ -18,6 +23,7 @@ export interface WertAngebot {
   name: string;
   kurzbeschreibung: string;
   verwandt: string[];
+  farbe: Farbe;
 }
 
 /** The comparison runs on at most this many values, see the filter step in the app. */
@@ -48,6 +54,7 @@ export class WerteService {
         name: w.name,
         kurzbeschreibung: w.kurzbeschreibung ?? "",
         verwandt: (w.verwandt ?? []).filter((v) => namen.has(v)),
+        farbe: w.farbe as Farbe,
       }));
   }
 

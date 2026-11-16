@@ -1,3 +1,4 @@
+import type { Farbe } from "./farben";
 import type { KontextId } from "./kontexte";
 
 export interface Contestant {
@@ -12,6 +13,7 @@ export interface WertInfo {
   name: string;
   kurzbeschreibung: string;
   verwandt: string[];
+  farbe: Farbe;
 }
 
 export interface Szenario {

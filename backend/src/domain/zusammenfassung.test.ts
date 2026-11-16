@@ -6,8 +6,8 @@ import { ZusammenfassungService, zusammenfassungSystemPrompt } from "./zusammenf
 import { WerteService } from "./werte.js";
 
 const TEST_WERTE = [
-  { name: "Aktivität", synonyme: [], definition: [], beschreibung: ["Aktivität."] },
-  { name: "Ruhe", synonyme: [], definition: [], beschreibung: ["Ruhe."] },
+  { name: "Aktivität", synonyme: [], definition: [], beschreibung: ["Aktivität."], farbe: "rot" },
+  { name: "Ruhe", synonyme: [], definition: [], beschreibung: ["Ruhe."], farbe: "gruen" },
   { name: "Kreativität", synonyme: [], definition: [], beschreibung: ["Kreativität."] },
   { name: "Ordnung", synonyme: [], definition: [], beschreibung: ["Ordnung."] },
   { name: "Freiheit", synonyme: [], definition: [], beschreibung: ["Freiheit."] },
@@ -71,6 +71,17 @@ describe("ZusammenfassungService", () => {
 
   it("addresses an adult in every context", () => {
     for (const id of KONTEXT_IDS) expect(zusammenfassungSystemPrompt(id)).toContain("Die Person ist erwachsen.");
+  });
+
+  it("tells the model the colour of each value", async () => {
+    vi.mocked(mockCache.get).mockResolvedValue(null);
+    vi.mocked(mockAI.invokeText).mockResolvedValue({ result: "text", kosten: 0 });
+
+    await service.getOrCreate(FIVE_WERTE, "beruf");
+    const userPrompt = vi.mocked(mockAI.invokeText).mock.calls[0][1];
+    expect(userPrompt).toContain("Farbe im Vier-Farben-Modell: Rot");
+    expect(userPrompt).toContain("Farbe im Vier-Farben-Modell: Grün");
+    expect(zusammenfassungSystemPrompt("beruf")).toContain("Vier-Farben-Modell");
   });
 
   it("asks for the summary in the context's area of life", async () => {

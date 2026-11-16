@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import werteData from "../werte.json" with { type: "json" };
 import { KONTEXT_IDS, type KontextId } from "./kontext.js";
-import { MAX_FINALE_WERTE, WerteService } from "./werte.js";
+import { FARBEN, type Farbe, MAX_FINALE_WERTE, WerteService } from "./werte.js";
 
 // Word starts only, so that "Zusammenarbeit" or "Verarbeitung" do not count.
 const arbeitsbezug = /\b(arbeit|beruf|kolleg|vorgesetzt|kundschaft|kunde|job\b|büro|mitarbeiter|führungskr)/i;
@@ -44,6 +44,11 @@ describe("werte.json", () => {
         );
       })
       .map((w) => w.name);
+    expect(fehlerhaft).toEqual([]);
+  });
+
+  it("gives every value one of the four colours", () => {
+    const fehlerhaft = werteData.werte.filter((w) => !FARBEN.includes(w.farbe as Farbe)).map((w) => w.name);
     expect(fehlerhaft).toEqual([]);
   });
 });

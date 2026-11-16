@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useState, type FormEvent, type ReactNode } from "react";
-import { sendEmail, type SendEmailResult } from "../api";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { fetchWerte, sendEmail, type SendEmailResult } from "../api";
+import { FARBEN, farbVerteilung } from "../farben";
 import { useZusammenfassung } from "../hooks/useZusammenfassung";
-import type { Contestant } from "../types";
+import type { Contestant, WertInfo } from "../types";
 import { ELTERN_KOMPASS_URL, kontextInfo, type KontextId } from "../kontexte";
 
 function highlightValues(text: string, values: string[]): ReactNode {
@@ -90,6 +91,68 @@ function EmailForm({
           : "Wir verwenden deine Adresse nur für diese eine E-Mail und speichern sie nicht. Pro Test ist ein Versand möglich."}
       </p>
     </form>
+  );
+}
+
+function FarbAuswertung({
+  kontext,
+  werte,
+}: {
+  kontext: KontextId;
+  werte: string[];
+}) {
+  const [angebot, setAngebot] = useState<WertInfo[] | null>(null);
+  useEffect(() => {
+    // ponytail: no error state, the colours are an extra and simply stay hidden if the values fail to load
+    fetchWerte(kontext).then(setAngebot, () => {});
+  }, [kontext]);
+  if (!angebot) return null;
+
+  const verteilung = farbVerteilung(werte, angebot).filter((a) => a.anteil > 0);
+  if (verteilung.length === 0) return null;
+
+  return (
+    <section className="farben">
+      <h2>Deine Werte in vier Farben</h2>
+      <p className="farben-intro">
+        Das Vier-Farben-Modell ordnet Werte vier Grundmotiven zu. So verteilen
+        sich deine {werte.length} wichtigsten Werte:
+      </p>
+      <div className="farben-balken" aria-hidden="true">
+        {verteilung.map((a) => (
+          <div
+            key={a.farbe}
+            className={`farbe-${a.farbe}`}
+            style={{ flexGrow: a.anteil }}
+          />
+        ))}
+      </div>
+      <ul className="farben-liste">
+        {verteilung.map((a) => (
+          <li key={a.farbe}>
+            <span className={`farben-punkt farbe-${a.farbe}`} />
+            <div>
+              <strong>
+                {FARBEN[a.farbe].titel} {a.anteil} %
+              </strong>
+              <p>{FARBEN[a.farbe].beschreibung}</p>
+              <p className="farben-werte">{a.werte.join(", ")}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p className="farben-quelle">
+        Das Modell geht auf das DISG-Modell zurück und ist eine grobe
+        Orientierung, keine Persönlichkeitsdiagnose.{" "}
+        <a
+          href="https://de.wikipedia.org/wiki/DISG"
+          target="_blank"
+          rel="noopener"
+        >
+          Mehr dazu bei Wikipedia
+        </a>
+      </p>
+    </section>
   );
 }
 
@@ -181,6 +244,7 @@ export function ResultsScreen({
               </div>
             </div>
           </div>
+          <FarbAuswertung kontext={kontext} werte={top5.map((c) => c.name)} />
           {testId && zusammenfassung ? (
             <EmailForm testId={testId} emailGesendet={emailGesendet} />
           ) : null}

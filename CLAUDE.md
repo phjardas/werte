@@ -66,6 +66,7 @@ German values-discovery app. Users choose a context (area of life: Berufsleben o
   - Every value chip has an ⓘ button next to the value that opens the short description in a native `popover`.
 - The test state is saved to the backend after every change (`useStateSync`, `PUT /tests/{testId}/state`), so a test can be resumed via its URL.
 - Tournament logic lives in `app/src/hooks/useTournament.ts`: Swiss system with Buchholz tiebreaking, `ceil(log2(n))` rounds.
+- `ResultsScreen` shows the top 5 values in the four-colour model (`app/src/farben.ts`) with a link to the Wikipedia article on DISG: each value counts by its rank (5 for place 1 down to 1 for place 5) and inversely to how many offered values share its colour, so the large green group does not dominate every result. The summary prompt receives the colour of each top 5 value and asks for a short paragraph about it.
 - `useZusammenfassung` polls `GET /tests/{testId}` until the summary is ready. `ResultsScreen` highlights the top 5 values in the summary text (whole words, case-sensitive).
 - The API base URL in `app/src/api.ts` defaults to the CloudFront `/api` path and can be set via `VITE_API_BASE_URL`.
 
@@ -76,7 +77,7 @@ TypeScript with a hexagonal architecture:
 - **`src/domain/`** holds the pure domain services without AWS dependencies (`WerteService`, `SzenarioService`, `ZusammenfassungService`) and the ports (`AIService`, `Cache`, `TestRepository`).
 - **`src/infrastructure/`** holds the AWS implementations: `BedrockAIService`, `DynamoDBCache`, `DynamoDBTestRepository`.
 - **`src/lambdas/`** holds thin Lambda entry points. Each exports `handler` and a `createHandler(deps)` factory for testing.
-- **`src/werte.json`** contains 135 German values and is copied to `dist/` at build time. Every value has a `kurzbeschreibung` shown in the app and four to six `verwandt` values used for suggestions, both generated with `AWS_PROFILE=phjardas pnpm werteinfos [Wert ...]` and reviewed by hand; `werte.test.ts` checks them. Run the script for new or renamed values. A value with `kontexte` is offered only in those contexts (e.g. Sexualität only in `privat` and `partnerschaft`), a value without it in every context. The other routes accept every known value regardless of context.
+- **`src/werte.json`** contains 135 German values and is copied to `dist/` at build time. Every value has a `kurzbeschreibung` shown in the app and four to six `verwandt` values used for suggestions, both generated with `AWS_PROFILE=phjardas pnpm werteinfos [Wert ...]` and reviewed by hand; `werte.test.ts` checks them. Run the script for new or renamed values. Every value also has a `farbe` (`rot`, `gelb`, `gruen` or `blau`) for the four-colour evaluation, assigned by hand. A value with `kontexte` is offered only in those contexts (e.g. Sexualität only in `privat` and `partnerschaft`), a value without it in every context. The other routes accept every known value regardless of context.
 
 Each Lambda handler instantiates its services at module scope (cold start) via the factory. Handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 

@@ -2,7 +2,9 @@ import { createHash } from "node:crypto";
 import type { AIService } from "./ai.js";
 import type { Cache } from "./cache.js";
 import { KONTEXTE, type KontextId, STANDARD_KONTEXT } from "./kontext.js";
-import type { Wert, WerteService } from "./werte.js";
+import type { Farbe, Wert, WerteService } from "./werte.js";
+
+const FARBNAMEN: Record<Farbe, string> = { rot: "Rot", gelb: "Gelb", gruen: "Grün", blau: "Blau" };
 
 export interface ZusammenfassungResult {
   werte: string[];
@@ -20,9 +22,10 @@ export function zusammenfassungSystemPrompt(kontextId: KontextId): string {
 
 - Die Person ist erwachsen. Beispiele und Tipps müssen zum Leben erwachsener Menschen passen.
 - Schreibe in der zweiten Person ("du").
-- Schreibe 3 bis 4 kurze Absätze.
+- Schreibe 4 bis 5 kurze Absätze.
 - Beschreibe zuerst, was diese Wertekombination über die Person aussagt und wie sich diese Werte ${k.zusammenfassungsbereich}.
 - Gehe besonders auf das Zusammenspiel der Werte ein – wie sie sich gegenseitig verstärken oder auch Spannungen erzeugen können.
+- Ordne die Werte danach in einem eigenen kurzen Absatz (2 bis 3 Sätze) dem Vier-Farben-Modell zu. Jeder Wert hat eine Farbe: Rot steht für Ergebnisse, Entschlossenheit und Wirkung, Gelb für Begeisterung, Ideen und Freiheit, Grün für Beziehungen, Harmonie und Verlässlichkeit, Blau für Klarheit, Sorgfalt und Gerechtigkeit. Beschreibe, welche Farben bei der Person hervortreten und was das bedeutet, und erwähne fehlende Farben nur, wenn es etwas aussagt. Nenne keine Prozentzahlen. Das Modell ist eine grobe Orientierung, keine Persönlichkeitsdiagnose.
 - Schreibe anschließend 2–3 konkrete, alltagstaugliche Tipps, wie die Person ihre Werte aktiv in ihren ${k.alltag} einbringen kann. Die Tipps sollen praktisch und unmittelbar umsetzbar sein (${k.tippbeispiele}).
 - Formuliere wertschätzend und ermutigend, aber nicht übertrieben.
 - Verwende keine Aufzählungen oder Überschriften.
@@ -115,7 +118,8 @@ function buildPrompt(werteData: Wert[], kontext: KontextId): string {
   const werteList = werteData
     .map((w, i) => {
       const desc = w.beschreibung.join("\n");
-      return `### Platz ${i + 1}: "${w.name}"\n\n${desc}`;
+      const farbe = w.farbe ? `\n\nFarbe im Vier-Farben-Modell: ${FARBNAMEN[w.farbe as Farbe]}` : "";
+      return `### Platz ${i + 1}: "${w.name}"\n\n${desc}${farbe}`;
     })
     .join("\n\n");
 

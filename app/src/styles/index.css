@@ -667,6 +667,68 @@ body {
   margin: 2rem auto 0;
 }
 
+.farben {
+  max-width: 600px;
+  margin: 2.5rem auto;
+}
+.farben h2 {
+  font-family: var(--font-serif);
+  margin: 0 0 0.5rem;
+}
+.farben-intro,
+.farben-werte,
+.farben-quelle {
+  color: var(--text-muted);
+}
+.farben-balken {
+  display: flex;
+  height: 1rem;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 1rem 0 1.5rem;
+}
+.farben-liste {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+.farben-liste li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.farben-liste p {
+  margin: 0.25rem 0 0;
+}
+.farben-punkt {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  margin-top: 0.2rem;
+}
+.farben-quelle {
+  font-size: 0.875rem;
+  margin: 1.5rem 0 0;
+}
+.farben-quelle a {
+  color: inherit;
+}
+.farbe-rot {
+  background: oklch(60% 0.19 27);
+}
+.farbe-gelb {
+  background: oklch(85% 0.16 90);
+}
+.farbe-gruen {
+  background: oklch(65% 0.14 150);
+}
+.farbe-blau {
+  background: oklch(55% 0.14 250);
+}
+
 .email-form,
 .results-container > .email-form .btn:disabled,
 .email-form input:disabled {

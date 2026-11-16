@@ -35,7 +35,8 @@
         "Neugier",
         "Leidenschaft",
         "Begeisterung"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Achtsamkeit",
@@ -65,7 +66,8 @@
         "Gelassenheit",
         "Intuition",
         "Ruhe"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Aktivität",
@@ -92,7 +94,8 @@
         "Fleiß",
         "Gesundheit",
         "Begeisterung"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Akzeptanz",
@@ -117,7 +120,8 @@
         "Gelassenheit",
         "Respekt",
         "Empathie"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Anerkennung",
@@ -147,7 +151,8 @@
         "Respekt",
         "Zuneigung",
         "Sympathie"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Ansehen",
@@ -175,7 +180,8 @@
         "Glaubwürdigkeit",
         "Integrität",
         "Respekt"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Anstand",
@@ -203,7 +209,8 @@
         "Würde",
         "Integrität",
         "Fairness"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Ästhetik",
@@ -246,7 +253,8 @@
         "Klarheit",
         "Inspiration",
         "Sorgfalt"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Ausdauer",
@@ -273,7 +281,8 @@
         "Konsequenz",
         "Zielstrebigkeit",
         "Resilienz"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Authentizität",
@@ -296,7 +305,8 @@
         "Selbstvertrauen",
         "Selbstreflexion",
         "Glaubwürdigkeit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Autonomie",
@@ -321,7 +331,8 @@
         "Selbstverwirklichung",
         "Individualität",
         "Souveränität"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Balance",
@@ -346,7 +357,8 @@
         "Selbstfürsorge",
         "Harmonie",
         "Zufriedenheit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Begeisterung",
@@ -367,7 +379,8 @@
         "Optimismus",
         "Inspiration",
         "Tatkraft"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Bescheidenheit",
@@ -390,7 +403,8 @@
         "Respekt",
         "Güte",
         "Anstand"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Dankbarkeit",
@@ -412,7 +426,8 @@
         "Zufriedenheit",
         "Achtsamkeit",
         "Freundlichkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Disziplin",
@@ -447,7 +462,8 @@
         "Fleiß",
         "Zielstrebigkeit",
         "Ordnung"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Effizienz",
@@ -474,7 +490,8 @@
         "Ordnung",
         "Zielstrebigkeit",
         "Qualität"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Ehrgeiz",
@@ -499,7 +516,8 @@
         "Erfolg",
         "Ausdauer",
         "Selbstverwirklichung"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Ehrlichkeit",
@@ -525,7 +543,8 @@
         "Vertrauen",
         "Transparenz",
         "Glaubwürdigkeit"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Eigenverantwortung",
@@ -550,7 +569,8 @@
         "Selbstreflexion",
         "Integrität",
         "Mut"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Einfachheit",
@@ -575,7 +595,8 @@
         "Fokus",
         "Bescheidenheit",
         "Genuss"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Einfluss",
@@ -599,7 +620,8 @@
         "Wirksamkeit",
         "Autonomie",
         "Ansehen"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Empathie",
@@ -623,7 +645,8 @@
         "Menschlichkeit",
         "Zuneigung",
         "Hilfsbereitschaft"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Engagement",
@@ -655,7 +678,8 @@
         "Wirksamkeit",
         "Idealismus",
         "Pflichtgefühl"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Entscheidungsfreude",
@@ -683,7 +707,8 @@
         "Selbstvertrauen",
         "Autonomie",
         "Zielstrebigkeit"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Erfolg",
@@ -708,7 +733,8 @@
         "Zielstrebigkeit",
         "Anerkennung",
         "Wachstum"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Fairness",
@@ -733,7 +759,8 @@
         "Anstand",
         "Respekt",
         "Integrität"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Familie",
@@ -758,7 +785,8 @@
         "Zugehörigkeit",
         "Liebe",
         "Zweisamkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Fleiß",
@@ -785,7 +813,8 @@
         "Zielstrebigkeit",
         "Ehrgeiz",
         "Engagement"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Flexibilität",
@@ -814,7 +843,8 @@
         "Veränderung",
         "Leichtigkeit",
         "Kreativität"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Fokus",
@@ -839,7 +869,8 @@
         "Einfachheit",
         "Effizienz",
         "Zielstrebigkeit"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Freiheit",
@@ -863,7 +894,8 @@
         "Selbstverwirklichung",
         "Individualität",
         "Souveränität"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Freundlichkeit",
@@ -896,7 +928,8 @@
         "Güte",
         "Zuneigung",
         "Wertschätzung"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Freundschaft",
@@ -921,7 +954,8 @@
         "Zugehörigkeit",
         "Kameradschaft",
         "Gemeinschaft"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Fröhlichkeit",
@@ -946,7 +980,8 @@
         "Leichtigkeit",
         "Spaß",
         "Genuss"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Fürsorglichkeit",
@@ -971,7 +1006,8 @@
         "Güte",
         "Liebe",
         "Menschlichkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Gastfreundschaft",
@@ -998,7 +1034,8 @@
         "Gemütlichkeit",
         "Freundlichkeit",
         "Offenheit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Geborgenheit",
@@ -1027,7 +1064,8 @@
         "Harmonie",
         "Stabilität",
         "Heimat"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Geduld",
@@ -1057,7 +1095,8 @@
         "Ausdauer",
         "Toleranz",
         "Achtsamkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Gelassenheit",
@@ -1084,7 +1123,8 @@
         "Geduld",
         "Zufriedenheit",
         "Akzeptanz"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Gemeinschaft",
@@ -1112,7 +1152,8 @@
         "Kameradschaft",
         "Solidarität",
         "Engagement"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Gemeinwohl",
@@ -1140,7 +1181,8 @@
         "Engagement",
         "Gerechtigkeit",
         "Nachhaltigkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Gemütlichkeit",
@@ -1168,7 +1210,8 @@
         "Genuss",
         "Harmonie",
         "Zweisamkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Genuss",
@@ -1195,7 +1238,8 @@
         "Fröhlichkeit",
         "Spaß",
         "Leichtigkeit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Gerechtigkeit",
@@ -1226,7 +1270,8 @@
         "Solidarität",
         "Menschlichkeit",
         "Verantwortung"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Gesundheit",
@@ -1249,7 +1294,8 @@
         "Balance",
         "Achtsamkeit",
         "Nachhaltigkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Glaubwürdigkeit",
@@ -1274,7 +1320,8 @@
         "Ehrlichkeit",
         "Vertrauen",
         "Authentizität"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Gleichberechtigung",
@@ -1299,7 +1346,8 @@
         "Menschlichkeit",
         "Toleranz",
         "Solidarität"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Großzügigkeit",
@@ -1327,7 +1375,8 @@
         "Fürsorglichkeit",
         "Menschlichkeit",
         "Wertschätzung"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Güte",
@@ -1353,7 +1402,8 @@
         "Freundlichkeit",
         "Fürsorglichkeit",
         "Großzügigkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Harmonie",
@@ -1379,7 +1429,8 @@
         "Gelassenheit",
         "Ruhe",
         "Gemütlichkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Heimat",
@@ -1407,7 +1458,8 @@
         "Gemeinschaft",
         "Geborgenheit",
         "Stabilität"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Hilfsbereitschaft",
@@ -1431,7 +1483,8 @@
         "Empathie",
         "Solidarität",
         "Güte"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Höflichkeit",
@@ -1461,7 +1514,8 @@
         "Rücksichtnahme",
         "Freundlichkeit",
         "Wertschätzung"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Humor",
@@ -1487,7 +1541,8 @@
         "Gelassenheit",
         "Spaß",
         "Offenheit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Idealismus",
@@ -1515,7 +1570,8 @@
         "Gemeinwohl",
         "Mut",
         "Wirksamkeit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Individualität",
@@ -1553,7 +1609,8 @@
         "Selbstverwirklichung",
         "Freiheit",
         "Selbstvertrauen"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Innovation",
@@ -1593,7 +1650,8 @@
         "Neugier",
         "Wachstum",
         "Inspiration"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Inspiration",
@@ -1618,7 +1676,8 @@
         "Neugier",
         "Innovation",
         "Leidenschaft"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Integrität",
@@ -1647,7 +1706,8 @@
         "Glaubwürdigkeit",
         "Verlässlichkeit",
         "Vertrauen"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Intimität",
@@ -1676,7 +1736,8 @@
         "Liebe",
         "Zuneigung",
         "Verlässlichkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Intuition",
@@ -1710,7 +1771,8 @@
         "Kreativität",
         "Achtsamkeit",
         "Präsenz"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Kameradschaft",
@@ -1737,7 +1799,8 @@
         "Teamgeist",
         "Verlässlichkeit",
         "Gemeinschaft"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Klarheit",
@@ -1766,7 +1829,8 @@
         "Kommunikation",
         "Ordnung",
         "Fokus"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Kommunikation",
@@ -1791,7 +1855,8 @@
         "Transparenz",
         "Empathie",
         "Vertrauen"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Kompetenz",
@@ -1821,7 +1886,8 @@
         "Leistung",
         "Professionalität",
         "Wachstum"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Konsequenz",
@@ -1847,7 +1913,8 @@
         "Verlässlichkeit",
         "Ausdauer",
         "Verbindlichkeit"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Kontrolle",
@@ -1872,7 +1939,8 @@
         "Eigenverantwortung",
         "Sorgfalt",
         "Stabilität"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Kreativität",
@@ -1905,7 +1973,8 @@
         "Inspiration",
         "Leidenschaft",
         "Intuition"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Leichtigkeit",
@@ -1929,7 +1998,8 @@
         "Fröhlichkeit",
         "Spaß",
         "Optimismus"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Leidenschaft",
@@ -1952,7 +2022,8 @@
         "Engagement",
         "Kreativität",
         "Sinnhaftigkeit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Leistung",
@@ -1983,7 +2054,8 @@
         "Fleiß",
         "Kompetenz",
         "Erfolg"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Liebe",
@@ -2012,7 +2084,8 @@
         "Zweisamkeit",
         "Fürsorglichkeit",
         "Geborgenheit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Loyalität",
@@ -2037,7 +2110,8 @@
         "Vertrauen",
         "Integrität",
         "Kameradschaft"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Macht",
@@ -2066,7 +2140,8 @@
         "Autonomie",
         "Souveränität",
         "Entscheidungsfreude"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Menschlichkeit",
@@ -2089,7 +2164,8 @@
         "Güte",
         "Würde",
         "Rücksichtnahme"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Mut",
@@ -2115,7 +2191,8 @@
         "Konsequenz",
         "Resilienz",
         "Authentizität"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Nachhaltigkeit",
@@ -2148,7 +2225,8 @@
         "Naturverbundenheit",
         "Weitsicht",
         "Idealismus"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Naturverbundenheit",
@@ -2176,7 +2254,8 @@
         "Ruhe",
         "Achtsamkeit",
         "Gelassenheit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Neugier",
@@ -2210,7 +2289,8 @@
         "Kreativität",
         "Wachstum",
         "Inspiration"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Neutralität",
@@ -2234,7 +2314,8 @@
         "Toleranz",
         "Offenheit",
         "Respekt"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Offenheit",
@@ -2258,7 +2339,8 @@
         "Wachstum",
         "Flexibilität",
         "Authentizität"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Optimismus",
@@ -2289,7 +2371,8 @@
         "Fröhlichkeit",
         "Resilienz",
         "Dankbarkeit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Ordnung",
@@ -2313,7 +2396,8 @@
         "Sorgfalt",
         "Effizienz",
         "Fokus"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Pflichtgefühl",
@@ -2341,7 +2425,8 @@
         "Konsequenz",
         "Verbindlichkeit",
         "Integrität"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Pragmatismus",
@@ -2368,7 +2453,8 @@
         "Entscheidungsfreude",
         "Flexibilität",
         "Wirksamkeit"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Präsenz",
@@ -2399,7 +2485,8 @@
         "Authentizität",
         "Kommunikation",
         "Selbstreflexion"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Professionalität",
@@ -2433,7 +2520,8 @@
         "Verlässlichkeit",
         "Sorgfalt",
         "Integrität"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Pünktlichkeit",
@@ -2460,7 +2548,8 @@
         "Respekt",
         "Ordnung",
         "Disziplin"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Qualität",
@@ -2485,7 +2574,8 @@
         "Kompetenz",
         "Ehrgeiz",
         "Fokus"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Resilienz",
@@ -2521,7 +2611,8 @@
         "Selbstvertrauen",
         "Gelassenheit",
         "Optimismus"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Respekt",
@@ -2557,7 +2648,8 @@
         "Höflichkeit",
         "Rücksichtnahme",
         "Würde"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Romantik",
@@ -2586,7 +2678,8 @@
         "Intimität",
         "Zuneigung",
         "Leidenschaft"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Rücksichtnahme",
@@ -2611,7 +2704,8 @@
         "Fürsorglichkeit",
         "Harmonie",
         "Höflichkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Ruhe",
@@ -2636,7 +2730,8 @@
         "Selbstfürsorge",
         "Balance",
         "Gesundheit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Selbstfürsorge",
@@ -2665,7 +2760,8 @@
         "Selbstreflexion",
         "Ruhe",
         "Eigenverantwortung"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Selbstreflexion",
@@ -2690,7 +2786,8 @@
         "Selbstfürsorge",
         "Weisheit",
         "Eigenverantwortung"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Selbstvertrauen",
@@ -2715,7 +2812,8 @@
         "Autonomie",
         "Resilienz",
         "Souveränität"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Selbstverwirklichung",
@@ -2740,7 +2838,8 @@
         "Wachstum",
         "Freiheit",
         "Leidenschaft"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Sexualität",
@@ -2769,7 +2868,8 @@
         "Liebe",
         "Romantik",
         "Selbstverwirklichung"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Sicherheit",
@@ -2799,7 +2899,8 @@
         "Kontrolle",
         "Sorgfalt",
         "Verlässlichkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Sinnhaftigkeit",
@@ -2824,7 +2925,8 @@
         "Selbstverwirklichung",
         "Wirksamkeit",
         "Spiritualität"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Solidarität",
@@ -2851,7 +2953,8 @@
         "Hilfsbereitschaft",
         "Gerechtigkeit",
         "Loyalität"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Sorgfalt",
@@ -2876,7 +2979,8 @@
         "Disziplin",
         "Verlässlichkeit",
         "Ordnung"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Souveränität",
@@ -2901,7 +3005,8 @@
         "Kontrolle",
         "Resilienz",
         "Autonomie"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Sparsamkeit",
@@ -2925,7 +3030,8 @@
         "Disziplin",
         "Eigenverantwortung",
         "Pragmatismus"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Spaß",
@@ -2950,7 +3056,8 @@
         "Humor",
         "Genuss",
         "Begeisterung"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Spiritualität",
@@ -2975,7 +3082,8 @@
         "Ruhe",
         "Selbstreflexion",
         "Naturverbundenheit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Stabilität",
@@ -2999,7 +3107,8 @@
         "Geborgenheit",
         "Verlässlichkeit",
         "Ordnung"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Sympathie",
@@ -3029,7 +3138,8 @@
         "Empathie",
         "Freundlichkeit",
         "Offenheit"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Tatkraft",
@@ -3054,7 +3164,8 @@
         "Zielstrebigkeit",
         "Entscheidungsfreude",
         "Aktivität"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Teamgeist",
@@ -3078,7 +3189,8 @@
         "Kameradschaft",
         "Solidarität",
         "Zugehörigkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Toleranz",
@@ -3104,7 +3216,8 @@
         "Respekt",
         "Gleichberechtigung",
         "Fairness"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Tradition",
@@ -3128,7 +3241,8 @@
         "Gemeinschaft",
         "Loyalität",
         "Zugehörigkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Transparenz",
@@ -3159,7 +3273,8 @@
         "Glaubwürdigkeit",
         "Offenheit",
         "Kommunikation"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Treue",
@@ -3185,7 +3300,8 @@
         "Verbindlichkeit",
         "Vertrauen",
         "Zuneigung"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Veränderung",
@@ -3210,7 +3326,8 @@
         "Mut",
         "Innovation",
         "Neugier"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Verantwortung",
@@ -3235,7 +3352,8 @@
         "Integrität",
         "Verlässlichkeit",
         "Konsequenz"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Verbindlichkeit",
@@ -3260,7 +3378,8 @@
         "Integrität",
         "Treue",
         "Ehrlichkeit"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Verlässlichkeit",
@@ -3285,7 +3404,8 @@
         "Treue",
         "Integrität",
         "Pünktlichkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Vertrauen",
@@ -3310,7 +3430,8 @@
         "Loyalität",
         "Sicherheit",
         "Offenheit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Wachstum",
@@ -3335,7 +3456,8 @@
         "Wissen",
         "Ehrgeiz",
         "Inspiration"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Weisheit",
@@ -3358,7 +3480,8 @@
         "Selbstreflexion",
         "Weitsicht",
         "Intuition"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Weitsicht",
@@ -3382,7 +3505,8 @@
         "Verantwortung",
         "Nachhaltigkeit",
         "Klarheit"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Wertschätzung",
@@ -3407,7 +3531,8 @@
         "Dankbarkeit",
         "Empathie",
         "Zuneigung"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Wirksamkeit",
@@ -3432,7 +3557,8 @@
         "Zielstrebigkeit",
         "Effizienz",
         "Selbstvertrauen"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Wissen",
@@ -3456,7 +3582,8 @@
         "Wachstum",
         "Kompetenz",
         "Weisheit"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Wohlstand",
@@ -3480,7 +3607,8 @@
         "Freiheit",
         "Stabilität",
         "Sparsamkeit"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Würde",
@@ -3506,7 +3634,8 @@
         "Menschlichkeit",
         "Integrität",
         "Gleichberechtigung"
-      ]
+      ],
+      "farbe": "blau"
     },
     {
       "name": "Zielstrebigkeit",
@@ -3534,7 +3663,8 @@
         "Konsequenz",
         "Disziplin",
         "Eigenverantwortung"
-      ]
+      ],
+      "farbe": "rot"
     },
     {
       "name": "Zufriedenheit",
@@ -3559,7 +3689,8 @@
         "Genuss",
         "Balance",
         "Achtsamkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Zugehörigkeit",
@@ -3584,7 +3715,8 @@
         "Familie",
         "Freundschaft",
         "Heimat"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Zuneigung",
@@ -3611,7 +3743,8 @@
         "Empathie",
         "Sympathie",
         "Zweisamkeit"
-      ]
+      ],
+      "farbe": "gruen"
     },
     {
       "name": "Zuversicht",
@@ -3639,7 +3772,8 @@
         "Mut",
         "Resilienz",
         "Selbstvertrauen"
-      ]
+      ],
+      "farbe": "gelb"
     },
     {
       "name": "Zweisamkeit",
@@ -3666,7 +3800,8 @@
         "Liebe",
         "Geborgenheit",
         "Treue"
-      ]
+      ],
+      "farbe": "gruen"
     }
   ]
 }

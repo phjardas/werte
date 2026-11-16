@@ -59,9 +59,10 @@ German values-discovery app. Users choose a context (area of life: Berufsleben o
   - `/statistik` (`StatistikPage`) shows the number of completed tests and the top 10 values by points, in total or per context.
   - `/impressum` (`ImpressumPage`).
 - The contexts the user can pick (id, title, description, icon) are listed in `app/src/kontexte.ts`. The test's context comes from `GET /tests/{testId}` and is passed to the scenario fetch, the comparison intro and the results screen.
-- Flow steps (`Step` in `app/src/types.ts`): `selection → suggestions → filter-intro → filter → comparison-intro → comparison`, then the results screen.
+- Flow steps (`Step` in `app/src/types.ts`): `selection → suggestions → synonyme → filter-intro → filter → comparison-intro → comparison`, then the results screen.
   - `selection` shows the values in pages of 20 (`app/src/auswahl.ts`). The shuffled order and the current page are saved in the test state (`order`, `page`), so a test resumes on the same page. Values no longer offered drop out of a saved order, new ones are appended.
   - `suggestions` shows up to 12 unselected values that the selected ones list most often as `verwandt`. It is skipped when there are none.
+  - `synonyme` appears when the selection holds more than one value of a group of near-synonyms (`synonymgruppen` in `app/src/auswahl.ts`). The person picks one term per group, the others leave the selection, so no scenario has to separate e.g. Freiheit from Autonomie. Suggestions never offer near-synonyms of selected values.
   - `filter-intro` and `filter` are skipped when 10 or fewer values are selected. The filter step looks deliberately different (ten slots, coloured header), because it is about giving values up rather than collecting them.
   - Every value chip has an ⓘ button next to the value that opens the short description in a native `popover`.
 - The test state is saved to the backend after every change (`useStateSync`, `PUT /tests/{testId}/state`), so a test can be resumed via its URL.
@@ -77,7 +78,7 @@ TypeScript with a hexagonal architecture:
 - **`src/domain/`** holds the pure domain services without AWS dependencies (`WerteService`, `SzenarioService`, `ZusammenfassungService`) and the ports (`AIService`, `Cache`, `TestRepository`).
 - **`src/infrastructure/`** holds the AWS implementations: `BedrockAIService`, `DynamoDBCache`, `DynamoDBTestRepository`.
 - **`src/lambdas/`** holds thin Lambda entry points. Each exports `handler` and a `createHandler(deps)` factory for testing.
-- **`src/werte.json`** contains 135 German values and is copied to `dist/` at build time. Every value has a `kurzbeschreibung` shown in the app and four to six `verwandt` values used for suggestions, both generated with `AWS_PROFILE=phjardas pnpm werteinfos [Wert ...]` and reviewed by hand; `werte.test.ts` checks them. Run the script for new or renamed values. Every value also has a `farbe` (`rot`, `gelb`, `gruen` or `blau`) for the four-colour evaluation, assigned by hand. A value with `kontexte` is offered only in those contexts (e.g. Sexualität only in `privat` and `partnerschaft`), a value without it in every context. The other routes accept every known value regardless of context.
+- **`src/werte.json`** contains 135 German values and is copied to `dist/` at build time. Every value has a `kurzbeschreibung` shown in the app and four to six `verwandt` values used for suggestions, both generated with `AWS_PROFILE=phjardas pnpm werteinfos [Wert ...]` and reviewed by hand; `werte.test.ts` checks them. Run the script for new or renamed values. Values that mean almost the same share a `synonymgruppe`, named after one of its two or three values; `getWerte` passes the other offered members as `gleichbedeutend`. Keep the groups small and leave a value out when it fits several groups. Every value also has a `farbe` (`rot`, `gelb`, `gruen` or `blau`) for the four-colour evaluation, assigned by hand. A value with `kontexte` is offered only in those contexts (e.g. Sexualität only in `privat` and `partnerschaft`), a value without it in every context. The other routes accept every known value regardless of context.
 
 Each Lambda handler instantiates its services at module scope (cold start) via the factory. Handler paths use the `lambdas/` prefix (e.g. `lambdas/getSzenario.handler`).
 
@@ -91,7 +92,7 @@ The value descriptions in `werte.json` are written without reference to work, so
 
 | Route | Lambda | Purpose |
 |-------|--------|---------|
-| `GET /werte?kontext=` | `getWerte` | values offered in a context with `name`, `kurzbeschreibung` and `verwandt` (restricted to values offered there); default `beruf`, unknown context 400 |
+| `GET /werte?kontext=` | `getWerte` | values offered in a context with `name`, `kurzbeschreibung`, `farbe`, `verwandt` and `gleichbedeutend` (both restricted to values offered there); default `beruf`, unknown context 400 |
 | `GET /szenarien/{wert1}/{wert2}?kontext=` | `getSzenario` | scenario for a value pair in a context (cached; default `beruf`, unknown context 400) |
 | `POST /szenarien/{wert1}/{wert2}/vote` | `voteSzenario` | up/down vote for a scenario version |
 | `POST /tests` | `createTest` | create a test session; body `{ kontext }` (default `beruf`, unknown context 400) |

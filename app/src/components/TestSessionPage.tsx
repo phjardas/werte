@@ -1,7 +1,13 @@
 import { useParams } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { completeTest, fetchWerte } from "../api";
-import { MAX_FINALE_WERTE, ordne, seiten, vorschlaege } from "../auswahl";
+import {
+  MAX_FINALE_WERTE,
+  ordne,
+  seiten,
+  synonymgruppen,
+  vorschlaege,
+} from "../auswahl";
 import { fortschritt } from "../fortschritt";
 import { useStateSync } from "../hooks/useStateSync";
 import { useTest } from "../hooks/useTest";
@@ -18,6 +24,7 @@ import { ProgressBar } from "./ProgressBar";
 import { ResultsScreen } from "./ResultsScreen";
 import { SelectionStep } from "./SelectionStep";
 import { SuggestionStep } from "./SuggestionStep";
+import { SynonymStep } from "./SynonymStep";
 
 export function TestSessionPage() {
   const { testId } = useParams({ from: "/tests/$testId" });
@@ -99,6 +106,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   const brauchtWerte =
     step === "selection" ||
     step === "suggestions" ||
+    step === "synonyme" ||
     step === "filter-intro" ||
     step === "filter";
   useEffect(() => {
@@ -164,6 +172,7 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
       setRichtung(nachher < vorher ? "zurueck" : "vor");
       if (overrides.step) setStep(overrides.step);
       if (overrides.page !== undefined) setPage(overrides.page);
+      if (overrides.selectedValues) setSelectedValues(overrides.selectedValues);
       if (overrides.finalValues) setFinalValues(overrides.finalValues);
       syncState(buildState(overrides));
       window.scrollTo(0, 0);
@@ -182,13 +191,39 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
     [selectedValues, buildState, syncState],
   );
 
+  const gruppen = synonymgruppen(selectedValues, werte ?? []);
+
+  // Leads to the filter, or straight to the comparison when there are few enough values.
+  const filtern = useCallback(
+    (auswahl: string[]) => {
+      if (auswahl.length <= MAX_FINALE_WERTE) {
+        goTo({
+          step: "comparison-intro",
+          selectedValues: auswahl,
+          finalValues: auswahl,
+        });
+      } else {
+        goTo({
+          step: "filter-intro",
+          selectedValues: auswahl,
+          finalValues: [],
+        });
+      }
+    },
+    [goTo],
+  );
+
   const continueToFilter = useCallback(() => {
-    if (selectedValues.length <= MAX_FINALE_WERTE) {
-      goTo({ step: "comparison-intro", finalValues: selectedValues });
-    } else {
-      goTo({ step: "filter-intro", finalValues: [] });
-    }
-  }, [selectedValues, goTo]);
+    if (gruppen.length > 0) goTo({ step: "synonyme" });
+    else filtern(selectedValues);
+  }, [gruppen.length, selectedValues, goTo, filtern]);
+
+  // Merging near-synonyms drops them from the selection, so the selection pages show the merge too.
+  const handleSynonymeNext = useCallback(
+    (weglassen: string[]) =>
+      filtern(selectedValues.filter((v) => !weglassen.includes(v))),
+    [selectedValues, filtern],
+  );
 
   const hasSuggestions =
     vorschlaege(selectedValues, werte ?? [], order).length > 0;
@@ -320,6 +355,15 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
             onToggle={handleToggle}
             onBack={() => goTo({ step: "selection", page: lastPage })}
             onNext={continueToFilter}
+          />
+        )}
+        {step === "synonyme" && (
+          <SynonymStep
+            fortschritt={fortschrittsbalken}
+            gruppen={gruppen}
+            werte={werte ?? []}
+            onBack={handleBackToSelection}
+            onNext={handleSynonymeNext}
           />
         )}
         {step === "filter-intro" && (

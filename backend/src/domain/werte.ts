@@ -16,6 +16,11 @@ export interface Wert {
   /** Related values, used by the app to suggest values that fit the selection. */
   verwandt?: string[];
   farbe?: string;
+  /**
+   * Values with the same group are near-synonyms. A test that selects several of them keeps only the one the person
+   * picks, because a scenario cannot make anyone choose between them.
+   */
+  synonymgruppe?: string;
 }
 
 /** What the app gets for a value offered in a context. */
@@ -24,6 +29,8 @@ export interface WertAngebot {
   kurzbeschreibung: string;
   verwandt: string[];
   farbe: Farbe;
+  /** The other values offered in the context that are near-synonyms of this one. */
+  gleichbedeutend: string[];
 }
 
 /** The comparison runs on at most this many values, see the filter step in the app. */
@@ -55,6 +62,9 @@ export class WerteService {
         kurzbeschreibung: w.kurzbeschreibung ?? "",
         verwandt: (w.verwandt ?? []).filter((v) => namen.has(v)),
         farbe: w.farbe as Farbe,
+        gleichbedeutend: this.werte
+          .filter((v) => w.synonymgruppe && v.synonymgruppe === w.synonymgruppe && v !== w && namen.has(v.name))
+          .map((v) => v.name),
       }));
   }
 

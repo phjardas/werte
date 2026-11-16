@@ -51,4 +51,28 @@ describe("werte.json", () => {
     const fehlerhaft = werteData.werte.filter((w) => !FARBEN.includes(w.farbe as Farbe)).map((w) => w.name);
     expect(fehlerhaft).toEqual([]);
   });
+
+  it("groups near-synonyms in groups of two or three named after one of their values", () => {
+    const gruppen = new Map<string, string[]>();
+    for (const w of werteData.werte)
+      if ("synonymgruppe" in w && w.synonymgruppe) gruppen.set(w.synonymgruppe, [...(gruppen.get(w.synonymgruppe) ?? []), w.name]);
+    const fehlerhaft = [...gruppen].filter(([name, werte]) => werte.length < 2 || werte.length > 3 || !werte.includes(name));
+    expect(fehlerhaft).toEqual([]);
+  });
+});
+
+describe("WerteService.getAngebot", () => {
+  const service = new WerteService([
+    { name: "Freiheit", synonyme: [], definition: [], beschreibung: [], synonymgruppe: "Freiheit" },
+    { name: "Autonomie", synonyme: [], definition: [], beschreibung: [], synonymgruppe: "Freiheit" },
+    { name: "Unabhängigkeit", synonyme: [], definition: [], beschreibung: [], synonymgruppe: "Freiheit", kontexte: ["privat"] },
+    { name: "Ruhe", synonyme: [], definition: [], beschreibung: [] },
+  ]);
+  const gleichbedeutend = (kontext: KontextId) =>
+    Object.fromEntries(service.getAngebot(kontext).map((w) => [w.name, w.gleichbedeutend]));
+
+  it("lists the near-synonyms offered in the context", () => {
+    expect(gleichbedeutend("beruf")).toEqual({ Freiheit: ["Autonomie"], Autonomie: ["Freiheit"], Ruhe: [] });
+    expect(gleichbedeutend("privat").Freiheit).toEqual(["Autonomie", "Unabhängigkeit"]);
+  });
 });

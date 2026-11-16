@@ -16,6 +16,8 @@ export function fortschritt(
       return 10 + (30 * seite) / Math.max(seiten, 1);
     case "suggestions":
       return 40;
+    case "synonyme":
+      return 42;
     case "filter-intro":
       return 43;
     case "filter":

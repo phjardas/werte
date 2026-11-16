@@ -14,6 +14,8 @@ export interface WertInfo {
   kurzbeschreibung: string;
   verwandt: string[];
   farbe: Farbe;
+  /** Offered values that mean almost the same; a test keeps only one of them. */
+  gleichbedeutend: string[];
 }
 
 export interface Szenario {
@@ -26,6 +28,7 @@ export interface Szenario {
 export type Step =
   | "selection"
   | "suggestions"
+  | "synonyme"
   | "filter-intro"
   | "filter"
   | "comparison-intro"

@@ -24,9 +24,9 @@ describe("getWerte handler", () => {
   });
 
   it("returns the short description and only related values offered in the context", () => {
-    expect(angebot("beruf")).toEqual([{ name: "Ruhe", kurzbeschreibung: "Innere Stille.", verwandt: [], farbe: "gruen" }]);
+    expect(angebot("beruf")).toEqual([{ name: "Ruhe", kurzbeschreibung: "Innere Stille.", verwandt: [], farbe: "gruen", gleichbedeutend: [] }]);
     expect(angebot("privat")[0].verwandt).toEqual(["Sexualität"]);
-    expect(angebot("privat")[1]).toEqual({ name: "Sexualität", kurzbeschreibung: "", verwandt: [] });
+    expect(angebot("privat")[1]).toEqual({ name: "Sexualität", kurzbeschreibung: "", verwandt: [], gleichbedeutend: [] });
   });
 
   it("rejects an unknown context", () => {

@@ -67,7 +67,8 @@
         "Intuition",
         "Ruhe"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Achtsamkeit"
     },
     {
       "name": "Aktivität",
@@ -95,7 +96,8 @@
         "Gesundheit",
         "Begeisterung"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Tatkraft"
     },
     {
       "name": "Akzeptanz",
@@ -121,7 +123,8 @@
         "Respekt",
         "Empathie"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Toleranz"
     },
     {
       "name": "Anerkennung",
@@ -152,7 +155,8 @@
         "Zuneigung",
         "Sympathie"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Wertschätzung"
     },
     {
       "name": "Ansehen",
@@ -210,7 +214,8 @@
         "Integrität",
         "Fairness"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Höflichkeit"
     },
     {
       "name": "Ästhetik",
@@ -282,7 +287,8 @@
         "Zielstrebigkeit",
         "Resilienz"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Ausdauer"
     },
     {
       "name": "Authentizität",
@@ -306,7 +312,8 @@
         "Selbstreflexion",
         "Glaubwürdigkeit"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Ehrlichkeit"
     },
     {
       "name": "Autonomie",
@@ -332,7 +339,8 @@
         "Individualität",
         "Souveränität"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Freiheit"
     },
     {
       "name": "Balance",
@@ -380,7 +388,8 @@
         "Inspiration",
         "Tatkraft"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Leidenschaft"
     },
     {
       "name": "Bescheidenheit",
@@ -517,7 +526,8 @@
         "Ausdauer",
         "Selbstverwirklichung"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Ehrgeiz"
     },
     {
       "name": "Ehrlichkeit",
@@ -544,7 +554,8 @@
         "Transparenz",
         "Glaubwürdigkeit"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Ehrlichkeit"
     },
     {
       "name": "Eigenverantwortung",
@@ -570,7 +581,8 @@
         "Integrität",
         "Mut"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Verantwortung"
     },
     {
       "name": "Einfachheit",
@@ -734,7 +746,8 @@
         "Anerkennung",
         "Wachstum"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Ehrgeiz"
     },
     {
       "name": "Fairness",
@@ -760,7 +773,8 @@
         "Respekt",
         "Integrität"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Gerechtigkeit"
     },
     {
       "name": "Familie",
@@ -895,7 +909,8 @@
         "Individualität",
         "Souveränität"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Freiheit"
     },
     {
       "name": "Freundlichkeit",
@@ -929,7 +944,8 @@
         "Zuneigung",
         "Wertschätzung"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Güte"
     },
     {
       "name": "Freundschaft",
@@ -981,7 +997,8 @@
         "Spaß",
         "Genuss"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Fröhlichkeit"
     },
     {
       "name": "Fürsorglichkeit",
@@ -1007,7 +1024,8 @@
         "Liebe",
         "Menschlichkeit"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Fürsorglichkeit"
     },
     {
       "name": "Gastfreundschaft",
@@ -1124,7 +1142,8 @@
         "Zufriedenheit",
         "Akzeptanz"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Gelassenheit"
     },
     {
       "name": "Gemeinschaft",
@@ -1153,7 +1172,8 @@
         "Solidarität",
         "Engagement"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Gemeinschaft"
     },
     {
       "name": "Gemeinwohl",
@@ -1271,7 +1291,8 @@
         "Menschlichkeit",
         "Verantwortung"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Gerechtigkeit"
     },
     {
       "name": "Gesundheit",
@@ -1347,7 +1368,8 @@
         "Toleranz",
         "Solidarität"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Gerechtigkeit"
     },
     {
       "name": "Großzügigkeit",
@@ -1403,7 +1425,8 @@
         "Fürsorglichkeit",
         "Großzügigkeit"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Güte"
     },
     {
       "name": "Harmonie",
@@ -1484,7 +1507,8 @@
         "Solidarität",
         "Güte"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Fürsorglichkeit"
     },
     {
       "name": "Höflichkeit",
@@ -1515,7 +1539,8 @@
         "Freundlichkeit",
         "Wertschätzung"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Höflichkeit"
     },
     {
       "name": "Humor",
@@ -1707,7 +1732,8 @@
         "Verlässlichkeit",
         "Vertrauen"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Ehrlichkeit"
     },
     {
       "name": "Intimität",
@@ -1800,7 +1826,8 @@
         "Verlässlichkeit",
         "Gemeinschaft"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Gemeinschaft"
     },
     {
       "name": "Klarheit",
@@ -1914,7 +1941,8 @@
         "Ausdauer",
         "Verbindlichkeit"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Ausdauer"
     },
     {
       "name": "Kontrolle",
@@ -2023,7 +2051,8 @@
         "Kreativität",
         "Sinnhaftigkeit"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Leidenschaft"
     },
     {
       "name": "Leistung",
@@ -2055,7 +2084,8 @@
         "Kompetenz",
         "Erfolg"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Ehrgeiz"
     },
     {
       "name": "Liebe",
@@ -2085,7 +2115,8 @@
         "Fürsorglichkeit",
         "Geborgenheit"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Liebe"
     },
     {
       "name": "Loyalität",
@@ -2111,7 +2142,8 @@
         "Integrität",
         "Kameradschaft"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Loyalität"
     },
     {
       "name": "Macht",
@@ -2372,7 +2404,8 @@
         "Resilienz",
         "Dankbarkeit"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Zuversicht"
     },
     {
       "name": "Ordnung",
@@ -2426,7 +2459,8 @@
         "Verbindlichkeit",
         "Integrität"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Verlässlichkeit"
     },
     {
       "name": "Pragmatismus",
@@ -2486,7 +2520,8 @@
         "Kommunikation",
         "Selbstreflexion"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Achtsamkeit"
     },
     {
       "name": "Professionalität",
@@ -2900,7 +2935,8 @@
         "Sorgfalt",
         "Verlässlichkeit"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Sicherheit"
     },
     {
       "name": "Sinnhaftigkeit",
@@ -3006,7 +3042,8 @@
         "Resilienz",
         "Autonomie"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Gelassenheit"
     },
     {
       "name": "Sparsamkeit",
@@ -3057,7 +3094,8 @@
         "Genuss",
         "Begeisterung"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Fröhlichkeit"
     },
     {
       "name": "Spiritualität",
@@ -3108,7 +3146,8 @@
         "Verlässlichkeit",
         "Ordnung"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Sicherheit"
     },
     {
       "name": "Sympathie",
@@ -3165,7 +3204,8 @@
         "Entscheidungsfreude",
         "Aktivität"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Tatkraft"
     },
     {
       "name": "Teamgeist",
@@ -3190,7 +3230,8 @@
         "Solidarität",
         "Zugehörigkeit"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Gemeinschaft"
     },
     {
       "name": "Toleranz",
@@ -3217,7 +3258,8 @@
         "Gleichberechtigung",
         "Fairness"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Toleranz"
     },
     {
       "name": "Tradition",
@@ -3301,7 +3343,8 @@
         "Vertrauen",
         "Zuneigung"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Loyalität"
     },
     {
       "name": "Veränderung",
@@ -3353,7 +3396,8 @@
         "Verlässlichkeit",
         "Konsequenz"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Verantwortung"
     },
     {
       "name": "Verbindlichkeit",
@@ -3379,7 +3423,8 @@
         "Treue",
         "Ehrlichkeit"
       ],
-      "farbe": "blau"
+      "farbe": "blau",
+      "synonymgruppe": "Verlässlichkeit"
     },
     {
       "name": "Verlässlichkeit",
@@ -3405,7 +3450,8 @@
         "Integrität",
         "Pünktlichkeit"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Verlässlichkeit"
     },
     {
       "name": "Vertrauen",
@@ -3532,7 +3578,8 @@
         "Empathie",
         "Zuneigung"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Wertschätzung"
     },
     {
       "name": "Wirksamkeit",
@@ -3664,7 +3711,8 @@
         "Disziplin",
         "Eigenverantwortung"
       ],
-      "farbe": "rot"
+      "farbe": "rot",
+      "synonymgruppe": "Ausdauer"
     },
     {
       "name": "Zufriedenheit",
@@ -3744,7 +3792,8 @@
         "Sympathie",
         "Zweisamkeit"
       ],
-      "farbe": "gruen"
+      "farbe": "gruen",
+      "synonymgruppe": "Liebe"
     },
     {
       "name": "Zuversicht",
@@ -3773,7 +3822,8 @@
         "Resilienz",
         "Selbstvertrauen"
       ],
-      "farbe": "gelb"
+      "farbe": "gelb",
+      "synonymgruppe": "Zuversicht"
     },
     {
       "name": "Zweisamkeit",

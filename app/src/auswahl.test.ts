@@ -1,11 +1,17 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { ordne, seiten, vorschlaege } from "./auswahl.ts";
+import { ordne, seiten, synonymgruppen, vorschlaege } from "./auswahl.ts";
 
-const wert = (name: string, verwandt: string[] = []) => ({
+const wert = (
+  name: string,
+  verwandt: string[] = [],
+  gleichbedeutend: string[] = [],
+) => ({
   name,
   kurzbeschreibung: "",
   verwandt,
+  farbe: "gruen" as const,
+  gleichbedeutend,
 });
 
 test("ordne keeps the saved order, drops unknown values and appends new ones", () => {
@@ -56,4 +62,22 @@ test("vorschlaege returns at most 12 values", () => {
   const namen = Array.from({ length: 20 }, (_, i) => `W${i}`);
   const werte = [wert("A", namen), ...namen.map((n) => wert(n))];
   assert.equal(vorschlaege(["A"], werte, ["A", ...namen]).length, 12);
+});
+
+test("vorschlaege leaves out near-synonyms of the selection", () => {
+  const werte = [wert("A", ["B", "C"], ["B"]), wert("B", [], ["A"]), wert("C")];
+  assert.deepEqual(vorschlaege(["A"], werte, ["A", "B", "C"]), ["C"]);
+});
+
+test("synonymgruppen finds the groups with more than one selected value", () => {
+  const werte = [
+    wert("A", [], ["B", "C"]),
+    wert("B", [], ["A", "C"]),
+    wert("C", [], ["A", "B"]),
+    wert("D", [], ["E"]),
+    wert("E", [], ["D"]),
+    wert("F"),
+  ];
+  assert.deepEqual(synonymgruppen(["F", "C", "D", "A"], werte), [["C", "A"]]);
+  assert.deepEqual(synonymgruppen(["F", "D"], werte), []);
 });

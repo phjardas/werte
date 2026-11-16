@@ -114,8 +114,8 @@ test("full integration flow", async ({ page }) => {
     // Always vote for the first (left) option
     await page.locator(".comparison-card").first().click();
 
-    // Give the state machine time to advance
-    await page.waitForTimeout(300);
+    // The vote is cast once the chosen card loses its highlight.
+    await expect(page.locator(".comparison-card.gewaehlt")).toHaveCount(0);
   }
 
   // ── 6. Results screen: top-5 list ────────────────────────────────────────

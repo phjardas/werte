@@ -1,9 +1,12 @@
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { fetchSzenario, voteSzenario } from "../api";
+import { funken } from "../funken";
 import type { UseTournamentResult } from "../hooks/useTournament";
 import type { KontextId } from "../kontexte";
 import type { Contestant, Szenario } from "../types";
+
+const WARTEZEIT_MS = 500;
 
 interface ComparisonStepProps {
   /** The progress bar, shown below the heading. */
@@ -21,6 +24,8 @@ export function ComparisonStep({
   const [szenario, setSzenario] = useState<Szenario | null>(null);
   const [loading, setLoading] = useState(false);
   const [voted, setVoted] = useState<"up" | "down" | null>(null);
+  // The card just chosen. The vote waits a moment so the sparks can play before the next scenario replaces the cards.
+  const [gewaehlt, setGewaehlt] = useState<0 | 1 | null>(null);
 
   useEffect(() => {
     if (!currentMatch) return;
@@ -42,6 +47,16 @@ export function ComparisonStep({
 
   const answerA = getAnswer(szenario, a);
   const answerB = getAnswer(szenario, b);
+
+  function waehle(index: 0 | 1, x: number, y: number) {
+    if (gewaehlt !== null) return;
+    setGewaehlt(index);
+    funken(x, y);
+    setTimeout(() => {
+      vote(index);
+      setGewaehlt(null);
+    }, WARTEZEIT_MS);
+  }
 
   function handleVoteSzenario(v: "up" | "down") {
     if (voted || !szenario) return;
@@ -95,7 +110,10 @@ export function ComparisonStep({
       <div
         className={`comparison-cards${loading ? " comparison-loading" : ""}`}
       >
-        <div className="comparison-card" onClick={() => vote(0)}>
+        <div
+          className={`comparison-card${gewaehlt === 0 ? " gewaehlt" : ""}`}
+          onClick={(e) => waehle(0, e.clientX, e.clientY)}
+        >
           <div>
             {answerA ? (
               <span className="comparison-card-answer">
@@ -107,7 +125,10 @@ export function ComparisonStep({
           </div>
         </div>
         <div className="vs">oder</div>
-        <div className="comparison-card" onClick={() => vote(1)}>
+        <div
+          className={`comparison-card${gewaehlt === 1 ? " gewaehlt" : ""}`}
+          onClick={(e) => waehle(1, e.clientX, e.clientY)}
+        >
           <div>
             {answerB ? (
               <span className="comparison-card-answer">

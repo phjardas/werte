@@ -91,6 +91,8 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   const [werte, setWerte] = useState<WertInfo[] | null>(null);
   const [werteError, setWerteError] = useState(false);
   const [completed, setCompleted] = useState(false);
+  // Direction of the last navigation, so the page slides in from the matching side.
+  const [richtung, setRichtung] = useState<"vor" | "zurueck">("vor");
 
   const { syncState, saveStatus } = useStateSync(testId);
 
@@ -150,13 +152,23 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
 
   const goTo = useCallback(
     (overrides: Parameters<typeof buildState>[0]) => {
+      const n = pages.length;
+      const vorher = fortschritt(step, page, n, 0, 0);
+      const nachher = fortschritt(
+        overrides.step ?? step,
+        overrides.page ?? page,
+        n,
+        0,
+        0,
+      );
+      setRichtung(nachher < vorher ? "zurueck" : "vor");
       if (overrides.step) setStep(overrides.step);
       if (overrides.page !== undefined) setPage(overrides.page);
       if (overrides.finalValues) setFinalValues(overrides.finalValues);
       syncState(buildState(overrides));
       window.scrollTo(0, 0);
     },
-    [buildState, syncState],
+    [buildState, syncState, step, page, pages.length],
   );
 
   const handleToggle = useCallback(
@@ -283,65 +295,67 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   return (
     <>
       <SaveIndicator status={saveStatus} />
-      {step === "selection" && (
-        <SelectionStep
-          fortschritt={fortschrittsbalken}
-          seite={(pages[currentPage] ?? []).map((n) => werteMap.get(n)!)}
-          page={currentPage}
-          selected={selectedValues}
-          canContinue={
-            currentPage < lastPage ||
-            hasSuggestions ||
-            selectedValues.length >= 5
-          }
-          onToggle={handleToggle}
-          onBack={() => goTo({ page: currentPage - 1 })}
-          onNext={handleSelectionNext}
-        />
-      )}
-      {step === "suggestions" && (
-        <SuggestionStep
-          fortschritt={fortschrittsbalken}
-          vorschlaege={suggestions.map((n) => werteMap.get(n)!)}
-          selected={selectedValues}
-          onToggle={handleToggle}
-          onBack={() => goTo({ step: "selection", page: lastPage })}
-          onNext={continueToFilter}
-        />
-      )}
-      {step === "filter-intro" && (
-        <FilterIntroStep
-          fortschritt={fortschrittsbalken}
-          kontext={kontext}
-          valueCount={selectedValues.length}
-          onBack={handleBackToSelection}
-          onNext={() => goTo({ step: "filter" })}
-        />
-      )}
-      {step === "filter" && (
-        <FilterStep
-          fortschritt={fortschrittsbalken}
-          values={selectedValues}
-          werte={werte ?? []}
-          onNext={handleFilterNext}
-          onBack={handleBackToSelection}
-        />
-      )}
-      {step === "comparison-intro" && (
-        <ComparisonIntroStep
-          fortschritt={fortschrittsbalken}
-          kontext={kontext}
-          valueCount={finalValues.length}
-          onNext={handleStartComparison}
-        />
-      )}
-      {step === "comparison" && (
-        <ComparisonStep
-          fortschritt={fortschrittsbalken}
-          kontext={kontext}
-          tournament={tournamentWithWrappedVote}
-        />
-      )}
+      <div key={`${step}-${currentPage}`} className={`seite seite-${richtung}`}>
+        {step === "selection" && (
+          <SelectionStep
+            fortschritt={fortschrittsbalken}
+            seite={(pages[currentPage] ?? []).map((n) => werteMap.get(n)!)}
+            page={currentPage}
+            selected={selectedValues}
+            canContinue={
+              currentPage < lastPage ||
+              hasSuggestions ||
+              selectedValues.length >= 5
+            }
+            onToggle={handleToggle}
+            onBack={() => goTo({ page: currentPage - 1 })}
+            onNext={handleSelectionNext}
+          />
+        )}
+        {step === "suggestions" && (
+          <SuggestionStep
+            fortschritt={fortschrittsbalken}
+            vorschlaege={suggestions.map((n) => werteMap.get(n)!)}
+            selected={selectedValues}
+            onToggle={handleToggle}
+            onBack={() => goTo({ step: "selection", page: lastPage })}
+            onNext={continueToFilter}
+          />
+        )}
+        {step === "filter-intro" && (
+          <FilterIntroStep
+            fortschritt={fortschrittsbalken}
+            kontext={kontext}
+            valueCount={selectedValues.length}
+            onBack={handleBackToSelection}
+            onNext={() => goTo({ step: "filter" })}
+          />
+        )}
+        {step === "filter" && (
+          <FilterStep
+            fortschritt={fortschrittsbalken}
+            values={selectedValues}
+            werte={werte ?? []}
+            onNext={handleFilterNext}
+            onBack={handleBackToSelection}
+          />
+        )}
+        {step === "comparison-intro" && (
+          <ComparisonIntroStep
+            fortschritt={fortschrittsbalken}
+            kontext={kontext}
+            valueCount={finalValues.length}
+            onNext={handleStartComparison}
+          />
+        )}
+        {step === "comparison" && (
+          <ComparisonStep
+            fortschritt={fortschrittsbalken}
+            kontext={kontext}
+            tournament={tournamentWithWrappedVote}
+          />
+        )}
+      </div>
     </>
   );
 }

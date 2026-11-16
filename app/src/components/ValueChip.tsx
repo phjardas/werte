@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 
 interface ValueChipProps {
   value: string;
@@ -17,23 +17,29 @@ export function ValueChip({
   onClick,
 }: ValueChipProps) {
   const infoId = useId();
+  // Set by a click that selects the value, so only that click makes the chip pop, not a chip that renders selected.
+  const [pop, setPop] = useState(false);
   const className = [
     "value-chip",
     selected && "selected",
     disabled && "disabled",
+    pop && "pop",
   ]
     .filter(Boolean)
     .join(" ");
 
   // A button must not contain another button, so the chip holds two buttons side by side.
   return (
-    <div className={className}>
+    <div className={className} onAnimationEnd={() => setPop(false)}>
       <button
         className="value-chip-name"
         type="button"
         aria-pressed={selected}
         disabled={disabled}
-        onClick={onClick}
+        onClick={() => {
+          if (!selected) setPop(true);
+          onClick();
+        }}
       >
         {value}
       </button>

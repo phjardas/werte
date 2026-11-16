@@ -87,6 +87,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  /* Keeps sliding pages from widening the document. */
+  overflow-x: clip;
 }
 
 /* ── Screens ── */
@@ -494,6 +496,10 @@ body {
 }
 .comparison-card:active {
   transform: translateY(0);
+}
+.comparison-card.gewaehlt {
+  border-color: var(--secondary);
+  box-shadow: var(--shadow-lg);
 }
 
 .comparison-loading .comparison-card {
@@ -1453,4 +1459,78 @@ html {
   background: var(--primary);
   border-color: var(--primary);
   color: var(--on-primary);
+}
+
+/* ── Page transition within a test ── */
+.seite {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  animation: seiteVor 0.3s ease-out;
+}
+.seite-zurueck {
+  animation-name: seiteZurueck;
+}
+
+@keyframes seiteVor {
+  from {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+}
+@keyframes seiteZurueck {
+  from {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seite {
+    animation: none;
+  }
+}
+
+/* ── Small interaction animations ── */
+.value-chip.pop {
+  animation: chipPop 0.3s ease-out;
+}
+
+@keyframes chipPop {
+  40% {
+    transform: scale(1.12);
+  }
+}
+
+.funken {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+.funken span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin: -3px;
+  border-radius: 50%;
+  animation: funkeFliegt 0.6s ease-out forwards;
+}
+
+@keyframes funkeFliegt {
+  from {
+    transform: rotate(var(--winkel)) translateX(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(var(--winkel)) translateX(var(--weite)) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .value-chip.pop {
+    animation: none;
+  }
 }

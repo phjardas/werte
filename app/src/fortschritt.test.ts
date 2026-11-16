@@ -17,5 +17,6 @@ test("fortschritt starts at 10 % and grows through selection and comparison", ()
   assert.equal(werte[5], 50);
   assert.equal(werte[6], 50);
   assert.ok(werte[7] < 100);
-  for (let i = 1; i < werte.length; i++) assert.ok(werte[i] > werte[i - 1] || i === 6, `step ${i}`);
+  for (let i = 1; i < werte.length; i++)
+    assert.ok(werte[i] > werte[i - 1] || i === 6, `step ${i}`);
 });

@@ -10,7 +10,13 @@ interface FilterIntroStepProps {
   onNext: () => void;
 }
 
-export function FilterIntroStep({ kontext, valueCount, onBack, onNext, fortschritt }: FilterIntroStepProps) {
+export function FilterIntroStep({
+  kontext,
+  valueCount,
+  onBack,
+  onNext,
+  fortschritt,
+}: FilterIntroStepProps) {
   return (
     <div className="screen active step-intro">
       <header className="header">
@@ -19,12 +25,14 @@ export function FilterIntroStep({ kontext, valueCount, onBack, onNext, fortschri
       {fortschritt}
       <div className="intro-content">
         <p>
-          Du hast <strong>{valueCount} Werte</strong> gesammelt. Bisher ging es darum, nichts zu übersehen. Ab jetzt
-          geht es ums Verzichten.
+          Du hast <strong>{valueCount} Werte</strong> gesammelt. Bisher ging es
+          darum, nichts zu übersehen. Ab jetzt geht es ums Verzichten.
         </p>
         <p>
-          Im nächsten Schritt behältst du <strong>höchstens 10 Werte</strong>, nämlich die, die dir{" "}
-          {kontextInfo(kontext).imLebensbereich} am wichtigsten sind. Alle anderen fallen weg. Das darf ruhig schwerfallen.
+          Im nächsten Schritt behältst du <strong>höchstens 10 Werte</strong>,
+          nämlich die, die dir {kontextInfo(kontext).imLebensbereich} am
+          wichtigsten sind. Alle anderen fallen weg. Das darf ruhig
+          schwerfallen.
         </p>
       </div>
       <div className="intro-footer bottom-bar-buttons">

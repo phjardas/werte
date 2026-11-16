@@ -54,20 +54,20 @@ export function LandingPage() {
           <article className="landing-karte">
             <h3>Ein Kompass für Entscheidungen</h3>
             <p>
-              Ob du ein Jobangebot annimmst oder mit deiner Partnerin oder deinem
-              Partner zusammenziehst, eine objektiv richtige Antwort gibt es
-              selten. Wer
-              seine Werte kennt, hat einen Maßstab, an dem sich die Optionen
-              messen lassen. Ein Kompass zeigt die Richtung an, den Weg wählst
-              du selbst.
+              Ob du ein Jobangebot annimmst oder mit deiner Partnerin oder
+              deinem Partner zusammenziehst, eine objektiv richtige Antwort gibt
+              es selten. Wer seine Werte kennt, hat einen Maßstab, an dem sich
+              die Optionen messen lassen. Ein Kompass zeigt die Richtung an, den
+              Weg wählst du selbst.
             </p>
           </article>
           <article className="landing-karte">
             <h3>Klarheit im Gespräch</h3>
             <p>
-              Wenn du weißt, was dir wichtig ist, kannst du es auch benennen. Das
-              hilft im Bewerbungsgespräch ebenso wie im Streit mit der Familie,
-              denn hinter vielen Konflikten stehen unterschiedliche Werte.
+              Wenn du weißt, was dir wichtig ist, kannst du es auch benennen.
+              Das hilft im Bewerbungsgespräch ebenso wie im Streit mit der
+              Familie, denn hinter vielen Konflikten stehen unterschiedliche
+              Werte.
             </p>
           </article>
           <article className="landing-karte">
@@ -86,12 +86,12 @@ export function LandingPage() {
             Wer über lange Zeit gegen die eigenen Werte handelt, zahlt dafür
             einen Preis. Das kann ein Job sein, in dem Ehrlichkeit wenig zählt,
             obwohl sie dir viel bedeutet, oder eine Beziehung, in der du deine
-            Unabhängigkeit dauerhaft zurückstellst. Kurzfristig lässt sich das aushalten. Auf Dauer entsteht
-            eine innere Spannung, die sich als Unzufriedenheit und Erschöpfung
-            bemerkbar machen kann. Die Arbeitspsychologie bringt eine
-            Diskrepanz zwischen eigenen Werten und dem Arbeitsumfeld mit
-            Burnout in Verbindung, und anhaltende innere Konflikte gelten als
-            ein Risikofaktor für Depressionen.
+            Unabhängigkeit dauerhaft zurückstellst. Kurzfristig lässt sich das
+            aushalten. Auf Dauer entsteht eine innere Spannung, die sich als
+            Unzufriedenheit und Erschöpfung bemerkbar machen kann. Die
+            Arbeitspsychologie bringt eine Diskrepanz zwischen eigenen Werten
+            und dem Arbeitsumfeld mit Burnout in Verbindung, und anhaltende
+            innere Konflikte gelten als ein Risikofaktor für Depressionen.
           </p>
           <p>
             Die eigenen Werte zu kennen, ist ein erster Schritt, um solche

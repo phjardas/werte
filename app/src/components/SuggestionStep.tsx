@@ -12,14 +12,21 @@ interface SuggestionStepProps {
   onNext: () => void;
 }
 
-export function SuggestionStep({ vorschlaege, selected, onToggle, onBack, onNext, fortschritt }: SuggestionStepProps) {
+export function SuggestionStep({
+  vorschlaege,
+  selected,
+  onToggle,
+  onBack,
+  onNext,
+  fortschritt,
+}: SuggestionStepProps) {
   return (
     <div className="screen active">
       <header className="header">
         <h1>Noch etwas vergessen?</h1>
         <p>
-          Diese Werte passen gut zu deiner bisherigen Auswahl. Vielleicht ist beim ersten Durchgehen einer
-          untergegangen, der dir auch wichtig ist.
+          Diese Werte passen gut zu deiner bisherigen Auswahl. Vielleicht ist
+          beim ersten Durchgehen einer untergegangen, der dir auch wichtig ist.
         </p>
       </header>
       {fortschritt}
@@ -40,7 +47,11 @@ export function SuggestionStep({ vorschlaege, selected, onToggle, onBack, onNext
           <button className="btn btn-secondary" onClick={onBack}>
             Zurück
           </button>
-          <button className="btn btn-primary" disabled={selected.length < 5} onClick={onNext}>
+          <button
+            className="btn btn-primary"
+            disabled={selected.length < 5}
+            onClick={onNext}
+          >
             Weiter
           </button>
         </div>

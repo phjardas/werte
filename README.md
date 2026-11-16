@@ -72,7 +72,7 @@ The distribution ignores changes to `web_acl_id`, so `tofu apply` leaves the pla
 
 Contributions are welcome, whether that is a bug report, an idea, a better scenario prompt, a fix for a value description or a pull request. If you find a scenario that doesn't make sense, please open an issue with the two values involved and the text you saw. That kind of feedback is the most useful input for improving the prompts.
 
-For larger changes, it helps to open an issue first so we can agree on the direction. Please run `pnpm test` in `backend/` and `pnpm build` in `app/` before sending a pull request. The user-facing texts and prompts are in German and address the user informally with "du". Please keep it that way.
+For larger changes, it helps to open an issue first so we can agree on the direction. Please run `pnpm test` in `backend/` and `pnpm build` in `app/` before sending a pull request. Always format source files with [Prettier](https://prettier.io) in its default settings: `pnpm format` in `app/` formats `src/` and `e2e/`. The user-facing texts and prompts are in German and address the user informally with "du". Please keep it that way.
 
 ## License
 

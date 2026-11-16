@@ -12,7 +12,11 @@ interface ComparisonStepProps {
   tournament: UseTournamentResult;
 }
 
-export function ComparisonStep({ kontext, tournament, fortschritt }: ComparisonStepProps) {
+export function ComparisonStep({
+  kontext,
+  tournament,
+  fortschritt,
+}: ComparisonStepProps) {
   const { currentMatch, vote } = tournament;
   const [szenario, setSzenario] = useState<Szenario | null>(null);
   const [loading, setLoading] = useState(false);

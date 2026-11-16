@@ -9,9 +9,21 @@ interface ValueChipProps {
   onClick: () => void;
 }
 
-export function ValueChip({ value, beschreibung, selected, disabled, onClick }: ValueChipProps) {
+export function ValueChip({
+  value,
+  beschreibung,
+  selected,
+  disabled,
+  onClick,
+}: ValueChipProps) {
   const infoId = useId();
-  const className = ["value-chip", selected && "selected", disabled && "disabled"].filter(Boolean).join(" ");
+  const className = [
+    "value-chip",
+    selected && "selected",
+    disabled && "disabled",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   // A button must not contain another button, so the chip holds two buttons side by side.
   return (

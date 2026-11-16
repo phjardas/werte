@@ -16,7 +16,8 @@ export function FreePage() {
     setWirdAngelegt(true);
     setFehler(false);
     createTest(kontext).then(
-      (testId) => navigate({ to: "/tests/$testId", params: { testId }, replace: true }),
+      (testId) =>
+        navigate({ to: "/tests/$testId", params: { testId }, replace: true }),
       () => {
         laeuft.current = false;
         setWirdAngelegt(false);
@@ -30,7 +31,9 @@ export function FreePage() {
       <div className="screen active step-pending">
         <div className="pending-container">
           <span className="spinner spinner-lg" />
-          <p className="pending-message">Dein persönlicher Test wird vorbereitet…</p>
+          <p className="pending-message">
+            Dein persönlicher Test wird vorbereitet…
+          </p>
         </div>
       </div>
     );
@@ -49,7 +52,12 @@ export function FreePage() {
           </p>
         )}
         {KONTEXTE.map((k) => (
-          <button key={k.id} type="button" className="kontext-karte" onClick={() => starten(k.id)}>
+          <button
+            key={k.id}
+            type="button"
+            className="kontext-karte"
+            onClick={() => starten(k.id)}
+          >
             <span className="kontext-icon" aria-hidden="true">
               {k.icon}
             </span>
@@ -59,13 +67,20 @@ export function FreePage() {
             </span>
           </button>
         ))}
-        <a className="kontext-karte kontext-extern" href={ELTERN_KOMPASS_URL} target="_blank" rel="noopener">
+        <a
+          className="kontext-karte kontext-extern"
+          href={ELTERN_KOMPASS_URL}
+          target="_blank"
+          rel="noopener"
+        >
           <span className="kontext-icon" aria-hidden="true">
             👪
           </span>
           <span>
             <strong>Als Mutter oder Vater ↗</strong>
-            <span className="kontext-beschreibung">Dafür gibt es den eigenen Eltern Werte Kompass.</span>
+            <span className="kontext-beschreibung">
+              Dafür gibt es den eigenen Eltern Werte Kompass.
+            </span>
           </span>
         </a>
       </div>

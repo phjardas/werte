@@ -8,7 +8,8 @@
     "preview": "VITE_API_BASE_URL=https://preview.werte.jardas.de/api vite preview",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test": "node --test src/*.test.ts"
+    "test": "node --test src/*.test.ts",
+    "format": "prettier --write src e2e"
   },
   "packageManager": "pnpm@12.18.0",
   "dependencies": {
@@ -23,6 +24,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "prettier": "^3.10.1",
     "typescript": "^7.0.2",
     "vite": "^8.3.8"
   }

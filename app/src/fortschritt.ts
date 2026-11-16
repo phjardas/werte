@@ -4,7 +4,13 @@ import type { Step } from "./types";
  * Rough progress of a test in percent, for motivation only. The selection (pages, suggestions, filter) makes up
  * the first half and starts at 10 %, the comparisons make up the second half. `match` is 1-based.
  */
-export function fortschritt(step: Step, seite: number, seiten: number, match: number, matches: number): number {
+export function fortschritt(
+  step: Step,
+  seite: number,
+  seiten: number,
+  match: number,
+  matches: number,
+): number {
   switch (step) {
     case "selection":
       return 10 + (30 * seite) / Math.max(seiten, 1);

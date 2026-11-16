@@ -84,17 +84,23 @@ export function StatistikPage() {
         )}
       </div>
       <div className="statistik-container">
-        <div className="statistik-auswahl" role="group" aria-label="Lebensbereich">
-          {[{ id: "gesamt" as const, titel: "Gesamt" }, ...KONTEXTE].map((k) => (
-            <button
-              key={k.id}
-              type="button"
-              aria-pressed={auswahl === k.id}
-              onClick={() => setAuswahl(k.id)}
-            >
-              {k.titel}
-            </button>
-          ))}
+        <div
+          className="statistik-auswahl"
+          role="group"
+          aria-label="Lebensbereich"
+        >
+          {[{ id: "gesamt" as const, titel: "Gesamt" }, ...KONTEXTE].map(
+            (k) => (
+              <button
+                key={k.id}
+                type="button"
+                aria-pressed={auswahl === k.id}
+                onClick={() => setAuswahl(k.id)}
+              >
+                {k.titel}
+              </button>
+            ),
+          )}
         </div>
         {error ? (
           <p className="statistik-hinweis">

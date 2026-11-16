@@ -14,15 +14,15 @@ function highlightValues(text: string, values: string[]): ReactNode {
     "gu",
   );
   // split() puts the captured matches at the odd indices
-  return text
-    .split(pattern)
-    .map((part, i) =>
-      i % 2 === 1 ? (
-        <mark key={i} className="value-highlight">{part}</mark>
-      ) : (
-        part
-      )
-    );
+  return text.split(pattern).map((part, i) =>
+    i % 2 === 1 ? (
+      <mark key={i} className="value-highlight">
+        {part}
+      </mark>
+    ) : (
+      part
+    ),
+  );
 }
 
 function EmailForm({
@@ -116,7 +116,9 @@ export function ResultsScreen({
       <div className="results-header">
         <h1>Deine Top 5 Werte</h1>
         <p>Das sind die Werte, die dir am wichtigsten sind.</p>
-        <p className="results-kontext">Lebensbereich: {kontextInfo(kontext).titel}</p>
+        <p className="results-kontext">
+          Lebensbereich: {kontextInfo(kontext).titel}
+        </p>
       </div>
       <div className="screen active step-results">
         <div className="results-container">
@@ -148,7 +150,12 @@ export function ResultsScreen({
                   {zusammenfassung ? (
                     <div className="chat-bubble summary-text">
                       {zusammenfassung.split("\n\n").map((paragraph, i) => (
-                        <p key={i}>{highlightValues(paragraph, top5.map((c) => c.name))}</p>
+                        <p key={i}>
+                          {highlightValues(
+                            paragraph,
+                            top5.map((c) => c.name),
+                          )}
+                        </p>
                       ))}
                     </div>
                   ) : timedOut ? (
@@ -159,7 +166,8 @@ export function ResultsScreen({
                         Zusammenfassung zu schreiben. 🙈
                       </p>
                       <p>
-                        Schau später einfach noch einmal unter diesem Link vorbei.
+                        Schau später einfach noch einmal unter diesem Link
+                        vorbei.
                       </p>
                     </div>
                   ) : (
@@ -179,8 +187,10 @@ export function ResultsScreen({
           {ablaufAm ? (
             <p className="email-form-note">
               Unter diesem Link findest du dein Ergebnis bis zum{" "}
-              {new Date(ablaufAm).toLocaleDateString("de-DE", { dateStyle: "long" })}. Danach
-              wird der Test gelöscht.
+              {new Date(ablaufAm).toLocaleDateString("de-DE", {
+                dateStyle: "long",
+              })}
+              . Danach wird der Test gelöscht.
             </p>
           ) : null}
           <a
@@ -189,16 +199,20 @@ export function ResultsScreen({
             target="_blank"
             rel="noopener"
           >
-            <img src="/eltern-werte-kompass.webp" alt="" width={96} height={96} />
+            <img
+              src="/eltern-werte-kompass.webp"
+              alt=""
+              width={96}
+              height={96}
+            />
             <div>
               <strong>Eltern Werte Kompass</strong>
               <p>
-                Du möchtest deine Werte als Mutter oder Vater entdecken? Probier den
-                speziell dafür entwickelten Eltern Werte Kompass aus.
+                Du möchtest deine Werte als Mutter oder Vater entdecken? Probier
+                den speziell dafür entwickelten Eltern Werte Kompass aus.
               </p>
               <small>
-                Disclaimer: Den Eltern Werte Kompass betreibt
-                meine Frau. 😉
+                Disclaimer: Den Eltern Werte Kompass betreibt meine Frau. 😉
               </small>
             </div>
           </a>

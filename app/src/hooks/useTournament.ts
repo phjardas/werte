@@ -269,9 +269,7 @@ export function useTournament(
       playedMatchesRef.current.add(matchKey(a.name, b.name));
       currentPairIndexRef.current++;
 
-      if (
-        currentPairIndexRef.current >= currentPairingsRef.current.length
-      ) {
+      if (currentPairIndexRef.current >= currentPairingsRef.current.length) {
         nextRound();
       } else {
         showMatch();

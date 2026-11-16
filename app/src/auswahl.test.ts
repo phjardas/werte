@@ -2,10 +2,19 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { ordne, seiten, vorschlaege } from "./auswahl.ts";
 
-const wert = (name: string, verwandt: string[] = []) => ({ name, kurzbeschreibung: "", verwandt });
+const wert = (name: string, verwandt: string[] = []) => ({
+  name,
+  kurzbeschreibung: "",
+  verwandt,
+});
 
 test("ordne keeps the saved order, drops unknown values and appends new ones", () => {
-  assert.deepEqual(ordne(["C", "X", "A"], ["A", "B", "C", "D"]), ["C", "A", "B", "D"]);
+  assert.deepEqual(ordne(["C", "X", "A"], ["A", "B", "C", "D"]), [
+    "C",
+    "A",
+    "B",
+    "D",
+  ]);
 });
 
 test("ordne uses the given order without a saved one", () => {
@@ -14,12 +23,24 @@ test("ordne uses the given order without a saved one", () => {
 
 test("seiten splits into pages of 20", () => {
   const namen = Array.from({ length: 45 }, (_, i) => `W${i}`);
-  assert.deepEqual(seiten(namen).map((s) => s.length), [20, 20, 5]);
+  assert.deepEqual(
+    seiten(namen).map((s) => s.length),
+    [20, 20, 5],
+  );
 });
 
 test("vorschlaege ranks unselected values by how often they are related to the selection", () => {
-  const werte = [wert("A", ["C", "D"]), wert("B", ["D", "A"]), wert("C"), wert("D"), wert("E")];
-  assert.deepEqual(vorschlaege(["A", "B"], werte, ["E", "C", "D", "B", "A"]), ["D", "C"]);
+  const werte = [
+    wert("A", ["C", "D"]),
+    wert("B", ["D", "A"]),
+    wert("C"),
+    wert("D"),
+    wert("E"),
+  ];
+  assert.deepEqual(vorschlaege(["A", "B"], werte, ["E", "C", "D", "B", "A"]), [
+    "D",
+    "C",
+  ]);
 });
 
 test("vorschlaege breaks ties by the order of the values", () => {

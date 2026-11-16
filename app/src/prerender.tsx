@@ -7,7 +7,11 @@ import { router } from "./routes";
 // instead of hydrating, which clears the container on the first render.
 export async function renderLandingPage() {
   // scrollRestoration would inject an inline script that the CSP blocks.
-  router.update({ ...router.options, scrollRestoration: false, history: createMemoryHistory({ initialEntries: ["/"] }) });
+  router.update({
+    ...router.options,
+    scrollRestoration: false,
+    history: createMemoryHistory({ initialEntries: ["/"] }),
+  });
   await router.load();
   return renderToString(<RouterProvider router={router} />);
 }

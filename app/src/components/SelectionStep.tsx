@@ -30,8 +30,9 @@ export function SelectionStep({
       <header className="header">
         <h1>Entdecke deine Werte</h1>
         <p>
-          Wähle die Werte aus, die dich ansprechen. Denk nicht lange nach, entscheide einfach aus dem Bauch heraus. Es
-          gibt keine Obergrenze. Bei einem unbekannten Begriff hilft dir das kleine i.
+          Wähle die Werte aus, die dich ansprechen. Denk nicht lange nach,
+          entscheide einfach aus dem Bauch heraus. Es gibt keine Obergrenze. Bei
+          einem unbekannten Begriff hilft dir das kleine i.
         </p>
       </header>
       {fortschritt}
@@ -47,14 +48,20 @@ export function SelectionStep({
         ))}
       </div>
       <div className="bottom-bar">
-        {!canContinue && <span className="counter">Wähle mindestens 5 Werte aus.</span>}
+        {!canContinue && (
+          <span className="counter">Wähle mindestens 5 Werte aus.</span>
+        )}
         <div className="bottom-bar-buttons">
           {page > 0 && (
             <button className="btn btn-secondary" onClick={onBack}>
               Zurück
             </button>
           )}
-          <button className="btn btn-primary" disabled={!canContinue} onClick={onNext}>
+          <button
+            className="btn btn-primary"
+            disabled={!canContinue}
+            onClick={onNext}
+          >
             Weiter
           </button>
         </div>

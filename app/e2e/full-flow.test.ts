@@ -26,7 +26,9 @@ test("full integration flow", async ({ page }) => {
   await expect(page.locator(".value-chip").first()).toBeVisible();
 
   const remaining = new Set(FIXED_VALUES);
-  const seitenInfo = page.locator(".test-progress span").filter({ hasText: /^Seite \d+ von \d+$/ });
+  const seitenInfo = page
+    .locator(".test-progress span")
+    .filter({ hasText: /^Seite \d+ von \d+$/ });
   while (await seitenInfo.count()) {
     for (const value of [...remaining]) {
       const chip = page.getByRole("button", { name: value, exact: true });
@@ -43,7 +45,9 @@ test("full integration flow", async ({ page }) => {
 
   // ── 3b. Suggestions page (shown when related values exist): select none ──
 
-  if (await page.getByRole("heading", { name: "Noch etwas vergessen?" }).count()) {
+  if (
+    await page.getByRole("heading", { name: "Noch etwas vergessen?" }).count()
+  ) {
     await expect(page.locator(".counter")).toContainText(
       `${FIXED_VALUES.length} ausgewählt`,
     );

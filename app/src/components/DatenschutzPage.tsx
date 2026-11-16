@@ -63,14 +63,14 @@ export function DatenschutzPage() {
         <p>
           Die Anwendung läuft bei Amazon Web Services (Amazon Web Services EMEA
           SARL, Luxemburg) in der Region Frankfurt. Beim Aufruf der Seite
-          verarbeitet AWS technisch notwendig deine IP-Adresse. Zugriffsprotokolle
-          von CloudFront und API Gateway sind nicht aktiviert. Die Anwendung
-          schreibt Betriebsprotokolle, etwa zu Fehlern oder zum Cache der
-          Szenarien, die keine IP-Adressen oder anderen Angaben zu deiner
-          Person enthalten. Sie werden nach 30 Tagen gelöscht. AWS ist nach dem EU-US Data Privacy Framework
-          zertifiziert. Rechtsgrundlage ist unser berechtigtes Interesse an
-          einem sicheren und funktionierenden Betrieb nach Art. 6 Abs. 1 lit. f
-          DSGVO.
+          verarbeitet AWS technisch notwendig deine IP-Adresse.
+          Zugriffsprotokolle von CloudFront und API Gateway sind nicht
+          aktiviert. Die Anwendung schreibt Betriebsprotokolle, etwa zu Fehlern
+          oder zum Cache der Szenarien, die keine IP-Adressen oder anderen
+          Angaben zu deiner Person enthalten. Sie werden nach 30 Tagen gelöscht.
+          AWS ist nach dem EU-US Data Privacy Framework zertifiziert.
+          Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren und
+          funktionierenden Betrieb nach Art. 6 Abs. 1 lit. f DSGVO.
         </p>
 
         <h2>Deine Rechte</h2>

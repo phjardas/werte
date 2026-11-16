@@ -58,7 +58,13 @@ export function TestSessionPage() {
   }
 
   // status === "active"
-  return <ActiveTest testId={testId} kontext={kontext} initialState={session.state} />;
+  return (
+    <ActiveTest
+      testId={testId}
+      kontext={kontext}
+      initialState={session.state}
+    />
+  );
 }
 
 interface ActiveTestProps {
@@ -88,13 +94,19 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
 
   const { syncState, saveStatus } = useStateSync(testId);
 
-  const brauchtWerte = step === "selection" || step === "suggestions" || step === "filter-intro" || step === "filter";
+  const brauchtWerte =
+    step === "selection" ||
+    step === "suggestions" ||
+    step === "filter-intro" ||
+    step === "filter";
   useEffect(() => {
     if (!brauchtWerte || werte) return;
     fetchWerte(kontext)
       .then((geladen) => {
         setWerte(geladen);
-        setOrder(ordne(initialState?.order, shuffle(geladen.map((w) => w.name))));
+        setOrder(
+          ordne(initialState?.order, shuffle(geladen.map((w) => w.name))),
+        );
       })
       .catch(() => setWerteError(true));
   }, [brauchtWerte, werte, kontext, initialState?.order]);
@@ -126,7 +138,10 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
 
   const pages = useMemo(() => seiten(order), [order]);
   const lastPage = Math.max(pages.length - 1, 0);
-  const werteMap = useMemo(() => new Map((werte ?? []).map((w) => [w.name, w])), [werte]);
+  const werteMap = useMemo(
+    () => new Map((werte ?? []).map((w) => [w.name, w])),
+    [werte],
+  );
   const suggestions = useMemo(
     () => vorschlaege(selectedValues, werte ?? [], order),
     // Computed once when the suggestions page opens, so the list does not jump while toggling.
@@ -163,7 +178,8 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
     }
   }, [selectedValues, goTo]);
 
-  const hasSuggestions = vorschlaege(selectedValues, werte ?? [], order).length > 0;
+  const hasSuggestions =
+    vorschlaege(selectedValues, werte ?? [], order).length > 0;
 
   const handleSelectionNext = useCallback(() => {
     if (page < lastPage) goTo({ page: page + 1 });
@@ -209,7 +225,13 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   }, [buildState, syncState]);
 
   if (step === "comparison" && tournament.isComplete) {
-    return <ResultsScreen testId={testId} kontext={kontext} results={tournament.results} />;
+    return (
+      <ResultsScreen
+        testId={testId}
+        kontext={kontext}
+        results={tournament.results}
+      />
+    );
   }
 
   if (werteError) {
@@ -233,7 +255,15 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
   const currentPage = Math.min(page, lastPage);
   const { matchCount, totalMatches } = tournament.progress;
   const fortschrittsbalken = (
-    <ProgressBar percent={fortschritt(step, currentPage, pages.length, matchCount, totalMatches)}>
+    <ProgressBar
+      percent={fortschritt(
+        step,
+        currentPage,
+        pages.length,
+        matchCount,
+        totalMatches,
+      )}
+    >
       {step === "selection" && (
         <>
           <span>
@@ -259,7 +289,11 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
           seite={(pages[currentPage] ?? []).map((n) => werteMap.get(n)!)}
           page={currentPage}
           selected={selectedValues}
-          canContinue={currentPage < lastPage || hasSuggestions || selectedValues.length >= 5}
+          canContinue={
+            currentPage < lastPage ||
+            hasSuggestions ||
+            selectedValues.length >= 5
+          }
           onToggle={handleToggle}
           onBack={() => goTo({ page: currentPage - 1 })}
           onNext={handleSelectionNext}
@@ -302,7 +336,11 @@ function ActiveTest({ testId, kontext, initialState }: ActiveTestProps) {
         />
       )}
       {step === "comparison" && (
-        <ComparisonStep fortschritt={fortschrittsbalken} kontext={kontext} tournament={tournamentWithWrappedVote} />
+        <ComparisonStep
+          fortschritt={fortschrittsbalken}
+          kontext={kontext}
+          tournament={tournamentWithWrappedVote}
+        />
       )}
     </>
   );

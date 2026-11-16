@@ -4,8 +4,11 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <p>
-        made with <span role="img" aria-label="Liebe">❤️</span> by Philipp
-        Jardas
+        made with{" "}
+        <span role="img" aria-label="Liebe">
+          ❤️
+        </span>{" "}
+        by Philipp Jardas
       </p>
       <p>
         <Link to="/statistik">Statistik</Link> ·{" "}

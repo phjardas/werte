@@ -14,15 +14,28 @@ interface FilterStepProps {
   onBack: () => void;
 }
 
-export function FilterStep({ values, werte, onNext, onBack, fortschritt }: FilterStepProps) {
+export function FilterStep({
+  values,
+  werte,
+  onNext,
+  onBack,
+  fortschritt,
+}: FilterStepProps) {
   const [selected, setSelected] = useState<string[]>([]);
   const shuffledValues = useMemo(() => shuffle(values), [values]);
-  const beschreibung = useCallback((name: string) => werte.find((w) => w.name === name)?.kurzbeschreibung, [werte]);
+  const beschreibung = useCallback(
+    (name: string) => werte.find((w) => w.name === name)?.kurzbeschreibung,
+    [werte],
+  );
   const voll = selected.length >= MAX_FINALE_WERTE;
 
   const toggle = useCallback((value: string) => {
     setSelected((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : prev.length < MAX_FINALE_WERTE ? [...prev, value] : prev,
+      prev.includes(value)
+        ? prev.filter((v) => v !== value)
+        : prev.length < MAX_FINALE_WERTE
+          ? [...prev, value]
+          : prev,
     );
   }, []);
 
@@ -31,8 +44,9 @@ export function FilterStep({ values, werte, onNext, onBack, fortschritt }: Filte
       <header className="header">
         <h1>Deine 10 wichtigsten Werte</h1>
         <p>
-          Du hast {values.length} Werte gesammelt. Nimm jetzt nur die mit, auf die du am wenigsten verzichten könntest.
-          Die Reihenfolge spielt dabei keine Rolle, die findest du im nächsten Schritt heraus.
+          Du hast {values.length} Werte gesammelt. Nimm jetzt nur die mit, auf
+          die du am wenigsten verzichten könntest. Die Reihenfolge spielt dabei
+          keine Rolle, die findest du im nächsten Schritt heraus.
         </p>
       </header>
       {fortschritt}
@@ -42,7 +56,11 @@ export function FilterStep({ values, werte, onNext, onBack, fortschritt }: Filte
           return (
             <li key={i} className={wert ? "filter-slot filled" : "filter-slot"}>
               {wert ? (
-                <button type="button" onClick={() => toggle(wert)} aria-label={`${wert} entfernen`}>
+                <button
+                  type="button"
+                  onClick={() => toggle(wert)}
+                  aria-label={`${wert} entfernen`}
+                >
                   {wert} <span aria-hidden="true">×</span>
                 </button>
               ) : (
@@ -74,7 +92,11 @@ export function FilterStep({ values, werte, onNext, onBack, fortschritt }: Filte
           <button className="btn btn-secondary" onClick={onBack}>
             Zurück
           </button>
-          <button className="btn btn-primary" disabled={selected.length < 5} onClick={() => onNext(selected)}>
+          <button
+            className="btn btn-primary"
+            disabled={selected.length < 5}
+            onClick={() => onNext(selected)}
+          >
             Weiter zum Vergleich
           </button>
         </div>

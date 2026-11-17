@@ -41,6 +41,16 @@ resource "aws_route53_record" "ses_mail_from_spf" {
   records = ["v=spf1 include:amazonses.com ~all"]
 }
 
+# DKIM and the MAIL FROM domain both align with var.domain, so quarantine is safe.
+# No rua: there is no mailbox to receive aggregate reports.
+resource "aws_route53_record" "ses_dmarc" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = "_dmarc.${var.domain}"
+  type    = "TXT"
+  ttl     = 600
+  records = ["v=DMARC1; p=quarantine; adkim=r; aspf=r"]
+}
+
 resource "aws_iam_role_policy" "lambda_ses" {
   name = "${var.project}-lambda-ses"
   role = aws_iam_role.lambda.id

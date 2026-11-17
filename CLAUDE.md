@@ -136,7 +136,7 @@ OpenTofu manages all AWS resources in `eu-central-1`:
 - **Step Functions**: `{project}-postTest` for the summary.
 - **DynamoDB**: `{project}-szenarien` (scenario and summary cache, keys `pk` and `version`), `{project}-statistik` (statistics counters, one item per context) and `{project}-tests` (test sessions, key `testId`, TTL on the `ttl` attribute).
 - **S3, CloudFront, ACM, Route53** for the custom domain.
-- **SES** (`infra/ses.tf`): domain identity for `var.domain` with DKIM and the MAIL FROM domain `mail.{domain}` (SPF). Emails come from `Werte Kompass <noreply@{domain}>`.
+- **SES** (`infra/ses.tf`): domain identity for `var.domain` with DKIM, the MAIL FROM domain `mail.{domain}` (SPF) and a DMARC record (`p=quarantine`, no reports). Emails come from `Werte Kompass <noreply@{domain}>`.
 - **CloudWatch**: all Lambdas log to the single group `/aws/lambda/{project}` (30 days retention). Metric filters on that group and a dashboard cover cache hits, misses and generation errors.
 - **State backend**: S3 bucket `phjardas-infrastructure`, passed to `tofu init` via `-backend-config` (GitHub variable `STATE_BUCKET`).
 

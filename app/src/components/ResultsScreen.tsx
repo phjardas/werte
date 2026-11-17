@@ -285,6 +285,40 @@ export function ResultsScreen({
               Neuen Test starten
             </Link>
           </div>
+          <div className="kofi">
+            <p>
+              Ich stelle den Werte Kompass kostenlos zur Verfügung. Wenn dir der
+              Test gefallen hat, freue ich mich über einen Kaffee.
+            </p>
+            <div className="kofi-buttons">
+              <a
+                className="btn btn-secondary"
+                href="https://ko-fi.com/phjardas"
+                target="_blank"
+                rel="noopener"
+              >
+                ☕ Spendier mir einen Kaffee
+              </a>
+              {"share" in navigator ? (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() =>
+                    // Shares the landing page, not the personal result. Cancelling rejects with AbortError.
+                    navigator
+                      .share({
+                        title: "Werte Kompass",
+                        text: "Finde heraus, welche Werte dir wirklich wichtig sind.",
+                        url: location.origin,
+                      })
+                      .catch(() => {})
+                  }
+                >
+                  Werte Kompass teilen
+                </button>
+              ) : null}
+            </div>
+          </div>
         </div>
       </div>
     </>

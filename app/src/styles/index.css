@@ -758,7 +758,11 @@ body {
 }
 
 .email-form,
-.results-container > .email-form .btn:disabled,
+.results-container > .email-form-note {
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+.email-form .btn:disabled,
 .email-form input:disabled {
   opacity: 0.6;
   cursor: wait;
@@ -767,10 +771,6 @@ body {
   width: 1rem;
   height: 1rem;
   border-width: 2px;
-}
-.email-form-note {
-  max-width: 600px;
-  margin: 2rem auto 0;
 }
 .email-form label {
   display: block;
@@ -1254,6 +1254,29 @@ body {
 .eltern-teaser small {
   color: var(--teaser-muted);
   font-style: italic;
+}
+
+.kofi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 2rem auto 0;
+  padding: 1.25rem;
+  text-align: center;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.kofi p {
+  margin: 0;
+}
+.kofi-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 /* ── Landing page ── */

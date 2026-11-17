@@ -59,6 +59,19 @@ export function DatenschutzPage() {
           wird. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.
         </p>
 
+        <h2>Ko-fi</h2>
+        <p>
+          Über den Button „Spendier mir einen Kaffee“ auf der Ergebnisseite
+          kannst du mir über Ko-fi (Ko-fi Labs Limited, Vereinigtes Königreich)
+          etwas spenden. Das Spendenformular wird erst geladen, wenn du den
+          Button anklickst. Ab dann verarbeitet Ko-fi deine IP-Adresse und kann
+          Cookies setzen, für die Spende selbst gelten die
+          Datenschutzbestimmungen von Ko-fi. Für das Vereinigte Königreich
+          besteht ein Angemessenheitsbeschluss der EU-Kommission.
+          Rechtsgrundlage ist deine Einwilligung durch den Klick nach Art. 6
+          Abs. 1 lit. a DSGVO.
+        </p>
+
         <h2>Hosting und Protokolle</h2>
         <p>
           Die Anwendung läuft bei Amazon Web Services (Amazon Web Services EMEA

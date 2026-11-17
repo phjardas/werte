@@ -1,5 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type ReactNode,
+} from "react";
 import { fetchWerte, sendEmail, type SendEmailResult } from "../api";
 import { FARBEN, farbVerteilung } from "../farben";
 import { useZusammenfassung } from "../hooks/useZusammenfassung";
@@ -91,6 +97,49 @@ function EmailForm({
           : "Wir verwenden deine Adresse nur für diese eine E-Mail und speichern sie nicht. Pro Test ist ein Versand möglich."}
       </p>
     </form>
+  );
+}
+
+function KofiButton() {
+  const dialog = useRef<HTMLDialogElement>(null);
+  // The iframe is only mounted while the dialog is open, so Ko-fi is loaded only after a click.
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button
+        type="button"
+        className="btn btn-secondary"
+        onClick={() => {
+          setOpen(true);
+          dialog.current?.showModal();
+        }}
+      >
+        ☕ Spendier mir einen Kaffee
+      </button>
+      <dialog
+        ref={dialog}
+        className="kofi-dialog"
+        aria-label="Kaffee spendieren"
+        onClose={() => setOpen(false)}
+      >
+        <button
+          type="button"
+          className="kofi-dialog-close"
+          aria-label="Schließen"
+          onClick={() => dialog.current?.close()}
+        >
+          ×
+        </button>
+        {open ? (
+          <iframe
+            src="https://ko-fi.com/phjardas/?hidefeed=true&widget=true&embed=true&preview=true"
+            title="Ko-fi"
+            height={712}
+          />
+        ) : null}
+      </dialog>
+    </>
   );
 }
 
@@ -291,14 +340,7 @@ export function ResultsScreen({
               Test gefallen hat, freue ich mich über einen Kaffee.
             </p>
             <div className="kofi-buttons">
-              <a
-                className="btn btn-secondary"
-                href="https://ko-fi.com/phjardas"
-                target="_blank"
-                rel="noopener"
-              >
-                ☕ Spendier mir einen Kaffee
-              </a>
+              <KofiButton />
               {"share" in navigator ? (
                 <button
                   type="button"
